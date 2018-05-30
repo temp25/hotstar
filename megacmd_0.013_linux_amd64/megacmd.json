@@ -1,0 +1,8 @@
+{
+   "User" : "gowtham25alaguraj@gmail.com", 
+   "Password" : "2G5o1t1h9a9m3@25", 
+   "DownloadWorkers" : 4, 
+   "UploadWorkers" : 4, 
+   "SkipSameSize" : true, 
+   "Verbose" : 1 
+}

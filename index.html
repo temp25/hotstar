@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<style type="text/css">
+  body {
+   background: #333;
+  }
+  input {
+   width: 50%;
+   background: #333;
+   color: #fff;
+   border-width: 1px;
+   border-style: inset;
+  }
+  a, label {
+   color: #fff;
+  }
+  .container {
+   margin-top: 25%;
+  }
+  
+		</style>
+		
+		<style>
+   #responseText {
+      width: 800px;
+      height: 800px;
+      background-color: black;
+      color: white;
+      overflow-x: auto;
+      overflow-y: auto;
+      max-width: 640px;
+      max-height: 320px;
+      font-size: 15px;
+   }
+</style>
+		<script src="js/jquery-3.2.1.js"></script>
+		<script type="text/javascript" src="js/pusher.min.js"></script>
+  <script src="js/sweetalert2.all.js"></script>
+		<script src="js/myjs.js"></script>
+		
+		
+		<script> 
+
+    // Enable pusher logging - don't include this in production 
+
+    Pusher.logToConsole = true; 
+    var pusher = new Pusher(
+       'a44d3a9ebac525080cf1', 
+        { 
+           cluster: 'ap2', 
+           encrypted: true 
+        }
+    );
+    
+    $.getJSON("https://api.ipify.org/?format=json", function(e) { 
+       
+       var ipAddr_userAgent = e.ip + "_" + navigator.userAgent;
+       var isAlertShown = false;
+       var timeRegex = /(\d{2}):(\d{2}):(\d{2})\.(\d{2})/g;
+       var isTotalDuration = true;
+       var totalDuration = 0;
+       var channel = pusher.subscribe('test-hotstar-video-download1'); 
+       
+       channel.bind(
+          ipAddr_userAgent, 
+          function(data) { 
+             var msg=data.message;
+             var data=msg['data'];
+             var videoId=msg['videoId'];
+             var hasProgress=msg['hasProgress'];
+             //var completionPercentage=msg['completionPercentage'];
+             //$('<br/><div style="font-size: 12px;">data:' + msg['data'] +'<br/>hasProgress : ' + msg['hasProgress']+'<br/>completionPercentage : '+msg['completionPercentage']+'<br/></div>').appendTo('#responseText');
+             $('<br/><div style="font-size: 12px;">' + data +'<br/></div>').appendTo('#responseText');
+             $('#responseText').stop(). animate({
+                 scrollTop: $('#responseText')[0]. scrollHeight
+             }, 800);
+             
+             var isVideoGenerationComplete = $('#responseText').text().indexOf('Video generation complete') > -1;
+             /*
+             if(hasProgress == 'true'){
+             	   $('#completionPercentage').text() = $('#completionPercentage').text() + "," + completionPercentage;
+             }
+             */
+             
+             var match = timeRegex.exec(data);
+             
+             while(match != null){
+             	   //for(var i=0; i < match.length; i++){
+             	   	   var hours = match[1];
+             	   	   var minutes = match[2];
+             	   	   var seconds = match[3];
+             	   	   var microSeconds = match[4];
+             	   	   var completionPercentage = 0;
+             	   	   var duration = hours * 60 * 60 + minutes * 60 + seconds + (microSeconds/1000000);
+             	   	   
+             	   	   if(isTotalDuration) {
+             	   	   	   isTotalDuration = false;
+             	   	   	   totalDuration = duration;
+             	   	   	   completionPercentage = 1;
+             	   	   } else {
+             	   	   	   //Calculate completion of the task for 1 less than 100
+             	   	   	   completionPercentage = ((duration/totalDuration)*99).toFixed(2);
+             	   	   }
+             	   	   
+             	   	   match = timeRegex.exec(data);
+             	   	   $('#completionPercentage').text() = $('#completionPercentage').text() + "," + completionPercentage;
+             	   //}
+             }
+             
+             if(isVideoGenerationComplete && !isAlertShown){
+             	   
+             	   isAlertShown = true;
+             	   
+             	   swal({
+             	   	   type: 'success',
+             	   	   title: "Video generation complete. Click the link to download video",
+             	   	   showConfirmButton: false,
+             	   	   timer: 2000, //dismiss after 2 seconds
+             	   	});
+             	   	
+             	   	var dLinkElement = '<label><a href="downloadVideo.php?videoId='+videoId+'">Click Here</a> to download</label>';
+             	   	
+             	   $('<br/><br/>'+dLinkElement).appendTo('.container3');
+             }
+             
+          }
+       );
+
+    });
+    
+     
+
+</script>
+	</head>
+	<body>
+		<center>
+			<div class="container">
+				<label>Enter Video URL</label>
+				<br />
+
+				<input id="url" type="text" />
+
+				<br />
+
+				<br />
+
+				<button id="videoFormatGenerator">Fetch</button>
+			</div>
+			<br />
+
+			<div class="container2">
+				<label>Choose your video format :</label>
+				<select class="videoFormats">
+					<option class="defaultOption" disabled="disabled" selected="selected">-- select a video resolution --</option>
+				</select>
+				<br />
+
+				<br />
+
+				<button id="downloadVideo">Generate Video</button>
+			</div>
+			
+			<div class="container3">
+				  <label>Generating video please wait...</label>
+				  <br/><br/>
+				  <div id="responseText"></div>
+				  <div id="completionPercentage">0</div>
+			</div>
+		</center>
+	</body>
+</html>
