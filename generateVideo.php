@@ -1,84 +1,77 @@
-	<?php
+<?php
 	
 	require 'vendor/autoload.php';
- use Symfony\Component\Process\Process;
+	use Symfony\Component\Process\Process;
  
-	if(isset($_POST['videoUrl']) && isset($_POST['playlistId']) && isset($_POST['videoId']) && isset($_POST['videoFormat'])){
+	if(isset($_POST['src'])){ //isset($_POST['videoUrl']) && isset($_POST['playlistId']) && isset($_POST['videoId']) && isset($_POST['videoFormat'])
 	   
-	   	$videoUrl=$_POST['videoUrl'];
-		  $playlistId=$_POST['playlistId'];
-		  $videoId=$_POST['videoId'];
-		  $videoFormat=$_POST['videoFormat'];
-		  $ipAddr_userAgent = $_POST['uniqueId'];
-		  
-		  exec("chmod a+rx youtube-dl");
-		  exec("tar xvzf files.tar.gz");
-		  
-		  $downloadVideoAndZipQuery = "./youtube-dl -f ".$videoFormat." --playlist-items ".$playlistId." ".$videoUrl." --add-metadata --ffmpeg-location /app/ffmpeg --no-warnings --exec 'zip -D -m -9 -v ".$videoId.".zip {}'";
-		  
-		  
-		  //$videoGenerateQuery="php downloadHotstarVideo.php ".$videoUrl." ".$playlistId." ".$videoId." ".$videoFormat;
-		  
-		  $process = new Process($downloadVideoAndZipQuery);
-	   $process->start();
-	   
-	   foreach ($process as $type => $data) {
-	   	   
-	   	   $progress = array();
-	   	   $progress['videoId'] = $videoId;
-			    $progress['data'] = nl2br($data);
-			    $progress['hasProgress']='false';
-			    
-			    /*
-			    if(preg_match_all("/(\d{2})\:(\d{2})\:(\d{2})\.(\d{2})/", $data, $res, PREG_SET_ORDER)){
-			    	   $hours = $res[0][1] * 1;
-			    	   $minutes = $res[0][2] * 1;
-			    	   $seconds = $res[0][3] * 1;
-			    	   $microseconds = $res[0][4] * 1;
-			    	   
-			    	   $totalSeconds = $hours * 60 * 60 + $minutes * 60 + $seconds + ($microseconds/1000000);
-			    	   
-			    	   $completionPercentage=1;
-			    	   
-			    	   if($isTotalDuration ==='true'){
-			    	   	   $isTotalDuration='false';
-			    	   	   $totalDurationStr=$res[0][0];
-			    	   	   $totalDuration=$totalSeconds;
-			    	   }else{
-			    	   	   //Calculate completion of the task for 1 less than 100
-			    	   	   $completionPercentage = round((($totalSeconds/$totalDuration)*99), 2);
-			    	   }
-			    	   
-			    	   $progress['completionPercentage']=$completionPercentage;
-			    	   $progress['hasProgress']='true';
-			    	   
-			    }
-			    */
-			    
-			    sendProgressToClient($progress, $ipAddr_userAgent);
-			    
-	   	}
-	   	
-	   	   $progress = array();
-	   	   $progress['videoId'] = $videoId;
-			    $progress['data'] = nl2br("\nVideo generation complete...");
-			    $progress['hasProgress']='false';
-			    
-	   	sendProgressToClient($progress, $ipAddr_userAgent);
-	   	
-	   	/*
-	   	$progress = array();
-	   	$progress['videoId'] = $videoId;
-	   	$progress['hasProgress']='false';
-	   	
-	   	if($isErrorInDownload === TRUE)
-	      	$progress['data'] = nl2br("\n\nError occurred in downloading the file");
-	   	else
-	      	$progress['data'] = nl2br("\n\nDownload complete...");
-	      	
-	   sendProgressToClient($progress, $ipAddr_userAgent);
-	   */
-	   	
+		$src = $_POST['src'];
+		
+		exec("chmod a+rx youtube-dl");
+		exec("tar xvzf files.tar.gz");
+		exec("chmod +x ffmpeg");
+		
+		$ipAddr_userAgent = $_POST['uniqueId'];
+		$videoUrl=$_POST['videoUrl'];
+		$playlistId=$_POST['playlistId'];
+		$videoId=$_POST['videoId'];
+		
+		
+		if($src === "ydl"){
+			
+			
+			$videoFormat=$_POST['videoFormat'];
+			
+			
+			$downloadVideoAndZipQuery = "./youtube-dl -f ".$videoFormat." --playlist-items ".$playlistId." ".$videoUrl." --add-metadata --ffmpeg-location /app/ffmpeg --no-warnings --exec 'zip -D -m -9 -v ".$videoId.".zip {}'";
+			
+			process = new Process($downloadVideoAndZipQuery);
+			$process->start();
+			
+			foreach ($process as $type => $data) {
+			   $progress = array();
+			   $progress['videoId'] = $videoId;
+			   $progress['data'] = nl2br($data);
+			   sendProgressToClient($progress, $ipAddr_userAgent);
+			}
+			
+		}else{
+			
+			$videoTitle=$_POST['title'];
+			$videoDescription=$_POST['description'];
+			
+			$outputFileName = .$videoId.".ts";
+			
+			zip
+			
+			$videoStreamQuery = "./ffmpeg -i \"".$videoUrl.
+							"\" -c copy -metadata title=\"".$videoTitle.
+							"\" -metadata episode_id=\"".$playlistId.
+							"\" -metadata track=\"".$videoId.
+							"\" -metadata description=\"".$videoDescription.
+							"\" -metadata synopsis=\"".$videoDescription.
+							"\" ".$outputFileName;
+			
+			exec zip -D -m -9 -v Video.zip $outputFileName
+			
+			process = new Process($videoStreamQuery);
+			$process->start();
+			
+			foreach ($process as $type => $data) {
+			   $progress = array();
+			   $progress['videoId'] = $videoId;
+			   $progress['data'] = nl2br($data);
+			   sendProgressToClient($progress, $ipAddr_userAgent);
+			}
+			
+		}
+		
+		progress = array();
+		$progress['videoId'] = $videoId;
+		$progress['data'] = nl2br("\nVideo generation complete...");
+		$progress['hasProgress']='false';
+				
+		sendProgressToClient($progress, $ipAddr_userAgent);
 		  
 	}else{
 		//TODO: Add the code here to handle if post variables aren't set properly.

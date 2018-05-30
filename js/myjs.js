@@ -8,6 +8,8 @@ $(document).ready(function() {
 	var videoUrl = "";
 	var videoId = "";
 	var source = "";
+	var videoTitle = "";
+	var videoDescription = "";
 	var formatToUrl = new Array();
 	
 	$('.container2').hide();
@@ -60,6 +62,8 @@ $(document).ready(function() {
 				  
 				  playlistId = data['episodeNumber'];
 				  videoId = data["videoId"];
+				  videoTitle = data["title"];
+				  videoDescription = data["description"];
 				  $.each(data, function(k, v){ 
 					 if(isValidFormat(k)){
 						   videoFormats += "<option value='"+k+"'>"+k+"</option>";
@@ -111,20 +115,45 @@ $(document).ready(function() {
        var ipAddr_userAgent = e.ip + "_" + navigator.userAgent;
        ipAddr_userAgent = ipAddr_userAgent.replace(/(\r\n\t|\n|\r\t)/gm,"");
 	   
-	   alert("videoUrl = "+videoUrl+"\n\nplaylistId = "+playlistId+"\n\nvideoId = "+videoId+"\n\nchosenVideoFormat = "+chosenVideoFormat);
+	   //alert("videoUrl = "+videoUrl+"\n\nplaylistId = "+playlistId+"\n\nvideoId = "+videoId+"\n\nchosenVideoFormat = "+chosenVideoFormat);
        
-       //sendPostRequest('downloadVideo', ipAddr_userAgent, videoUrl, playlistId, videoId, chosenVideoFormat);
+	   
+	   if(source === "ydl"){
+		   sendPostRequest(ipAddr_userAgent, videoUrl, playlistId, videoId, chosenVideoFormat);
+	   }else{
+		   sendPostRequest(ipAddr_userAgent, videoUrl, playlistId, videoId);
+	   }
+	   
+       
     });
     
 	});
 	
-	function sendPostRequest(actionText, ipAddr_userAgent, url, pId, vId, vFormat){
+	function sendPostRequest(ipAddr_userAgent, url, pId, vId){
 		
 		$.ajax({ 
 		   url: "generateVideo.php", 
 		   type: "POST", 
 	    	data: {
-		      action: actionText,
+			  src: source,
+		      videoUrl: url,
+		      playlistId: pId,
+		      videoId: vId,
+			  title: videoTitle,
+			  description: videoDescription,
+        uniqueId: ipAddr_userAgent,
+		   },
+		});
+		
+	}
+	
+	function sendPostRequest(ipAddr_userAgent, url, pId, vId, vFormat){
+		
+		$.ajax({ 
+		   url: "generateVideo.php", 
+		   type: "POST", 
+	    	data: {
+			  src: source,
 		      videoUrl: url,
 		      playlistId: pId,
 		      videoId: vId,
