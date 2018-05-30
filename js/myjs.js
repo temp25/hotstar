@@ -58,6 +58,8 @@ $(document).ready(function() {
 				 
 			  }else{
 				  
+				  playlistId = data['episodeNumber'];
+				  videoId = data["videoId"];
 				  $.each(data, function(k, v){ 
 					 if(isValidFormat(k)){
 						   videoFormats += "<option value='"+k+"'>"+k+"</option>";
@@ -109,7 +111,7 @@ $(document).ready(function() {
        var ipAddr_userAgent = e.ip + "_" + navigator.userAgent;
        ipAddr_userAgent = ipAddr_userAgent.replace(/(\r\n\t|\n|\r\t)/gm,"");
 	   
-	   alert("ipAddr_userAgent = "+ipAddr_userAgent+"\nvideoUrl = "+videoUrl+"\nplaylistId = "+playlistId+"\nvideoId = "+videoId+"\nchosenVideoFormat = "+chosenVideoFormat);
+	   alert("videoUrl = "+videoUrl+"\n\nplaylistId = "+playlistId+"\n\nvideoId = "+videoId+"\n\nchosenVideoFormat = "+chosenVideoFormat);
        
        //sendPostRequest('downloadVideo', ipAddr_userAgent, videoUrl, playlistId, videoId, chosenVideoFormat);
     });
