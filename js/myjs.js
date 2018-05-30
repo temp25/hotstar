@@ -7,6 +7,8 @@ $(document).ready(function() {
 	var playlistId = "";
 	var videoUrl = "";
 	var videoId = "";
+	var source = "";
+	var formatToUrl = new Array();
 	
 	$('.container2').hide();
 	$('.container3').hide();
@@ -38,17 +40,36 @@ $(document).ready(function() {
           	   //Hide container and show container2 only on availability of video formats
        	      $('.container').hide();
        	      $('.container2').show();
+			  
+			  source = data['source'];
+			  
+			  //Check if source is ydl or api
+			  if(source === "ydl"){
+				
+				var videoFormats = "";
+				   playlistId = data["playlistId"];
+				   videoId = data["videoId"];
+				   $.each(data, function(k, v){ 
+					 if(isValidFormat(k)){
+						   //add the maching keys to the dropDown
+						   videoFormats += "<option value='"+k+"'>"+k+" "+v+"</option>";
+					 }
+				  });
+				 
+			  }else{
+				  
+				  $.each(data, function(k, v){ 
+					 if(isValidFormat(k)){
+						   videoFormats += "<option value='"+k+"'>"+k+"</option>";
+						   formatToUrl[k] = v;
+					 }
+				  });
+				  
+			  }
+			  
+			   $(".videoFormats").append(videoFormats);
           	   
-          	   var videoFormats = "";
-          	   playlistId = data["playlistId"];
-          	   videoId = data["videoId"];
-          	   $.each(data, function(k, v){ 
-                 if(isValidFormat(k)){
-                 	   //add the maching keys to the dropDown
-                 	   videoFormats += "<option value='"+k+"'>"+k+" "+v+"</option>";
-                 }
-              });
-              $(".videoFormats").append(videoFormats);
+          	   
           }else{
           	   //alert("no video found");
           	   showErrorDialog("Video not found in the playlist");
@@ -67,7 +88,14 @@ $(document).ready(function() {
 	$(".videoFormats").change(function (){
 		  //Remove the defaultOption in the videoFormats dropDown
 		  $(".defaultOption").remove();
+		  
 		  chosenVideoFormat = $(".videoFormats option:selected").val();
+		  
+		  //check if source is ydl or api
+		  if(source === "api"){
+			  videoUrl = formatToUrl[chosenVideoFormat];
+		  }
+		  
 	});
 	
 	$('#downloadVideo').click(function () {
@@ -80,8 +108,10 @@ $(document).ready(function() {
        
        var ipAddr_userAgent = e.ip + "_" + navigator.userAgent;
        ipAddr_userAgent = ipAddr_userAgent.replace(/(\r\n\t|\n|\r\t)/gm,"");
+	   
+	   alert("ipAddr_userAgent = "+ipAddr_userAgent+"\nvideoUrl = "+videoUrl+"\nplaylistId = "+playlistId+"\nvideoId = "+videoId+"\nchosenVideoFormat = "+chosenVideoFormat);
        
-       sendPostRequest('downloadVideo', ipAddr_userAgent, videoUrl, playlistId, videoId, chosenVideoFormat);
+       //sendPostRequest('downloadVideo', ipAddr_userAgent, videoUrl, playlistId, videoId, chosenVideoFormat);
     });
     
 	});

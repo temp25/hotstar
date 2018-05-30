@@ -51,6 +51,7 @@ if(!is_numeric($videoId)){
  if($availability === 'true'){
  	   
  	   //Fetch available video formats
+	   $formats['source']="ydl";
  	   $formats['videoId']=$videoId;
 	   $formats['playlistId'] = $playlistId;
 	   $formatsQuery = "./youtube-dl -F ".$videoUrl." --playlist-items ".$playlistId;
@@ -64,9 +65,40 @@ if(!is_numeric($videoId)){
 	   	}
 	   
  }else{
- 	  $formats["errorMessage"]="Can't fetch video ID or Invalid URL";
+ 	  //$formats["errorMessage"]="Can't fetch video ID or Invalid URL";
  	  //Fetching video formats and url through api request
- 	  
+ 	  $fetchVideoScriptQuery = "php getAvailableVideoFormatsThroughApi.php ".$videoUrl;
+	  
+	  $result="Invalid Response";
+	  $tries=0;
+	  
+	  //Try to fetch the stream url for the given video URL for a certain time
+	  while(stripos($result,"Invalid")!==false){
+		$result=exec($fetchVideoScriptQuery);
+		if(++$tries > 13){
+			break;
+		}
+	  }
+	  
+	  if(stripos($result,"Invalid")!==false){
+		  $formats['status'] = 'false';
+		  $formats["errorMessage"]="Can't fetch video ID or Invalid URL";
+	  }else{
+		  $formats['status'] = 'true';
+		  $metadata = json_decode($result, true);
+		  $formats['source']="api";
+		  $formats['videoId']=$metadata['videoId'];
+		  $formats['episodeNumber'] = $metadata['episodeNumber'];
+		  $formats['title'] = $metadata['episode'];
+		  $formats['description'] = $metadata['description'];
+		  
+		  foreach($metadata as $key => $value){
+			  if(stripos($key,"hls")!==false){
+				$formats[ $key ] = $value;
+			  }
+		  }
+	  }
+	  
  	}
  
 }
