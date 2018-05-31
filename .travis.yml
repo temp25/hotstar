@@ -7,8 +7,5 @@ before_script:
   - wget http://getcomposer.org/composer.phar
   - php composer.phar install
 
-script:
-  - echo `ls`
-
 after_script:
-  - /vendor/bin/phpunit --bootstrap vendor/autoload.php tests/StackTest
+  - /vendor/bin/phpunit --bootstrap vendor/autoload.php tests/StackTest.php
