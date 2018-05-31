@@ -16,6 +16,9 @@
   a, label {
    color: #fff;
   }
+  #showHideConsole{
+	text-decoration: none;
+  }
   .container {
    margin-top: 25%;
   }
@@ -91,7 +94,7 @@
 					
 					$('#videoGeneration').hide();
              	   	
-             	   	var dLinkElement = '<br/>Video Link has been generated below<br/><label><a href="downloadVideo.php?videoId='+videoId+'">Click Here</a> to download</label>';
+             	   	var dLinkElement = '<br/><label>Video Link has been generated below</label><br/><br/><label><a href="downloadVideo.php?videoId='+videoId+'">Click Here</a> to download</label>';
              	   	
              	   $('<br/><br/>'+dLinkElement).appendTo('.container3');
              }
