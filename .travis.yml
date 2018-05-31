@@ -2,9 +2,6 @@ language: php
  
 php:
   - 7.2.6
-  - 5.3.2
-  - 5.3
-  - 5.4
  
 before_script:
   - wget http://getcomposer.org/composer.phar
