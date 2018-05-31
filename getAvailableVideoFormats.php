@@ -75,7 +75,7 @@ if(!is_numeric($videoId)){
 	  //Try to fetch the stream url for the given video URL for a certain time
 	  while(stripos($result,"Invalid")!==false){
 		$result=exec($fetchVideoScriptQuery);
-		if(++$tries > 13){
+		if(++$tries > 100){
 			break;
 		}
 	  }
