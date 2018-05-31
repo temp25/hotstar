@@ -2,6 +2,7 @@
     "require": {
         "daijie/aria2": "^1.1",
         "symfony/process": "^4.0",
-        "pusher/pusher-php-server": "^3.0"
+        "pusher/pusher-php-server": "^3.0",
+        "phpunit/phpunit": "^5"
     }
 }
