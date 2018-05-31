@@ -5,7 +5,5 @@ php:
  
 before_script:
   - wget http://getcomposer.org/composer.phar
-  - wget https://phar.phpunit.de/phpunit-7.phar
   - php composer.phar install
-  - php phpunit-7.phar install
-  - phpunit
+  - /vendor/bin/phpunit --bootstrap vendor/autoload.php tests/StackTest
