@@ -74,7 +74,7 @@
 			
 		}
 		
-		progress = array();
+		$progress = array();
 		$progress['videoId'] = $videoId;
 		$progress['data'] = nl2br("\nVideo generation complete...");
 		$progress['hasProgress']='false';
