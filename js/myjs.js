@@ -107,8 +107,8 @@ $(document).ready(function() {
 	$('#downloadVideo').click(function () {
 		   //alert("Chosen video format : "+chosenVideoFormat+"\nPlaylist id : "+playlistId+"\nVideo id : "+videoId+"\nVideo URL : "+videoUrl);
 		   
-		   //$('.container2').hide();
-		   //$('.container3').show();
+		   $('.container2').hide();
+		   $('.container3').show();
 		   
 		   $.getJSON("https://api.ipify.org/?format=json", function(e) { 
        
