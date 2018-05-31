@@ -14,6 +14,12 @@ $(document).ready(function() {
 	
 	$('.container2').hide();
 	$('.container3').hide();
+	
+	$('#responseText').hide();
+	$('#showHideConsole').click(function (e){
+		$('#responseText').toggle();
+	  $(this).text($('#responseText').is(':visible') ? 'Hide Console' : 'Show Console');
+	});
 
 	$('#videoFormatGenerator').click(function() {
      videoUrl = $('#url').val();

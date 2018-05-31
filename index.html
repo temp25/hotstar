@@ -35,6 +35,7 @@
       font-size: 15px;
    }
 </style>
+		<link rel="stylesheet" href="css/mycss.css">
 		<script src="js/jquery-3.2.1.js"></script>
 		<script type="text/javascript" src="js/pusher.min.js"></script>
   <script src="js/sweetalert2.all.js"></script>
@@ -69,45 +70,13 @@
              var msg=data.message;
              var data=msg['data'];
              var videoId=msg['videoId'];
-             var hasProgress=msg['hasProgress'];
-             //var completionPercentage=msg['completionPercentage'];
-             //$('<br/><div style="font-size: 12px;">data:' + msg['data'] +'<br/>hasProgress : ' + msg['hasProgress']+'<br/>completionPercentage : '+msg['completionPercentage']+'<br/></div>').appendTo('#responseText');
+             
              $('<br/><div style="font-size: 12px;">' + data +'<br/></div>').appendTo('#responseText');
              $('#responseText').stop(). animate({
                  scrollTop: $('#responseText')[0]. scrollHeight
              }, 800);
              
              var isVideoGenerationComplete = $('#responseText').text().indexOf('Video generation complete') > -1;
-             /*
-             if(hasProgress == 'true'){
-             	   $('#completionPercentage').text() = $('#completionPercentage').text() + "," + completionPercentage;
-             }
-             */
-             
-             var match = timeRegex.exec(data);
-             
-             while(match != null){
-             	   //for(var i=0; i < match.length; i++){
-             	   	   var hours = match[1];
-             	   	   var minutes = match[2];
-             	   	   var seconds = match[3];
-             	   	   var microSeconds = match[4];
-             	   	   var completionPercentage = 0;
-             	   	   var duration = hours * 60 * 60 + minutes * 60 + seconds + (microSeconds/1000000);
-             	   	   
-             	   	   if(isTotalDuration) {
-             	   	   	   isTotalDuration = false;
-             	   	   	   totalDuration = duration;
-             	   	   	   completionPercentage = 1;
-             	   	   } else {
-             	   	   	   //Calculate completion of the task for 1 less than 100
-             	   	   	   completionPercentage = ((duration/totalDuration)*99).toFixed(2);
-             	   	   }
-             	   	   
-             	   	   match = timeRegex.exec(data);
-             	   	   $('#completionPercentage').text() = $('#completionPercentage').text() + "," + completionPercentage;
-             	   //}
-             }
              
              if(isVideoGenerationComplete && !isAlertShown){
              	   
@@ -119,8 +88,10 @@
              	   	   showConfirmButton: false,
              	   	   timer: 2000, //dismiss after 2 seconds
              	   	});
+					
+					$('#videoGeneration').hide();
              	   	
-             	   	var dLinkElement = '<label><a href="downloadVideo.php?videoId='+videoId+'">Click Here</a> to download</label>';
+             	   	var dLinkElement = '<br/>Video Link has been generated below<br/><label><a href="downloadVideo.php?videoId='+videoId+'">Click Here</a> to download</label>';
              	   	
              	   $('<br/><br/>'+dLinkElement).appendTo('.container3');
              }
@@ -163,10 +134,21 @@
 			</div>
 			
 			<div class="container3">
-				  <label>Generating video please wait...</label>
-				  <br/><br/>
+			
+				  <br/>
+				  <div id="videoGeneration">
+				  <br/>
+				  <div class="circle"></div>
+				  <div class="circle1"></div>
+				  <br/>
+				  <label id="waitLabel">Generating video please wait...</label>
+				  <br/>
+				  </div>
+				  <a id="showHideConsole" href="#">Show Console</a>
+				  <br/>
 				  <div id="responseText"></div>
-				  <div id="completionPercentage">0</div>
+				  <br/>
+				  
 			</div>
 		</center>
 	</body>
