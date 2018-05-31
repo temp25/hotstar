@@ -25,7 +25,7 @@
 			
 			$downloadVideoAndZipQuery = "./youtube-dl -f ".$videoFormat." --playlist-items ".$playlistId." ".$videoUrl." --add-metadata --ffmpeg-location /app/ffmpeg --no-warnings --exec 'zip -D -m -9 -v ".$videoId.".zip {}'";
 			
-			process = new Process($downloadVideoAndZipQuery);
+			$process = new Process($downloadVideoAndZipQuery);
 			$process->start();
 			
 			foreach ($process as $type => $data) {
@@ -40,9 +40,9 @@
 			$videoTitle=$_POST['title'];
 			$videoDescription=$_POST['description'];
 			
-			$outputFileName = .$videoId.".ts";
+			$outputFileName = $videoId.".ts";
 			
-			zip
+			$zipOutputQuery = "zip -D -m -9 -v ".$videoId.".zip ".$outputFileName;
 			
 			$videoStreamQuery = "./ffmpeg -i \"".$videoUrl.
 							"\" -c copy -metadata title=\"".$videoTitle.
@@ -52,9 +52,17 @@
 							"\" -metadata synopsis=\"".$videoDescription.
 							"\" ".$outputFileName;
 			
-			exec zip -D -m -9 -v Video.zip $outputFileName
+			$process = new Process($videoStreamQuery);
+			$process->start();
 			
-			process = new Process($videoStreamQuery);
+			foreach ($process as $type => $data) {
+			   $progress = array();
+			   $progress['videoId'] = $videoId;
+			   $progress['data'] = nl2br($data);
+			   sendProgressToClient($progress, $ipAddr_userAgent);
+			}
+			
+			$process = new Process($zipOutputQuery);
 			$process->start();
 			
 			foreach ($process as $type => $data) {
