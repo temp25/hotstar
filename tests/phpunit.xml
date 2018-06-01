@@ -1,0 +1,16 @@
+<phpunit backupGlobals="true" bootstrap="./bootstrap.php">
+	<filter>
+		<whitelist>
+			<directory>/css</directory>
+		</whitelist>
+		<whitelist>
+			<directory>/js</directory>
+		</whitelist>
+		<whitelist>
+			<directory>/megacmd_0.013_linux_amd64</directory>
+		</whitelist>
+	</filter>
+	<testsuite>
+		<directory>./</directory>
+	</testsuite>
+</phpunit>
