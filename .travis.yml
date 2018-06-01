@@ -11,4 +11,4 @@ script:
   - find -D tree .
 
 after_script:
-  - /vendor/bin/phpunit --bootstrap vendor/autoload.php tests/StackTest.php
+  - ./vendor/bin/phpunit --bootstrap vendor/autoload.php tests/StackTest.php
