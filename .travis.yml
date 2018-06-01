@@ -7,5 +7,8 @@ before_script:
   - wget http://getcomposer.org/composer.phar
   - php composer.phar install
 
-after_script:
-  - ./vendor/phpunit/phpunit/phpunit --bootstrap vendor/autoload.php tests/StackTest.php
+# Commands you want to run that will verify your build.
+script: phpunit
+  
+#after_script:
+#  - ./vendor/phpunit/phpunit/phpunit --bootstrap vendor/autoload.php tests/StackTest.php
