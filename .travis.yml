@@ -8,4 +8,4 @@ before_script:
   - php composer.phar install
 
 after_script:
-  - ./vendor/phpunit/phpunit/phpunit --bootstrap /vendor/autoload.php tests/StackTest.php
+  - ./vendor/phpunit/phpunit/phpunit --bootstrap vendor/autoload.php tests/StackTest.php
