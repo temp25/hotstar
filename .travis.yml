@@ -5,7 +5,7 @@ php:
 
 before_script: 
  - composer install
- - '! find . -type f -name "*.php" -exec .phpenv/shims/php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"'
 
 script:
   - phpunit --configuration tests/phpunit.xml
+  - '! find . -type f -name "*.php" -exec .phpenv/shims/php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"'
