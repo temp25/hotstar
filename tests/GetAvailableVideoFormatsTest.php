@@ -15,8 +15,9 @@ class GetAvailableVideoFormatsTest extends TestCase
 		$response = new \GuzzleHttp\Psr7\Request("POST", $url, ['body'=>$body]);
 		$response = $client->send($response);
 		
-		$content = $response->getBody();
+		$content = (string) $response->getBody();
 		
+		echo "Response : ".$content;
 		var_dump($content);
 		
 		$this->assertEquals(200, $response->getStatusCode());
