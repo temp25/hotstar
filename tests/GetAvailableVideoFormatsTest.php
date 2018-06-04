@@ -8,18 +8,13 @@ class GetAvailableVideoFormatsTest extends TestCase
     {
 		
 		// create our http client (Guzzle)
-		$client = new Guzzle\Client('http://hotstar-test1.herokuapp.com', array(
-			'request.options' => array(
-				'exceptions' => false,
-			)
-		));
+		$client = new \GuzzleHttp\Client();
 		
-		$data = array();
-		$data['url'] = "http://www.hotstar.com/tv/chinnathambi/15301/chinnathambi-yearns-for-nandini/1100003795";
+		$body['url'] = "http://www.hotstar.com/tv/chinnathambi/15301/chinnathambi-yearns-for-nandini/1100003795";
+		$url = "http://hotstar-test1.herokuapp.com/getAvailableVideoFormats.php";
+		$response = $client->createRequest("POST", $url, ['body'=>$body]);
+		$response = $client->send($response);
 		
-		$request = $client->post('/getAvailableVideoFormats.php', null, json_encode($data));
-		$response = $request->send();
-
 		var_dump($response);
 		
 		$this->assertEquals(200, $response->getStatusCode());
