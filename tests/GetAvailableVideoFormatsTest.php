@@ -7,7 +7,7 @@ class GetAvailableVideoFormatsTest extends TestCase
 
     protected function setUp()
     {
-        $this->client = new Client([
+        $this->client = new GuzzleHttp\Client([
             'base_uri' => ''
         ]);
     }
