@@ -25,7 +25,7 @@ if($splitCount>0){
 	$videoFormatBuffer = "";
 	$playlistId = 0;
 	$videoAvailability=false;
-	foreach ($process as $type => $foreach ($process as $type => $data) {data) {
+	foreach ($process as $type => $data) {
 		if(strpos($data, $videoId) !== false || $videoAvailability){
 			//encountered video in playlist
 			$videoAvailability=true;
