@@ -1,7 +1,7 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-class GetAvailableVideoFormatsTest extends PHPUnit_Framework_TestCase
+class GetAvailableVideoFormatsTest extends TestCase
 {
 	protected $client;
 
