@@ -79,6 +79,12 @@ class GetAvailableVideoFormatsTest extends TestCase
 		$expected['hls-3061 - 1600x900'] = "https://staragvod2-vh.akamaihd.net/i/videos/jalsha/kb/1/1000093817_,16,54,106,180,400,800,1300,2000,3000,4500,_STAR.mp4.csmil/index_8_av.m3u8?null=0&id=AgDUL+9aX2T8HljTGFuqyb4TWT5w3SX2sFRnuzSETVywc+4lQcg5crMCw8Vqa%2fhuoOOXFvsGhmMhkw%3d%3d";
 		$expected['hls-4562 - 1920x1080'] = "https://staragvod2-vh.akamaihd.net/i/videos/jalsha/kb/1/1000093817_,16,54,106,180,400,800,1300,2000,3000,4500,_STAR.mp4.csmil/index_9_av.m3u8?null=0&id=AgDUL+9aX2T8HljTGFuqyb4TWT5w3SX2sFRnuzSETVywc+4lQcg5crMCw8Vqa%2fhuoOOXFvsGhmMhkw%3d%3d";
 		
+		echo PHP_EOL."Expected : ".PHP_EOL;
+		var_dump($expected);
+		
+		echo PHP_EOL.PHP_EOL."Actual : ".PHP_EOL;
+		var_dump($response);
+		
 		$this->assertEquals($expected, $response);
 		
     }
