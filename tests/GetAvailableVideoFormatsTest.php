@@ -29,7 +29,7 @@ class GetAvailableVideoFormatsTest extends TestCase
 		
 		$body = $response->getBody();
 		
-		var_dump($body);
+		var_dump(json_decode($body));
 		
     }
 }
