@@ -22,6 +22,15 @@ class GetAvailableVideoFormatsTest extends TestCase
 		
 		$this->assertEquals(200, $response->getStatusCode());
 		
+		$client = new \GuzzleHttp\Client();
+        $response = $client->post('http://hotstar-test1.herokuapp.com/getAvailableVideoFormats.php', [
+            'query' => ['url' => 'http://www.hotstar.com/tv/chinnathambi/15301/chinnathambi-yearns-for-nandini/1100003795']
+        ]);
+		
+		$body = $response->getBody();
+		
+		var_dump($body);
+		
     }
 }
 ?>
