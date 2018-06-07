@@ -30,19 +30,13 @@ class GetAvailableVideoFormatsTest extends TestCase
 		$expected['videoId'] = "1100003795";
 		$expected['playlistId'] = 29;
 		$expected['hls-121'] = "320x180";
-		$expected['ls-241'] = "320x180";
+		$expected['hls-241'] = "320x180";
 		$expected['hls-461'] = "416x234";
 		$expected['hls-861'] = "640x360";
 		$expected['hls-1362'] = "720x404";
 		$expected['hls-2063'] = "1280x720";
 		$expected['hls-3192'] = "1600x900";
 		$expected['hls-4694'] = "1920x1080";
-		
-		echo PHP_EOL."Expected : ".PHP_EOL;
-		var_dump($expected);
-		
-		echo PHP_EOL.PHP_EOL."Actual : ".PHP_EOL;
-		var_dump($response);
 		
 		$this->assertEquals($expected, $response);
 		
