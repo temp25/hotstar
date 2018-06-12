@@ -25,7 +25,7 @@ class GetAvailableVideoFormatsTest extends TestCase
 		$response = json_decode($result, true);
 		
 		//Since playlistId changes as more episodes gets added, we fix that one to a constant value
-		$result['playlistId'] = 149;
+		$response['playlistId'] = 149;
 		
 		$expected = array();
 		$expected['status'] = "true";
