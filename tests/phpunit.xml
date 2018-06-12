@@ -8,7 +8,7 @@
 	</filter>
 	
 	<testsuite name="Unit Tests">
-		<directory>./tests</directory>
+		<directory>tests</directory>
 	</testsuite>
 
 	<!-- <logging>
