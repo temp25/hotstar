@@ -9,10 +9,25 @@
 		<whitelist>
 			<directory>/megacmd_0.013_linux_amd64</directory>
 		</whitelist>
-		<whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">/app/</directory>
-        </whitelist>
 	</filter>
+	
+	<logging>
+	
+        <log type="coverage-html" target="/app/coverage/html/"/>
+		<log type="coverage-xml" target="/app/coverage/code_coverage.xml/"/>
+		<log type="coverage-text" target="/app/coverage/code_coverage.txt"/>
+        <log type="coverage-clover" target="/app/coverage/code_coverage_clover.xml"/>
+		<log type="coverage-crap4j" target="/app/coverage/code_coverage_crap4j.xml"/>
+		
+    </logging>
+
+    <testsuites>
+        <testsuite name="Unit Tests">
+            <directory suffix="Test.php">./tests/Test/CustomerCenter/</directory>
+        </testsuite>
+    </testsuites>
+	
+	
 	<testsuite>
 		<directory>./</directory>
 	</testsuite>
