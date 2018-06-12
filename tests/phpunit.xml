@@ -22,13 +22,9 @@
     </logging>
 
     <testsuites>
-        <testsuite name="Unit Tests">
-            <directory suffix="Test.php">./tests/Test/CustomerCenter/</directory>
-        </testsuite>
+		<testsuite name="Unit Tests">
+			<directory suffix="Test.php">/app/tests/</directory>
+		</testsuite>
     </testsuites>
 	
-	
-	<testsuite>
-		<directory>./</directory>
-	</testsuite>
 </phpunit>
