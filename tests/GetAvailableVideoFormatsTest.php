@@ -24,11 +24,14 @@ class GetAvailableVideoFormatsTest extends TestCase
 		
 		$response = json_decode($result, true);
 		
+		//Since playlistId changes as more episodes gets added, we fix that one to a constant value
+		$result['playlistId'] = 149;
+		
 		$expected = array();
 		$expected['status'] = "true";
 		$expected['source'] = "ydl";
 		$expected['videoId'] = "1100003795";
-		$expected['playlistId'] = 29;
+		$expected['playlistId'] = 149;
 		$expected['hls-121'] = "320x180";
 		$expected['hls-241'] = "320x180";
 		$expected['hls-461'] = "416x234";
