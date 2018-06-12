@@ -7,7 +7,7 @@
 		</whitelist>
 	</filter>
 	
-	<testsuite name="Unit Tests">
+	<testsuite>
 		<directory>tests</directory>
 	</testsuite>
 
