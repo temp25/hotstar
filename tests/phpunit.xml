@@ -7,8 +7,8 @@
 		</whitelist>
 	</filter>
 	
-	<testsuite>
-		<directory>tests</directory>
+	<testsuite name="Unit Test">
+		<directory>./</directory>
 	</testsuite>
 
 	<!-- <logging>

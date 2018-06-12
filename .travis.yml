@@ -7,4 +7,4 @@ before_script:
  - composer install
 
 after_script:
-  - phpunit -v --configuration tests/phpunit.xml
+  - phpunit --verbose --configuration tests/phpunit.xml
