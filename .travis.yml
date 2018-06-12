@@ -6,5 +6,6 @@ php:
 before_script: 
  - composer install
 
-script:
-  - phpunit --configuration tests/phpunit.xml
+after_script:
+  - phpunit --configuration tests/phpunit.xml --coverage-clover coverage/code_coverage_clover.xml --coverage-crap4j coverage/code_coverage_crap4j.xml --coverage-html coverage/html/ --coverage-text=coverage/code_coverage.txt --coverage-xml coverage/code_coverage.xml
+  - ls -lahR .
