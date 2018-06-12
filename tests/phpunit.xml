@@ -7,11 +7,9 @@
 		</whitelist>
 	</filter>
 	
-    <testsuites>
-		<testsuite name="Unit Tests">
-			<directory suffix="Test.php">/app/tests/</directory>
-		</testsuite>
-    </testsuites>
+	<testsuite name="Unit Tests">
+		<directory suffix="Test.php">/app/tests/</directory>
+	</testsuite>
 
 	<logging>
         <log type="coverage-html" target="/app/coverage/html/"/>
