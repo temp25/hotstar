@@ -8,11 +8,11 @@ before_script:
 
 script:
   - echo PHP_EOL."script block Before unit test.".PHP_EOL."Present Working Directory : ".PHP_EOL
-  - pwd
+  - echo `pwd`
   - echo PHP_EOL.PHP_EOL
   - phpunit --configuration tests/phpunit.xml
   - echo PHP_EOL."script block After unit test.".PHP_EOL."Present Working Directory : ".PHP_EOL
-  - pwd
+  - echo `pwd`
   - echo PHP_EOL.PHP_EOL
 
 after_script:
