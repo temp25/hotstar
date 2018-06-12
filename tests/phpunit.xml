@@ -9,6 +9,9 @@
 		<whitelist>
 			<directory>/megacmd_0.013_linux_amd64</directory>
 		</whitelist>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">/app/</directory>
+        </whitelist>
 	</filter>
 	<testsuite>
 		<directory>./</directory>
