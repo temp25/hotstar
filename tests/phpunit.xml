@@ -1,24 +1,24 @@
 <phpunit backupGlobals="true" bootstrap="./bootstrap.php">
+
 	<filter>
 		<whitelist processUncoveredFilesFromWhitelist="true">
-			<directory suffix=".php">/app/</directory>
+			<file>/app/getAvailableVideoFormats.php</file>
+			<file>/app/getAvailableVideoFormatsThroughApi.php</file>
 		</whitelist>
 	</filter>
 	
-	<logging>
-	
-        <log type="coverage-html" target="/app/coverage/html/"/>
-		<log type="coverage-xml" target="/app/coverage/code_coverage.xml/"/>
-		<log type="coverage-text" target="/app/coverage/code_coverage.txt"/>
-        <log type="coverage-clover" target="/app/coverage/code_coverage_clover.xml"/>
-		<log type="coverage-crap4j" target="/app/coverage/code_coverage_crap4j.xml"/>
-		
-    </logging>
-
     <testsuites>
 		<testsuite name="Unit Tests">
 			<directory suffix="Test.php">/app/tests/</directory>
 		</testsuite>
     </testsuites>
+
+	<logging>
+        <log type="coverage-html" target="/app/coverage/html/"/>
+		<log type="coverage-xml" target="/app/coverage/code_coverage.xml/"/>
+		<log type="coverage-text" target="/app/coverage/code_coverage.txt"/>
+        <log type="coverage-clover" target="/app/coverage/code_coverage_clover.xml"/>
+		<log type="coverage-crap4j" target="/app/coverage/code_coverage_crap4j.xml"/>
+    </logging>
 	
 </phpunit>
