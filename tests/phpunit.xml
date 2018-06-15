@@ -1,14 +1,14 @@
-<phpunit backupGlobals="true" bootstrap="./bootstrap.php">
+<phpunit backupGlobals="true" bootstrap="tests/bootstrap.php">
 
 	<filter>
 		<whitelist processUncoveredFilesFromWhitelist="true">
-			<file>/app/getAvailableVideoFormats.php</file>
-			<file>/app/getAvailableVideoFormatsThroughApi.php</file>
+			<file>getAvailableVideoFormats.php</file>
+			<file>getAvailableVideoFormatsThroughApi.php</file>
 		</whitelist>
 	</filter>
 	
 	<testsuite name="Unit Test">
-		<directory>./</directory>
+		<directory>tests/</directory>
 	</testsuite>
 
 	<!-- <logging>
