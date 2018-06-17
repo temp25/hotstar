@@ -38,9 +38,9 @@ class GetAvailableVideoFormatsTest extends TestCase
     {
 
 		$videoFormats = new VideoFormats();
-		$result = $videoFormats->isAvailable("http://www.hotstar.com/tv/khoka-babu/8828/tori-a-pampered-child/100009381");
+		$response = $videoFormats->isAvailable("http://www.hotstar.com/tv/khoka-babu/8828/tori-a-pampered-child/100009381");
 
-		$response = json_decode($result, true);
+		//$response = json_decode($result, true);
 		
 		$this->assertEquals("true", $response['status']);
 		$this->assertEquals("api", $response['source']);
