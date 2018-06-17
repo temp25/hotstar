@@ -3,23 +3,16 @@
 class VideoFormats
 {
 	
-	private $videoUrl;
-	private $formats;
-
-	public function __construct($videoUrl)
+	public function __construct()
 	{
 		exec("chmod a+rx youtube-dl");
-		$this->$videoUrl = $videoUrl;
 	}
 
 
-	public function isAvailable()
+	public function isAvailable($videoUrl)
 	{
 		
-		echo "\n this videoUrl : ".$this->videoUrl;
-		echo "\n videoUrl : ".$videoUrl;
-		
-		$output = shell_exec("./youtube-dl -j --flat-playlist ".$this->$videoUrl);
+		$output = shell_exec("./youtube-dl -j --flat-playlist ".$videoUrl);
 
 		$endCurlySearch='}
 		]';
@@ -32,12 +25,12 @@ class VideoFormats
 
 		$jsonArray=json_decode($jsonOutput, true);
 
-		if(strcasecmp($this->$videoUrl[strlen($this->$videoUrl)-1], "/") === 0){
+		if(strcasecmp($videoUrl[strlen($videoUrl)-1], "/") === 0){
 			//Remove the '/' in the end of url if present
-			$this->$videoUrl = substr($this->$videoUrl, 0, -1);
+			$videoUrl = substr($videoUrl, 0, -1);
 		}
 
-		$videoId=end(preg_split('/\//', $this->$videoUrl));
+		$videoId=end(preg_split('/\//', $videoUrl));
 		$availability='false';
 		$playlistId=0;
 		$formats = array();
@@ -62,7 +55,7 @@ class VideoFormats
 			$formats['source']="ydl";
 			$formats['videoId']=$videoId;
 			$formats['playlistId'] = $playlistId;
-			$formatsQuery = "./youtube-dl -F ".$this->$videoUrl." --playlist-items ".$playlistId;
+			$formatsQuery = "./youtube-dl -F ".$videoUrl." --playlist-items ".$playlistId;
 			$formatsBuffer = shell_exec($formatsQuery);
 			if(preg_match_all("/(hls-[0-9]+)[\s]*mp4[\s]*([0-9]+x[0-9]+)/", $formatsBuffer, $formatsResult, PREG_SET_ORDER)){
 				foreach ($formatsResult as $key => $value) {
@@ -82,7 +75,7 @@ class VideoFormats
 
 			//Try to fetch the stream url for the given video URL for a certain time
 			while(stripos($result,"Invalid")!==false){
-				$result=$this->getFormatsThroughApi();//exec($fetchVideoScriptQuery);
+				$result=$this->getFormatsThroughApi($videoUrl);
 				if(++$tries > 100){
 					break;
 				}
@@ -107,16 +100,16 @@ class VideoFormats
 				}
 			}
 		}
-
-		$this->$formats = $formats;
+		
+		return $formats;
 
 	}
 
-	public function getFormatsThroughApi()
+	public function getFormatsThroughApi($videoUrl)
 	{
 		$url = 'http://en.fetchfile.net/fetch/';
 		$data = array(
-		  'url' => $this->$videoUrl, 
+		  'url' => $videoUrl, 
 		  'action' => 'homePure'
 		  ); 
 
