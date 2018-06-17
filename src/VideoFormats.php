@@ -75,7 +75,7 @@ class VideoFormats
 			//Try to fetch the stream url for the given video URL for a certain time
 			while(stripos($result,"Invalid")!==false){
 				$result=$this->getFormatsThroughApi($videoUrl);
-				echo "\ntries #"($tries+1)." api result : ".$result;
+				echo "\ntries #".($tries+1)." api result : ".$result;
 				if(++$tries > 100){
 					break;
 				}
