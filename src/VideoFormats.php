@@ -9,7 +9,7 @@ class VideoFormats
 	public function __construct($videoUrl)
 	{
 		//copy ydl from root to here
-		exec("cp ../youtube-dl .");
+		//exec("cp ../youtube-dl .");
 		exec("chmod a+rx youtube-dl");
 		$this->$videoUrl = $videoUrl;
 	}
