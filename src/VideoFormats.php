@@ -8,10 +8,6 @@ class VideoFormats
 
 	public function __construct($videoUrl)
 	{
-		//copy ydl from root to here
-		//exec("cp ../youtube-dl .");
-		echo "\npwd : ".exec("pwd");
-		echo "\nls :\n".exec("ls");
 		exec("chmod a+rx youtube-dl");
 		$this->$videoUrl = $videoUrl;
 	}
@@ -19,9 +15,6 @@ class VideoFormats
 
 	public function isAvailable()
 	{
-		
-		echo "\npwd : ".exec("pwd");
-		echo "\nls :\n".exec("ls");
 		
 		$output = shell_exec("./youtube-dl -j --flat-playlist ".$videoUrl);
 
