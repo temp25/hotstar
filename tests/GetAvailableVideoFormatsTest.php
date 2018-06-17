@@ -1,6 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
-include('../src/VideoFormats.php');
+include('src/VideoFormats.php');
 
 class GetAvailableVideoFormatsTest extends TestCase
 {
