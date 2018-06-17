@@ -11,7 +11,7 @@ class VideoFormats
 		//copy ydl from root to here
 		exec("cp ../youtube-dl .");
 		exec("chmod a+rx youtube-dl");
-		this->$videoUrl = $videoUrl;
+		$this->$videoUrl = $videoUrl;
 	}
 
 
