@@ -11,7 +11,7 @@ class VideoFormats
 
 	public function isAvailable($videoUrl)
 	{
-		
+		echo "\nvideoUrl : ".$videoUrl;
 		$output = shell_exec("./youtube-dl -j --flat-playlist ".$videoUrl);
 
 		$endCurlySearch='}
@@ -24,11 +24,15 @@ class VideoFormats
 		$jsonOutput=str_replace("\n", ", ", $output);
 
 		$jsonArray=json_decode($jsonOutput, true);
+		echo "\njsonArray : ";
+		var_dump($jsonArray);
 
 		if(strcasecmp($videoUrl[strlen($videoUrl)-1], "/") === 0){
 			//Remove the '/' in the end of url if present
 			$videoUrl = substr($videoUrl, 0, -1);
 		}
+		
+  echo "\nvideoUrl : ".$videoUrl;
 
 		$videoId=end(preg_split('/\//', $videoUrl));
 		$availability='false';
