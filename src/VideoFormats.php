@@ -75,7 +75,7 @@ class VideoFormats
 			//Try to fetch the stream url for the given video URL for a certain time
 			while(stripos($result,"Invalid")!==false){
 				$result=$this->getFormatsThroughApi($videoUrl);
-				echo "\ntries #".($tries+1)." api result : ".$result;
+				//echo "\ntries #".($tries+1)." api result : ".$result;
 				if(++$tries > 100){
 					break;
 				}
@@ -108,7 +108,7 @@ class VideoFormats
 	public function getFormatsThroughApi($videoUrl)
 	{
 		$url = 'http://en.fetchfile.net/fetch/';
-		echo "\nvideoUrl : ".$videoUrl;
+		//echo "\nvideoUrl : ".$videoUrl;
 		$data = array(
 		  'url' => $videoUrl, 
 		  'action' => 'homePure'
@@ -131,8 +131,8 @@ class VideoFormats
 		} 
 
 		$jsonResponse = json_decode($result, true);
-		echo "\njsonResponse : \n";
-		var_dump($jsonResponse);
+		//echo "\njsonResponse : \n";
+		//var_dump($jsonResponse);
 
 		$formats = $jsonResponse['formats'];
 
