@@ -16,7 +16,7 @@ class VideoFormats
 	public function isAvailable()
 	{
 		
-		$output = shell_exec("./youtube-dl -j --flat-playlist ".$videoUrl);
+		$output = shell_exec("./youtube-dl -j --flat-playlist ".$this->$videoUrl);
 
 		$endCurlySearch='}
 		]';
@@ -29,12 +29,12 @@ class VideoFormats
 
 		$jsonArray=json_decode($jsonOutput, true);
 
-		if(strcasecmp($videoUrl[strlen($videoUrl)-1], "/") === 0){
+		if(strcasecmp($this->$videoUrl[strlen($this->$videoUrl)-1], "/") === 0){
 			//Remove the '/' in the end of url if present
-			$videoUrl = substr($videoUrl, 0, -1);
+			$this->$videoUrl = substr($this->$videoUrl, 0, -1);
 		}
 
-		$videoId=end(preg_split('/\//', $videoUrl));
+		$videoId=end(preg_split('/\//', $this->$videoUrl));
 		$availability='false';
 		$playlistId=0;
 		$formats = array();
@@ -59,7 +59,7 @@ class VideoFormats
 			$formats['source']="ydl";
 			$formats['videoId']=$videoId;
 			$formats['playlistId'] = $playlistId;
-			$formatsQuery = "./youtube-dl -F ".$videoUrl." --playlist-items ".$playlistId;
+			$formatsQuery = "./youtube-dl -F ".$this->$videoUrl." --playlist-items ".$playlistId;
 			$formatsBuffer = shell_exec($formatsQuery);
 			if(preg_match_all("/(hls-[0-9]+)[\s]*mp4[\s]*([0-9]+x[0-9]+)/", $formatsBuffer, $formatsResult, PREG_SET_ORDER)){
 				foreach ($formatsResult as $key => $value) {
@@ -113,7 +113,7 @@ class VideoFormats
 	{
 		$url = 'http://en.fetchfile.net/fetch/';
 		$data = array(
-		  'url' => $videoUrl, 
+		  'url' => $this->$videoUrl, 
 		  'action' => 'homePure'
 		  ); 
 
