@@ -12,7 +12,10 @@ class VideoFormats
 	public function isAvailable($videoUrl)
 	{
 		echo "\nvideoUrl : ".$videoUrl;
+		echo "\nls :\n";
+		echo shell_exec("ls -lah");
 		$output = shell_exec("./youtube-dl -j --flat-playlist ".$videoUrl);
+		echo "\n\noutput : ".$output;
 
 		$endCurlySearch='}
 		]';
