@@ -9,9 +9,9 @@ class GetAvailableVideoFormatsTest extends TestCase
     {
 
 		$videoFormats = new VideoFormats();
-		$result = $videoFormats->isAvailable("http://www.hotstar.com/tv/chinnathambi/15301/chinnathambi-yearns-for-nandini/1100003795");
+		$response = $videoFormats->isAvailable("http://www.hotstar.com/tv/chinnathambi/15301/chinnathambi-yearns-for-nandini/1100003795");
 
-		$response = json_decode($result, true);
+		//$response = json_decode($result, true);
 		
 		//Since playlistId changes as more episodes gets added, we fix that one to a constant value
 		$response['playlistId'] = 149;
