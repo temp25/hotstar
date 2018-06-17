@@ -25,7 +25,7 @@ class VideoFormats
 		$output=str_replace($endCurlySearch, $endCurlyReplace,"[".$output."]");
 		echo "\n\noutput after replace: ".$output;
 
-		$jsonOutput=str_replace("\n", ", ", $output);
+		$jsonOutput=str_replace(", ]","]",str_replace("\n", ", ", $output));
 		
 		echo "\njsonOutput : \n";
 		echo $jsonOutput;
