@@ -16,6 +16,9 @@ class VideoFormats
 	public function isAvailable()
 	{
 		
+		echo "\n this videoUrl : ".$this->videoUrl;
+		echo "\n videoUrl : ".$videoUrl;
+		
 		$output = shell_exec("./youtube-dl -j --flat-playlist ".$this->$videoUrl);
 
 		$endCurlySearch='}
