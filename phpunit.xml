@@ -10,12 +10,12 @@
 		<directory>tests/</directory>
 	</testsuite>
 
-	<!-- <logging>
-        <log type="coverage-html" target="./tests/coverage/html/"/>
-		<log type="coverage-xml" target="./tests/coverage/code_coverage.xml/"/>
-		<log type="coverage-text" target="./tests/coverage/code_coverage.txt"/>
-        <log type="coverage-clover" target="./tests/coverage/code_coverage_clover.xml"/>
-		<log type="coverage-crap4j" target="./tests/coverage/code_coverage_crap4j.xml"/>
-    </logging> -->
+	<logging>
+        <log type="coverage-html" target="tests/coverage/html/"/>
+		<log type="coverage-xml" target="tests/coverage/code_coverage.xml/"/>
+		<log type="coverage-text" target="tests/coverage/code_coverage.txt"/>
+        <log type="coverage-clover" target="tests/coverage/code_coverage_clover.xml"/>
+		<log type="coverage-crap4j" target="tests/coverage/code_coverage_crap4j.xml"/>
+    </logging>
 	
 </phpunit>
