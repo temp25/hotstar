@@ -1,5 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
+use ../src/VideoFormats;
 
 class GetAvailableVideoFormatsTest extends TestCase
 {
@@ -7,7 +8,7 @@ class GetAvailableVideoFormatsTest extends TestCase
     public function testGetFormatsThroughYdl()
     {
 
-		$videoFormats = new ./../src/VideoFormats("http://www.hotstar.com/tv/chinnathambi/15301/chinnathambi-yearns-for-nandini/1100003795");
+		$videoFormats = new VideoFormats("http://www.hotstar.com/tv/chinnathambi/15301/chinnathambi-yearns-for-nandini/1100003795");
 		$result = $videoFormats->isAvailable();
 
 		$response = json_decode($result, true);
@@ -36,7 +37,7 @@ class GetAvailableVideoFormatsTest extends TestCase
 	 public function testGetFormatsThroughApi()
     {
 
-		$videoFormats = new ./../src/VideoFormats("http://www.hotstar.com/tv/khoka-babu/8828/tori-a-pampered-child/1000093817");
+		$videoFormats = new VideoFormats("http://www.hotstar.com/tv/khoka-babu/8828/tori-a-pampered-child/1000093817");
 		$result = $videoFormats->isAvailable();
 
 		$response = json_decode($result, true);
