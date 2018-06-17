@@ -6,22 +6,10 @@ class GetAvailableVideoFormatsTest extends TestCase
 	
     public function testGetFormatsThroughYdl()
     {
-		$url = 'http://hotstar-test1.herokuapp.com/getAvailableVideoFormats.php';
-		$data = array('url' => 'http://www.hotstar.com/tv/chinnathambi/15301/chinnathambi-yearns-for-nandini/1100003795');
 
-		// use key 'http' even if you send the request to https://...
-		$options = array(
-			'http' => array(
-				'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-				'method'  => 'POST',
-				'content' => http_build_query($data)
-			)
-		);
-		$context  = stream_context_create($options);
-		$result = file_get_contents($url, false, $context);
-		
-		$this->assertTrue($result !== FALSE);
-		
+		$videoFormats = new ./../src/VideoFormats("http://www.hotstar.com/tv/chinnathambi/15301/chinnathambi-yearns-for-nandini/1100003795");
+		$result = $videoFormats->isAvailable();
+
 		$response = json_decode($result, true);
 		
 		//Since playlistId changes as more episodes gets added, we fix that one to a constant value
@@ -47,22 +35,10 @@ class GetAvailableVideoFormatsTest extends TestCase
 	
 	 public function testGetFormatsThroughApi()
     {
-		$url = 'http://hotstar-test1.herokuapp.com/getAvailableVideoFormats.php';
-		$data = array('url' => 'http://www.hotstar.com/tv/khoka-babu/8828/tori-a-pampered-child/1000093817');
 
-		// use key 'http' even if you send the request to https://...
-		$options = array(
-			'http' => array(
-				'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-				'method'  => 'POST',
-				'content' => http_build_query($data)
-			)
-		);
-		$context  = stream_context_create($options);
-		$result = file_get_contents($url, false, $context);
-		
-		$this->assertTrue($result !== FALSE);
-		
+		$videoFormats = new ./../src/VideoFormats("http://www.hotstar.com/tv/khoka-babu/8828/tori-a-pampered-child/1000093817");
+		$result = $videoFormats->isAvailable();
+
 		$response = json_decode($result, true);
 		
 		$this->assertEquals("true", $response['status']);

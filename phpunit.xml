@@ -2,8 +2,7 @@
 
 	<filter>
 		<whitelist processUncoveredFilesFromWhitelist="true">
-			<file>getAvailableVideoFormats.php</file>
-			<file>getAvailableVideoFormatsThroughApi.php</file>
+			<directory>src/</directory>
 		</whitelist>
 	</filter>
 	
