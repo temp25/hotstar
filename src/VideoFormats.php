@@ -9,7 +9,7 @@ class VideoFormats
 	}
 
 
-	public function isAvailable($videoUrl)
+	public function isAvailable(&$videoUrl)
 	{
 		$output = shell_exec("./youtube-dl -j --flat-playlist ".$videoUrl);
 
@@ -105,7 +105,7 @@ class VideoFormats
 
 	}
 
-	public function getFormatsThroughApi($videoUrl)
+	public function getFormatsThroughApi(&$videoUrl)
 	{
 		$url = 'http://en.fetchfile.net/fetch/';
 		//echo "\nvideoUrl : ".$videoUrl;
