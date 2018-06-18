@@ -5,10 +5,6 @@ php:
 
 before_script: 
  - composer install
- - echo 'cwd : '
- - pwd
- - mkdir src
- - ls
 
 script:
-  - phpunit --configuration tests/phpunit.xml
+  - phpunit --configuration phpunit.xml
