@@ -9,7 +9,8 @@ class GetAvailableVideoFormatsTest extends TestCase
     {
 
 		$videoFormats = new VideoFormats();
-		$response = $videoFormats->isAvailable("http://www.hotstar.com/tv/chinnathambi/15301/chinnathambi-yearns-for-nandini/1100003795");
+		$videoUrl = "http://www.hotstar.com/tv/chinnathambi/15301/chinnathambi-yearns-for-nandini/1100003795";
+		$response = $videoFormats->isAvailable($videoUrl);
 
 		//$response = json_decode($result, true);
 		
@@ -38,7 +39,7 @@ class GetAvailableVideoFormatsTest extends TestCase
     {
 
 		$videoFormats = new VideoFormats();
-		$response = $videoFormats->isAvailable("http://www.hotstar.com/tv/khoka-babu/8828/tori-a-pampered-child/1000093817");
+		$response = $videoFormats->isAvailable.www.hotstar.com/tv/khoka-babu/8828/tori-a-pampered-child/1000093817");
 
 		//$response = json_decode($result, true);
 		//echo "\nresponse :\n";
