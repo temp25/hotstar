@@ -39,7 +39,8 @@ class GetAvailableVideoFormatsTest extends TestCase
     {
 
 		$videoFormats = new VideoFormats();
-		$response = $videoFormats->isAvailable.www.hotstar.com/tv/khoka-babu/8828/tori-a-pampered-child/1000093817");
+		$videoUrl = "http://www.hotstar.com/tv/khoka-babu/8828/tori-a-pampered-child/1000093817";
+		$response = $videoFormats->isAvailable($videoUrl);
 
 		//$response = json_decode($result, true);
 		//echo "\nresponse :\n";
