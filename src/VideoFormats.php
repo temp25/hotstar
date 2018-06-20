@@ -24,12 +24,16 @@ class VideoFormats
 		
 		$jsonArray=json_decode($jsonOutput, true);
 		
+		$modifiedVideoUrl = $videoUrl;
+		
 		if(strcasecmp($videoUrl[strlen($videoUrl)-1], "/") === 0){
 			//Remove the '/' in the end of url if present
-			$videoUrl = substr($videoUrl, 0, -1);
+			$modifiedVideoUrl = substr($modifiedVideoUrl, 0, -1);
 		}
 		
-		$videoId=end(preg_split('/\//', $videoUrl));
+		$modifiedVideoUrlArray = preg_split('/\//', $modifiedVideoUrl);
+		
+		$videoId=end($modifiedVideoUrlArray);
 		$availability='false';
 		$playlistId=0;
 		$formats = array();
