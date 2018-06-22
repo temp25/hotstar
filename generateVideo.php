@@ -19,7 +19,7 @@
 		
 		if($src === "ydl"){
 			
-			
+			echo "ydl source detected. generating video with that";
 			$videoFormat=$_POST['videoFormat'];
 			
 			
@@ -37,6 +37,8 @@
 			}
 			
 		}else{
+			
+			echo "api source detected. generating video with that";
 			
 			$videoTitle=$_POST['title'];
 			$videoDescription=$_POST['description'];

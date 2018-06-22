@@ -149,6 +149,12 @@ $(document).ready(function() {
 			  description: videoDescription,
         uniqueId: ipAddr_userAgent,
 		   },
+		})
+		.done(function() {
+			console.log("POST request completed successfully");
+		})
+		.fail(function() {
+			console.error("Error occured in POST request completion");
 		});
 		
 	}
@@ -166,6 +172,12 @@ $(document).ready(function() {
 		      videoFormat: vFormat,
         uniqueId: ipAddr_userAgent,
 		   },
+		})
+		.done(function() {
+			console.log("POST request completed successfully");
+		})
+		.fail(function() {
+			console.error("Error occured in POST request completion");
 		});
 		
 	}
