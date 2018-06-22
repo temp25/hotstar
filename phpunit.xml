@@ -11,11 +11,11 @@
 	</testsuite>
 
 	<logging>
-        <log type="coverage-html" target="tests/coverage/html/"/>
-		<log type="coverage-xml" target="tests/coverage/code_coverage.xml/"/>
-		<log type="coverage-text" target="tests/coverage/code_coverage.txt"/>
-        <log type="coverage-clover" target="tests/coverage/code_coverage_clover.xml"/>
-		<log type="coverage-crap4j" target="tests/coverage/code_coverage_crap4j.xml"/>
+        <log type="coverage-html" target="build/logs/html/"/>
+		<log type="coverage-xml" target="build/logs/code_coverage.xml/"/>
+		<log type="coverage-text" target="build/logs/code_coverage.txt"/>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+		<log type="coverage-crap4j" target="build/logs/code_coverage_crap4j.xml"/>
     </logging>
 	
 </phpunit>
