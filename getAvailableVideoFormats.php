@@ -8,9 +8,9 @@
 
 	$videoUrl = $_POST['url'];
 
-	$videoFormats = new VideoFormats($videoUrl);
+	$videoFormats = new VideoFormats();
 
-	$formats = $videoFormats->isAvailable();
+	$formats = $videoFormats->isAvailable($videoUrl);
 
 	echo json_encode($formats, true);
 
