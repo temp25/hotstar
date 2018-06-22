@@ -4,7 +4,7 @@ php:
   - 7.1.3
 
 install:
- - echo "TRAVIS_BUILD_ID : ".$TRAVIS_BUILD_ID
+ - export CI_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER
  - curl -s http://getcomposer.org/installer | php
  - php composer.phar install --dev --no-interaction
  - composer require php-coveralls/php-coveralls
