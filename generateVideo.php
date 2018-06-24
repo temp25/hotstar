@@ -7,6 +7,20 @@
 	   
 		$src = $_POST['src'];
 		
+		ob_end_clean();
+		header("Connection: close\r\n");
+		header("Content-Encoding: none\r\n");
+		ignore_user_abort(true);
+		// optional
+		
+		ob_start();
+		echo('Processing video');
+		$size=ob_get_length();
+		header("Content-Length: $size");
+		ob_end_flush();    // Strange behaviour, will not work
+		flush();           // Unless both are called !
+		ob_end_clean();
+		
 		exec("chmod a+rx youtube-dl");
 		exec("tar xvzf files.tar.gz");
 		exec("chmod +x ffmpeg");
@@ -19,7 +33,7 @@
 		
 		if($src === "ydl"){
 			
-			echo "ydl source detected. generating video with that";
+			//echo "ydl source detected. generating video with that";
 			$videoFormat=$_POST['videoFormat'];
 			
 			
@@ -38,7 +52,7 @@
 			
 		}else{
 			
-			echo "api source detected. generating video with that";
+			//echo "api source detected. generating video with that";
 			
 			$videoTitle=$_POST['title'];
 			$videoDescription=$_POST['description'];
