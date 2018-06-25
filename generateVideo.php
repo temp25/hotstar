@@ -18,9 +18,7 @@
 		
 		//exec(sprintf("%s > %s 2>&1 & echo $! >> %s", $cmd, $outputfile, $pidfile));
 		
-		$cmd = "php generateVideoBg.php ".$data;
-		
-		exec($cmd);
+		shell_exec("php generateVideoBg.php ".serialize($_POST));
 		
 		echo "Generating video...";
 	}
