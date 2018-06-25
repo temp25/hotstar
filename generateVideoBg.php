@@ -3,9 +3,9 @@
 	require 'vendor/autoload.php';
 	use Symfony\Component\Process\Process;
  
-	if(argc > 1 && isset(argv[1])){//isset($_POST['src'])){ //isset($_POST['videoUrl']) && isset($_POST['playlistId']) && isset($_POST['videoId']) && isset($_POST['videoFormat'])
+	if($argc > 1 && isset($argv[1])){//isset($_POST['src'])){ //isset($_POST['videoUrl']) && isset($_POST['playlistId']) && isset($_POST['videoId']) && isset($_POST['videoFormat'])
 	   
-		$postData = argv[1];
+		$postData = $argv[1];
 		
 		$src = $postData['src'];
 		
