@@ -18,8 +18,17 @@
 		
 		//exec(sprintf("%s > %s 2>&1 & echo $! >> %s", $cmd, $outputfile, $pidfile));
 		
-		shell_exec("php generateVideoBg.php ".serialize($_POST));
+		shell_exec("php generateVideoBg.php ".implodeAssoc("`", $_POST));
 		
 		echo "Generating video...";
 	}
+	
+	function implodeAssoc($glue,$arr)
+	{
+	   $keys=array_keys($arr);
+	   $values=array_values($arr);
+
+	   return(implode($glue,$keys).$glue.implode($glue,$values));
+	};
+	
 ?>

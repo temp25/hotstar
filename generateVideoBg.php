@@ -4,8 +4,8 @@
 	use Symfony\Component\Process\Process;
  
 	if($argc > 1 && isset($argv[1])){//isset($_POST['src'])){ //isset($_POST['videoUrl']) && isset($_POST['playlistId']) && isset($_POST['videoId']) && isset($_POST['videoFormat'])
-	   
-		$postData = unserialize($argv[1]);
+		
+		$postData = explodeAssoc("`", $argv[1]);
 		
 		$src = $postData['src'];
 		
@@ -106,25 +106,37 @@
 	function sendProgressToClient($progress, $ipAddr_userAgent){
 		
 		$options = array( 
-      'cluster' => 'ap2', 
-      'encrypted' => true 
-   ); 
-    
-   $pusher = new Pusher\Pusher( 
-      'a44d3a9ebac525080cf1', 
-      '37da1edfa06cf988f19f', 
-      '505386', 
-      $options 
-   );
+		  'cluster' => 'ap2', 
+		  'encrypted' => true 
+	   ); 
+		
+	   $pusher = new Pusher\Pusher( 
+		  'a44d3a9ebac525080cf1', 
+		  '37da1edfa06cf988f19f', 
+		  '505386', 
+		  $options 
+	   );
 
-    $message['message'] = $progress;
-    
-    $pusher->trigger(
-       'test-hotstar-video-download1', 
-       $ipAddr_userAgent, 
-       $message
-    );
+		$message['message'] = $progress;
+		
+		$pusher->trigger(
+		   'test-hotstar-video-download1', 
+		   $ipAddr_userAgent, 
+		   $message
+		);
 		   
 	}
 	
-	?>
+	function explodeAssoc($glue,$str)
+	{
+	   $arr=explode($glue,$str);
+
+	   $size=count($arr);
+
+	   for ($i=0; $i < $size/2; $i++)
+		   $out[$arr[$i]]=$arr[$i+($size/2)];
+
+	   return($out);
+	};
+	
+?>
