@@ -5,7 +5,7 @@
  
 	if($argc > 1 && isset($argv[1])){//isset($_POST['src'])){ //isset($_POST['videoUrl']) && isset($_POST['playlistId']) && isset($_POST['videoId']) && isset($_POST['videoFormat'])
 		
-		$postData = explodeAssoc("`", $argv[1]);
+		$postData = explodeAssoc("~", $argv[1]);
 		
 		$src = $postData['src'];
 		

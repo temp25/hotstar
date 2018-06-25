@@ -18,7 +18,7 @@
 		
 		//exec(sprintf("%s > %s 2>&1 & echo $! >> %s", $cmd, $outputfile, $pidfile));
 		
-		shell_exec("php generateVideoBg.php ".implodeAssoc("`", $_POST));
+		shell_exec("php generateVideoBg.php ".implodeAssoc("~", $_POST));
 		
 		echo "Generating video...";
 	}
