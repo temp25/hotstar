@@ -1,34 +1,142 @@
 <?php
 	
+	require 'vendor/autoload.php';
+	use Symfony\Component\Process\Process;
+ 
 	if(isset($_POST['src'])){ //isset($_POST['videoUrl']) && isset($_POST['playlistId']) && isset($_POST['videoId']) && isset($_POST['videoFormat'])
 	   
-		$outputfile = "processOutput.log";
-		$pidfile = "processVideoPid.log";
+		$src = $_POST['src'];
 		
-		$data = array();
-		$data['src'] = $_POST['src'];
-		$data['uniqueId'] = $_POST['uniqueId'];
-		$data['videoUrl'] = $_POST['videoUrl'];
-		$data['playlistId'] = $_POST['playlistId'];
-		$data['videoId'] = $_POST['videoId'];
-		$data['videoFormat'] = $_POST['videoFormat'];
-		$data['title'] = $_POST['title'];
-		$data['description'] = $_POST['description'];
+		ob_end_clean();
+		header("Connection: close\r\n");
+		header("Content-Encoding: none\r\n");
+		ignore_user_abort(true);
+		// optional
+		
+		ob_start();
+		echo('Processing video');
+		$size=ob_get_length();
+		header("Content-Length: $size");
+		ob_end_flush();    // Strange behaviour, will not work
+		flush();           // Unless both are called !
+		ob_end_clean();
+		
+		exec("chmod a+rx youtube-dl");
+		exec("tar xvzf files.tar.gz");
+		exec("chmod +x ffmpeg");
+		
+		$ipAddr_userAgent = $_POST['uniqueId'];
+		$videoUrl=$_POST['videoUrl'];
+		$playlistId=$_POST['playlistId'];
+		$videoId=$_POST['videoId'];
 		
 		
-		//exec(sprintf("%s > %s 2>&1 & echo $! >> %s", $cmd, $outputfile, $pidfile));
+		if($src === "ydl"){
+			
+			//echo "ydl source detected. generating video with that";
+			$videoFormat=$_POST['videoFormat'];
+			
+			
+			$downloadVideoAndZipQuery = "./youtube-dl -f ".$videoFormat." --playlist-items ".$playlistId." ".$videoUrl." --add-metadata --ffmpeg-location /app/ffmpeg --no-warnings --exec 'zip -D -m -9 -v ".$videoId.".zip {}'";
+			
+			$process = new Process($downloadVideoAndZipQuery);
+			$process->setTimeout(30 * 60); //wait for atleast dyno inactivity time for the process to complete
+			$process->start();
+			
+			foreach ($process as $type => $data) {
+			   $progress = array();
+			   $progress['videoId'] = $videoId;
+			   $progress['data'] = nl2br($data);
+			   sendProgressToClient($progress, $ipAddr_userAgent);
+			}
+			
+		}else{
+			
+			//echo "api source detected. generating video with that";
+			
+			$videoTitle=$_POST['title'];
+			$videoDescription=$_POST['description'];
+			
+			$outputFileName = $videoId.".ts";
+			
+			$zipOutputQuery = "zip -D -m -9 -v ".$videoId.".zip ".$outputFileName;
+			
+			$videoStreamQuery = "./ffmpeg -i \"".$videoUrl.
+							"\" -c copy -metadata title=\"".$videoTitle.
+							"\" -metadata episode_id=\"".$playlistId.
+							"\" -metadata track=\"".$videoId.
+							"\" -metadata description=\"".$videoDescription.
+							"\" -metadata synopsis=\"".$videoDescription.
+							"\" ".$outputFileName;
+			
+			$process = new Process($videoStreamQuery);
+			$process->setTimeout(30 * 60); //wait for atleast dyno inactivity time for the process to complete
+			$process->start();
+			
+			foreach ($process as $type => $data) {
+			   $progress = array();
+			   $progress['videoId'] = $videoId;
+			   $progress['data'] = nl2br($data);
+			   sendProgressToClient($progress, $ipAddr_userAgent);
+			}
+			
+			$process = new Process($zipOutputQuery);
+			$process->setTimeout(30 * 60); //wait for atleast dyno inactivity time for the process to complete
+			$process->start();
+			
+			foreach ($process as $type => $data) {
+			   $progress = array();
+			   $progress['videoId'] = $videoId;
+			   $progress['data'] = nl2br($data);
+			   sendProgressToClient($progress, $ipAddr_userAgent);
+			}
+			
+		}
 		
-		shell_exec("php generateVideoBg.php ".implodeAssoc("~", $_POST));
+		$progress = array();
+		$progress['videoId'] = $videoId;
+		$progress['data'] = nl2br("\nVideo generation complete...");
+		$progress['hasProgress']='false';
+				
+		sendProgressToClient($progress, $ipAddr_userAgent);
+		  
+	}else{
+		//TODO: Add the code here to handle if post variables aren't set properly.
 		
-		echo "Generating video...";
+		echo "Invalid script invocation";
+		$ipAddr_userAgent = $_POST['uniqueId'];
+		$progress = array();
+		$progress['hasProgress']='false';
+		$progress['data'] = nl2br("Error occurred in receiving the post form data from the client");
+		
+		sendProgressToClient($progress, $ipAddr_userAgent);
+		
 	}
 	
-	function implodeAssoc($glue,$arr)
-	{
-	   $keys=array_keys($arr);
-	   $values=array_values($arr);
-
-	   return(implode($glue,$keys).$glue.implode($glue,$values));
-	};
 	
-?>
+	
+	function sendProgressToClient($progress, $ipAddr_userAgent){
+		
+		$options = array( 
+      'cluster' => 'ap2', 
+      'encrypted' => true 
+   ); 
+    
+   $pusher = new Pusher\Pusher( 
+      'a44d3a9ebac525080cf1', 
+      '37da1edfa06cf988f19f', 
+      '505386', 
+      $options 
+   );
+
+    $message['message'] = $progress;
+    
+    $pusher->trigger(
+       'test-hotstar-video-download1', 
+       $ipAddr_userAgent, 
+       $message
+    );
+		   
+	}
+	
+	?>
