@@ -18,8 +18,14 @@ install:
 script:
  - rm -rf build/
  - mkdir -p build/logs
- - echo "Starting php lint check for php files in current and sub directories"
- - find . -name "*.php" -type f -exec php -l {} \;
+ - echo "Starting php lint check for php files"
+ - php -l src/VideoFormats.php
+ - php -l tests/bootstrap.php
+ - php -l tests/StackTest.php 
+ - php -l tests/GetAvailableVideoFormatsTest.php
+ - php -l generateVideo.php
+ - php -l getAvailableVideoFormats.php
+ - php -l getAvailableVideoFormatsThroughApi.php
  - echo "PHP lint check completed successfully"
  - phpunit --configuration phpunit.xml
 
