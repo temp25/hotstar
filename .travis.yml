@@ -34,10 +34,10 @@ after_success:
  - echo $MESSAGE >> build/build.log
 
 deploy:
- - provider: releases
- - api_key: $GITHUB_TOKEN
- - file_glob: true
- - file: build/**/*
- - skip_cleanup: true
+ provider: releases
+ api_key: $GITHUB_TOKEN
+ file_glob: true
+ file: build/**/*
+ skip_cleanup: true
  on:
     tags: true
