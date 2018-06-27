@@ -7,8 +7,6 @@
 	   
 		$src = $_POST['src'];
 		
-		respondOK();
-		
 		exec("chmod a+rx youtube-dl");
 		exec("tar xvzf files.tar.gz");
 		exec("chmod +x ffmpeg");
@@ -18,6 +16,8 @@
 		$playlistId=$_POST['playlistId'];
 		$videoId=$_POST['videoId'];
 		
+		session_write_close(); //close the session
+		fastcgi_finish_request(); //this returns 200 to the user, and processing continues
 		
 		if($src === "ydl"){
 			
