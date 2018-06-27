@@ -1,17 +1,17 @@
 <?php
-	
-	include('src/VideoFormats.php');
-	
-	if(!isset($_POST['url'])){
-		die("Error no POST url data given");
-	}
 
-	$videoUrl = $_POST['url'];
+include('src/VideoFormats.php');
 
-	$videoFormats = new VideoFormats();
+if (!isset($_POST['url'])) {
+    die("Error no POST url data given");
+}
 
-	$formats = $videoFormats->isAvailable($videoUrl);
+$videoUrl = $_POST['url'];
 
-	echo json_encode($formats, true);
+$videoFormats = new VideoFormats();
+
+$formats = $videoFormats->isAvailable($videoUrl);
+
+echo json_encode($formats, true);
 
 ?>
