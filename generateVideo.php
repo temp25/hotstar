@@ -16,8 +16,9 @@
 		$playlistId=$_POST['playlistId'];
 		$videoId=$_POST['videoId'];
 		
-		session_write_close(); //close the session
-		fastcgi_finish_request(); //this returns 200 to the user, and processing continues
+		//session_write_close(); //close the session
+		//fastcgi_finish_request(); //this returns 200 to the user, and processing continues
+		respondOK();
 		
 		if($src === "ydl"){
 			
@@ -107,7 +108,7 @@
 	 *
 	 * @param null $text
 	 */
-	public function respondOK($text = null)
+	function respondOK($text = null)
 	{
 		// check if fastcgi_finish_request is callable
 		if (is_callable('fastcgi_finish_request')) {
