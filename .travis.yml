@@ -14,7 +14,7 @@ install:
 script:
  - mkdir -p build/logs
  - echo "Starting php lint check for php files in current and sub directories"
- - find . -name "*.php" -type f -exec php -l {}
+ - find . -name "*.php" -type f -exec php -l {} \;
  - echo "PHP lint check completed successfully"
  - phpunit --configuration phpunit.xml
 
