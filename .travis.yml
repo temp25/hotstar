@@ -32,16 +32,12 @@ script:
 after_success:
  - travis_retry php vendor/bin/php-coveralls -v
  - echo $MESSAGE >> build/build.log
- - git status
  - git add build/
  - git commit -m "Update build version and unit test logs file for build #$TRAVIS_BUILD_NUMBER"
- - git status
  - git branch temp
  - git checkout master
- - git status
  - git fetch --prune
  - git pull
- - git status
  - git merge temp
- - git status
  - git branch -d temp
+ - git push
