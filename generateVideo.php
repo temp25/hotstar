@@ -3,7 +3,7 @@
 	require 'vendor/autoload.php';
 	use Symfony\Component\Process\Process;
  
-	if(isset($_POST['src'])){ //isset($_POST['videoUrl']) && isset($_POST['playlistId']) && isset($_POST['videoId']) && isset($_POST['videoFormat'])
+	if(isset($_POST['src'])){
 	   
 		$src = $_POST['src'];
 		
@@ -16,13 +16,10 @@
 		$playlistId=$_POST['playlistId'];
 		$videoId=$_POST['videoId'];
 		
-		//session_write_close(); //close the session
-		//fastcgi_finish_request(); //this returns 200 to the user, and processing continues
 		respondOK();
 		
 		if($src === "ydl"){
 			
-			//echo "ydl source detected. generating video with that";
 			$videoFormat=$_POST['videoFormat'];
 			
 			
@@ -40,8 +37,6 @@
 			}
 			
 		}else{
-			
-			//echo "api source detected. generating video with that";
 			
 			$videoTitle=$_POST['title'];
 			$videoDescription=$_POST['description'];
@@ -90,7 +85,6 @@
 		sendProgressToClient($progress, $ipAddr_userAgent);
 		  
 	}else{
-		//TODO: Add the code here to handle if post variables aren't set properly.
 		
 		echo "Invalid script invocation";
 		$ipAddr_userAgent = $_POST['uniqueId'];
