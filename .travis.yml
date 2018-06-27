@@ -5,8 +5,6 @@ php:
 
 env:
  global:
-  - USER="temp25"
-  - EMAIL="gowtham25alaguraj@outlook.com"
   - MESSAGE="Tag Generated from TravisCI for build $TRAVIS_BUILD_NUMBER"
   - CI_BUILD_NUMBER="$TRAVIS_BUILD_NUMBER"
   - CI_PULL_REQUEST="$TRAVIS_PULL_REQUEST"
