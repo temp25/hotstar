@@ -7,12 +7,12 @@ env:
  global:
   - USER="Travis CI"
   - EMAIL="builds@travis-ci.org"
-  - MESSAGE = "Tag Generated from TravisCI for build $TRAVIS_BUILD_NUMBER"
+  - MESSAGE="Tag Generated from TravisCI for build $TRAVIS_BUILD_NUMBER"
+  - CI_BUILD_NUMBER="$TRAVIS_BUILD_NUMBER"
+  - CI_PULL_REQUEST="$TRAVIS_PULL_REQUEST"
+  - CI_BRANCH="$TRAVIS_BRANCH"
   
 install:
- - export CI_BUILD_NUMBER="$TRAVIS_BUILD_NUMBER"
- - export CI_PULL_REQUEST="$TRAVIS_PULL_REQUEST"
- - export CI_BRANCH="$TRAVIS_BRANCH"
  - curl -s http://getcomposer.org/installer | php
  - php composer.phar install --dev --no-interaction
  - composer require php-coveralls/php-coveralls
