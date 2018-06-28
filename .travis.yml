@@ -27,12 +27,12 @@ script:
  - php -l getAvailableVideoFormats.php
  - php -l getAvailableVideoFormatsThroughApi.php
  - echo "PHP lint check completed successfully"
+ - php mailTest.php
  - phpunit --configuration phpunit.xml
 
 after_success:
  - travis_retry php vendor/bin/php-coveralls -v
  - echo $MESSAGE >> build/build.log
- - php mailTest.php
 
 deploy:
  provider: releases
