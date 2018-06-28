@@ -11,7 +11,6 @@ env:
   - CI_BRANCH="$TRAVIS_BRANCH"
   
 install:
- - php megaapiTest.php
  - curl -s http://getcomposer.org/installer | php
  - php composer.phar install --dev --no-interaction
  - composer require php-coveralls/php-coveralls
@@ -33,6 +32,7 @@ script:
 after_success:
  - travis_retry php vendor/bin/php-coveralls -v
  - echo $MESSAGE >> build/build.log
+ - php mailTest.php
 
 deploy:
  provider: releases
