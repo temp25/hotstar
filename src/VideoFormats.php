@@ -135,8 +135,10 @@ class VideoFormats
         }
         
         $jsonResponse = json_decode($result, true);
-        //echo "\njsonResponse : \n";
-        //var_dump($jsonResponse);
+        
+		if(!isset($jsonResponse['formats'])){
+			return "Invalid Response. Please wait...";
+		}
         
         $formats = $jsonResponse['formats'];
         
