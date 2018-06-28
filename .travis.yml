@@ -27,7 +27,6 @@ script:
  - php -l getAvailableVideoFormats.php
  - php -l getAvailableVideoFormatsThroughApi.php
  - echo "PHP lint check completed successfully"
- - php mailTest.php
  - phpunit --configuration phpunit.xml
 
 after_success:
