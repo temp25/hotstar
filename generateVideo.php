@@ -8,6 +8,7 @@ if (isset($_POST['src'])) {
     $src = $_POST['src'];
     
     exec("chmod a+rx youtube-dl");
+	exec("./youtube-dl --update");
     exec("tar xvzf files.tar.gz");
     exec("chmod +x ffmpeg");
     
@@ -149,7 +150,7 @@ function sendProgressToClient($progress, $ipAddr_userAgent)
     
     $message['message'] = $progress;
     
-    $pusher->trigger('test-hotstar-video-download1', $ipAddr_userAgent, $message);
+    $pusher->trigger('hotstar-video-download-v1', $ipAddr_userAgent, $message);
     
 }
 
