@@ -33,11 +33,11 @@ $(document).ready(function() {
           //alert("status : "+status+"\n\ndata : "+stringifiedData+"\n\nxhr : "+xhr);
           //console.log("status : "+status+"\n\ndata : "+data+"\n\nxhr : "+xhr);
 
-          /*
+          
           $.each(data, function(k, v){ 
              console.log(k + ' = ' + v ); // k is key/index and v is value
           });
-          */
+         
           
           if(data["status"] === "true"){
           	   //alert("video exist");
