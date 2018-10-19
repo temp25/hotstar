@@ -13,7 +13,7 @@ $formats    = array();
 if ($splitCount > 0) {
     $videoId = $splittedVideoURL[$splitCount - 1];
     
-    $formatsQuery = "./youtube-dl --verbose -F " . $videoUrl;
+    $formatsQuery = "./youtube-dl -F " . $videoUrl;
     
     exec("chmod a+rx youtube-dl");
 	exec("./youtube-dl -U");
