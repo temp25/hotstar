@@ -1,5 +1,8 @@
 <?php
 
+require 'vendor/autoload.php';
+use Symfony\Component\Process\Process;
+
 class VideoFormats
 {
     
@@ -11,7 +14,18 @@ class VideoFormats
     
     public function isAvailable($videoUrl)
     {
-        $output = shell_exec("./youtube-dl -j --flat-playlist " . $videoUrl);
+        //$output = shell_exec("./youtube-dl -j --flat-playlist " . $videoUrl);
+
+        $process = new Process(array("/app/youtube-dl", "--restrict-filenames", "-j", "--flat-playlist", $videoUrl));
+
+        $process->start();
+
+        while ($process->isRunning()) {
+           // waiting for process to finish
+        }
+        
+        $output = $process->getOutput();
+        $errorOutput = $process->getErrorOutput();
         
         $endCurlySearch = '}
 		]';
@@ -65,7 +79,7 @@ class VideoFormats
                     $formats[$value[1]] = $value[2];
                 }
             } else {
-                $formats["errorMessage"] = "Error in fetching video formats for the given URL";
+                $formats["errorMessage"] = "Error in fetching video formats for the given URL. Error message : " . $errorOutput;
             }
             
         } else {
@@ -87,7 +101,7 @@ class VideoFormats
             
             if (stripos($result, "Invalid") !== false) {
                 $formats['status']       = 'false';
-                $formats["errorMessage"] = "Can't fetch video ID or Invalid URL";
+                $formats["errorMessage"] = "Can't fetch video ID or Invalid URL. Error message : " . $errorOutput;
             } else {
                 $formats['status']        = 'true';
                 $metadata                 = json_decode($result, true);
