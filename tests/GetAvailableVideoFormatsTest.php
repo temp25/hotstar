@@ -29,6 +29,11 @@ class GetAvailableVideoFormatsTest extends TestCase
         $expected['hls-3192']   = "1600x900";
         $expected['hls-4694']   = "1920x1080";
         
+        echo PHP_EOL . PHP_EOL . "Expected array :" . PHP_EOL;
+        var_dump($expected);
+        echo PHP_EOL . PHP_EOL . "Actual array :" . PHP_EOL;
+        var_dump($response);
+        
         $this->assertEquals($expected, $response);
         
     }
