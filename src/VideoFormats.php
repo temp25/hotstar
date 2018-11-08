@@ -15,8 +15,10 @@ class VideoFormats
     public function isAvailable($videoUrl)
     {
         //$output = shell_exec("./youtube-dl -j --flat-playlist " . $videoUrl);
+        
+        $ydlLocation = getcwd() . DIRECTORY_SEPARATOR . "youtube-dl";
 
-        $process = new Process(array("/app/youtube-dl", "--restrict-filenames", "-j", "--flat-playlist", $videoUrl));
+        $process = new Process(array($ydlLocation, "--restrict-filenames", "-j", "--flat-playlist", $videoUrl));
 
         $process->start();
 
