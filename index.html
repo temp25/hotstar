@@ -50,7 +50,7 @@
 
     // Enable pusher logging - don't include this in production 
 
-    Pusher.logToConsole = true; 
+    Pusher.logToConsole = false; 
     var pusher = new Pusher(
        'a44d3a9ebac525080cf1', 
         { 
@@ -58,6 +58,16 @@
            encrypted: true 
         }
     );
+	
+	function getMatches(string, regex, index) {
+	  index || (index = 1); // default to the first capturing group
+	  var matches = [];
+	  var match;
+	  while (match = regex.exec(string)) {
+		matches.push(match[index]);
+	  }
+	  return matches;
+	}
     
     $.getJSON("https://api.ipify.org/?format=json", function(e) { 
        
@@ -76,7 +86,9 @@
              var videoId=msg['videoId'];
 			 
 			 //added for testing
-			 console.log("Console_Data : "+data);
+			 var myRegex = /time=(\d{2}:\d{2}:\d{2}\.\d{2})/g;
+			 var matches = getMatches(data, myRegex, 1);
+			 console.log("Matched time data : "+JSON.stringify(matches));
              
              $('<br/><div style="font-size: 12px;">' + data +'<br/></div>').appendTo('#responseText');
              $('#responseText').stop(). animate({
