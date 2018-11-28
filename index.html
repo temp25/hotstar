@@ -101,11 +101,11 @@
 			 //console.log("Matched time data : "+JSON.stringify(timeMatches));
 			 if(data.indexOf("Duration") > -1 ){
 				var durationMatches = getMatches(data, timeRegex, 1);
-				var totalDuration = durationMatches[0];
+				var totalDuration = String(durationMatches[0]);
 				totalDurationInMilliSec = getMilliseconds(totalDuration);
 				console.log("Total duration : "+totalDuration+" ms : "+totalDurationInMilliSec);
 			 }else{
-				timeMatches.forEach(item => console.log("Duration : "+ item + " ms : " + getMilliseconds(item) + " %complete : "+ ((totalDurationInMilliSec-getMilliseconds(item))/100) ));
+				timeMatches.forEach(item => console.log("Duration : "+ item + " ms : " + getMilliseconds(String(item)) + " %complete : "+ ((totalDurationInMilliSec-getMilliseconds(item))/100) ));
 			 }
 			 
              
