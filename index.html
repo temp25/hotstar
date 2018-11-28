@@ -73,7 +73,6 @@
        
        var ipAddr_userAgent = e.ip + "_" + navigator.userAgent;
        var isAlertShown = false;
-       var timeRegex = /(\d{2}):(\d{2}):(\d{2})\.(\d{2})/g;
        var isTotalDuration = true;
        var totalDuration = 0;
        var channel = pusher.subscribe('hotstar-video-download-v1'); 
@@ -86,9 +85,17 @@
              var videoId=msg['videoId'];
 			 
 			 //added for testing
-			 var myRegex = /time=(\d{2}:\d{2}:\d{2}\.\d{2})/g;
-			 var matches = getMatches(data, myRegex, 1);
-			 console.log("Matched time data : "+JSON.stringify(matches));
+			 var durationRegex = /Duration: \d{2}:\d{2}:\d{2}.\d{2}/g;
+			 var timeRegex = /time=(\d{2}:\d{2}:\d{2}\.\d{2})/g;
+			 var timeMatches = getMatches(data, timeRegex, 1);
+			 //console.log("Matched time data : "+JSON.stringify(timeMatches));
+			 if(data.indexOf("Duration") > -1 ){
+				var durationMatches = getMatches(data, timeRegex, 1);
+				console.log("Total duration : "+durationMatches[0]);
+			 }else{
+				timeMatches.forEach(item => console.log("Duration : "+ item));
+			 }
+			 
              
              $('<br/><div style="font-size: 12px;">' + data +'<br/></div>').appendTo('#responseText');
              $('#responseText').stop(). animate({
