@@ -101,7 +101,7 @@
 			 //console.log("Matched time data : "+JSON.stringify(timeMatches));
 			 if(data.indexOf("Duration") > -1 ){
 				var durationMatches = getMatches(data, timeRegex, 1);
-				var totalDuration = durationMatches[i];
+				var totalDuration = durationMatches[0];
 				totalDurationInMilliSec = getMilliseconds(totalDuration);
 				console.log("Total duration : "+totalDuration+" ms : "+totalDurationInMilliSec);
 			 }else{
