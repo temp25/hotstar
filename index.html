@@ -68,13 +68,23 @@
 	  }
 	  return matches;
 	}
+	
+	function getMilliseconds(timeStr){
+		var time = timeStr.split(':');
+		var hh = time[0];
+		var mm = time[1];
+		var ss = time[2];
+		var milliSec = time[3];
+		var total = (hh * 60 * 60 * 1000) + (mm * 60 * 1000) + (ss * 1000) + milliSec;
+		return total;
+	}
     
     $.getJSON("https://api.ipify.org/?format=json", function(e) { 
        
        var ipAddr_userAgent = e.ip + "_" + navigator.userAgent;
        var isAlertShown = false;
        var isTotalDuration = true;
-       var totalDuration = 0;
+       var totalDurationInMilliSec = 0;
        var channel = pusher.subscribe('hotstar-video-download-v1'); 
        
        channel.bind(
@@ -91,9 +101,11 @@
 			 //console.log("Matched time data : "+JSON.stringify(timeMatches));
 			 if(data.indexOf("Duration") > -1 ){
 				var durationMatches = getMatches(data, timeRegex, 1);
-				console.log("Total duration : "+durationMatches[0]);
+				var totalDuration = durationMatches[i];
+				totalDurationInMilliSec = getMilliseconds(totalDuration);
+				console.log("Total duration : "+totalDuration+" ms : "+totalDurationInMilliSec);
 			 }else{
-				timeMatches.forEach(item => console.log("Duration : "+ item));
+				timeMatches.forEach(item => console.log("Duration : "+ item + " ms : " + getMilliseconds(item) + " %complete : "+ ((totalDurationInMilliSec-getMilliseconds(item))/100) ));
 			 }
 			 
              
