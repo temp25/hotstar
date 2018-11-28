@@ -73,6 +73,9 @@
              var msg=data.message;
              var data=msg['data'];
              var videoId=msg['videoId'];
+			 
+			 //added for testing
+			 console.log("Console_Data : "+data);
              
              $('<br/><div style="font-size: 12px;">' + data +'<br/></div>').appendTo('#responseText');
              $('#responseText').stop(). animate({
