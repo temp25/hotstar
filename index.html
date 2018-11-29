@@ -105,7 +105,7 @@
 				totalDurationInMilliSec = getMilliseconds(totalDuration);
 				console.log("Total duration : "+totalDuration+" ms : "+totalDurationInMilliSec);
 			 }else{
-				timeMatches.forEach(item => console.log("Duration : "+ item + " ms : " + getMilliseconds(String(item)) + " %complete : "+ ((totalDurationInMilliSec-getMilliseconds(item))/100) )); //
+				timeMatches.forEach(item => console.log("Duration : "+ item + " ms : " + getMilliseconds(String(item)) + " %complete : "+ ((getMilliseconds(item)/totalDurationInMilliSec).toFixed(2) * 100 )); //
 			 }
 			 
              
