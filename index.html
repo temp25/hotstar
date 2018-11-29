@@ -95,7 +95,7 @@
              var videoId=msg['videoId'];
 			 
 			 //added for testing
-			 var durationRegex = /Duration: \d{2}:\d{2}:\d{2}.\d{2}/g;
+			 var durationRegex = /Duration: (\d{2}:\d{2}:\d{2}.\d{2})/g;
 			 var timeRegex = /time=(\d{2}:\d{2}:\d{2}\.\d{2})/g;
 			 var timeMatches = getMatches(data, timeRegex, 1);
 			 //console.log("Matched time data : "+JSON.stringify(timeMatches));
