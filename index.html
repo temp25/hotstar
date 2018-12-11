@@ -78,6 +78,14 @@
 		var total = (hh * 60 * 60 * 1000) + (mm * 60 * 1000) + (ss * 1000) + milliSec;
 		return total;
 	}
+	
+	function formatBytes(a,b){
+		if(0 == a)
+			return"0 Bytes";
+		var c=1000/*Since base 10 values*/, d=b||2, e=["Bytes","KB","MB","GB","TB","PB","EB","ZB","YB"], f= Math.floor(Math.log(a)/Math.log(c)); 
+		return parseFloat((a/Math.pow(c,f)).toFixed(d))+" "+e[f]
+	}
+
     
     $.getJSON("https://api.ipify.org/?format=json", function(e) { 
        
@@ -97,7 +105,9 @@
 			 //added for testing
 			 var durationRegex = /Duration: (\d{2}:\d{2}:\d{2}.\d{2})/g;
 			 var timeRegex = /time=(\d{2}:\d{2}:\d{2}\.\d{2})/g;
+			 var sizeRegex = /size=\s*(\d+)kB/g;
 			 var timeMatches = getMatches(data, timeRegex, 1);
+			 var sizeMatches = getMatches(data, sizeRegex, 1);
 			 //console.log("Matched time data : "+JSON.stringify(timeMatches));
 			 if(data.indexOf("Duration") > -1 ){
 				var durationMatches = getMatches(data, durationRegex, 1);
@@ -105,7 +115,8 @@
 				totalDurationInMilliSec = getMilliseconds(totalDuration);
 				console.log("Total duration : "+totalDuration+" ms : "+totalDurationInMilliSec);
 			 }else{
-				timeMatches.forEach(item => console.log(  "Duration : "+ item + " ms : " + getMilliseconds(item) + " %complete : "+ ((getMilliseconds(item)/totalDurationInMilliSec).toFixed(2) * 100 )  )); //
+				timeMatches.forEach(item => console.log(  "Duration : "+ item + " ms : " + getMilliseconds(item) + " %complete : "+ ((getMilliseconds(item)/totalDurationInMilliSec).toFixed(2) * 100 )  ));
+				sizeMatches.forEach(item => console.log(  "Size : "+formatBytes((item || 0)*1000) );
 			 }
 			 
              
