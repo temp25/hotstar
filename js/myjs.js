@@ -1,4 +1,4 @@
-
+var cProgressOptions = {};
 $(document).ready(function() {
 	
 	//var listItems = "<option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option>";
@@ -20,6 +20,16 @@ $(document).ready(function() {
 		$('#responseText').toggle();
 	  $(this).text($('#responseText').is(':visible') ? 'Hide Console' : 'Show Console');
 	});
+	
+	cProgressOptions = {
+        line_width: 6,
+        color: "#e08833",
+        starting_position: 0, // 12.00 o' clock position, 25 stands for 3.00 o'clock (clock-wise)
+        percent: 0, // percent starts from
+        percentage: true,
+        text: "Size : N/A"
+    };
+	$(".my-progress-bar").circularProgress(cProgressOptions);
 
 	$('#videoFormatGenerator').click(function() {
      videoUrl = $('#url').val();

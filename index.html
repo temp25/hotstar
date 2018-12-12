@@ -40,11 +40,13 @@
    }
 </style>
 		<link rel="stylesheet" href="css/mycss.css">
-		<script src="js/jquery-3.2.1.js"></script>
-		<script type="text/javascript" src="js/pusher.min.js"></script>
-  <script src="js/sweetalert2.all.js"></script>
-		<script src="js/myjs.js"></script>
+		<link rel="stylesheet" href="css/circular-progress-plugin.css">
 		
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="js/pusher.min.js"></script>
+		<script src="js/sweetalert2.all.min.js"></script>
+		<script src="js/circular-progress-plugin.js"></script>
+		<script src="js/myjs.js"></script>
 		
 		<script> 
 
@@ -115,13 +117,20 @@
 				totalDurationInMilliSec = getMilliseconds(totalDuration);
 				console.log("Total duration : "+totalDuration+" ms : "+totalDurationInMilliSec);
 			 }else{
+				/*
 				console.log("----- Start of size time log -----");
-				var matchSize = Math.max(timeMatches.length, sizeMatches.length);
-				for(var i=0; i< matchSize; i++){
 					console.log(  "Duration : "+ timeMatches[i] + " ms : " + getMilliseconds(timeMatches[i]) + " %complete : "+ Math.round(((getMilliseconds(timeMatches[i])/totalDurationInMilliSec).toFixed(2) * 100 ))  );
 					console.log(  "Size : "+formatBytes((sizeMatches[i] || 0)*1000));
-				}
 				console.log("----- End of size time log -----");
+				*/
+				var matchSize = Math.max(timeMatches.length, sizeMatches.length);
+				for(var i=0; i< matchSize; i++){
+					cProgressOptions.percent = Math.round(((getMilliseconds(timeMatches[i])/totalDurationInMilliSec).toFixed(2) * 100 ));
+					//cProgressOptions.text = "Size : "+formatBytes((sizeMatches[i] || 0)*1000);
+					$(".progress-text").text("Size : "+formatBytes((sizeMatches[i] || 0)*1000));
+					$(".my-progress-bar").circularProgress(cProgressOptions);
+				}
+				
 			 }
 			 
              
@@ -189,21 +198,19 @@
 			
 			<div class="container3">
 			
-				  <br/>
-				  <div id="videoGeneration">
-				  <br/>
-				  <div class="circle"></div>
-				  <div class="circle1"></div>
-				  <br/>
-				  <label id="waitLabel">Generating video please wait...</label>
-				  <br/>
-				  </div>
-				  <a id="showHideConsole" href="#">Show Console</a>
-				  <br/>
-				  <div id="responseText"></div>
-				  <br/>
-				  
+				<div id="videoGeneration">
+				<div class="my-progress-bar"></div>
+					<br/>
+						<label id="waitLabel">Generating video please wait...</label>
+					<br/>
+				</div>
+				
+				<a id="showHideConsole" href="#">Show Console</a>
+				<br/>
+					<div id="responseText"></div>
+				<br/>
 			</div>
 		</center>
+		
 	</body>
 </html>
