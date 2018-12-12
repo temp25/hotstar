@@ -116,9 +116,11 @@
 				console.log("Total duration : "+totalDuration+" ms : "+totalDurationInMilliSec);
 			 }else{
 				console.log("----- Start of size time log -----");
-				console.log("timeMatches : "+timeMatches.length+" sizeMatches : "+sizeMatches);
-				timeMatches.forEach(item => console.log(  "Duration : "+ item + " ms : " + getMilliseconds(item) + " %complete : "+ Math.round(((getMilliseconds(item)/totalDurationInMilliSec).toFixed(2) * 100 ))  ));
-				sizeMatches.forEach(item => console.log(  "Size : "+formatBytes((item || 0)*1000)) );
+				var matchSize = Math.max(timeMatches.length, sizeMatches.length);
+				for(var i=0; i< matchSize; i++){
+					console.log(  "Duration : "+ timeMatches[i] + " ms : " + getMilliseconds(timeMatches[i]) + " %complete : "+ Math.round(((getMilliseconds(timeMatches[i])/totalDurationInMilliSec).toFixed(2) * 100 ))  );
+					console.log(  "Size : "+formatBytes((sizeMatches[i] || 0)*1000));
+				}
 				console.log("----- End of size time log -----");
 			 }
 			 
