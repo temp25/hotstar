@@ -160,6 +160,7 @@
     // Put percentage or custom text inside progress circle
     function insertText(scope) {
         $(".progress-percentage").text(Math.round(global_settings.percent) + "%");
+		$(".progress-text").text(global_settings.text);
     }
     // create canvas
     function createCanvas(scope) {
