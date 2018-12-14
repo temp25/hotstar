@@ -102,7 +102,7 @@
           function(data) { 
              var msg=data.message;
              var data=msg['data'];
-             var videoId=msg['videoId'];
+             videoId=msg['videoId'];
 			 
 			 //added for testing
 			 var durationRegex = /Duration: (\d{2}:\d{2}:\d{2}.\d{2})/g;
@@ -150,20 +150,56 @@
              	   	   showConfirmButton: false,
              	   	   timer: 2000, //dismiss after 2 seconds
              	   	});
+             	   	var dLinkElement = '<br/><label>Video Link has been generated below</label><br/><br/><label><a href="downloadVideo.php?videoId='+videoId+'">Click Here</a> to download</label>';
+					var options = {
+						files: [],
+
+						// Success is called once all files have been successfully added to the user's
+						// Dropbox, although they may not have synced to the user's devices yet.
+						success: function () {
+							// Indicate to the user that the files have been saved.
+							alert("Success! Files saved to your Dropbox.");
+						},
+
+						// Progress is called periodically to update the application on the progress
+						// of the user's downloads. The value passed to this callback is a float
+						// between 0 and 1. The progress callback is guaranteed to be called at least
+						// once with the value 1.
+						progress: function (progress) {
+							console.log("Dropbox file upload progress : "+progress);
+						},
+
+						// Cancel is called if the user presses the Cancel button or closes the Saver.
+						cancel: function () {
+							alert("Save to Dropbox cancelled.");
+						},
+
+						// Error is called in the event of an unexpected response from the server
+						// hosting the files, such as not being able to find a file. This callback is
+						// also called if there is an error on Dropbox or if the user is over quota.
+						error: function (errorMessage) {
+							alert("Error! Files not saved to your Dropbox.");
+						}
+					};
+					var videoFileName = videoId + ".zip";
+					var button = Dropbox.createSaveButton("https://hotstar-test1.herokuapp.com/"+videoFileName, videoFileName, options);
+					document.getElementById("dbContainer").appendChild(button);
 					
 					$('#videoGeneration').hide();
+					$('#videoUpload').show();
              	   	
-             	   	var dLinkElement = '<br/><label>Video Link has been generated below</label><br/><br/><label><a href="downloadVideo.php?videoId='+videoId+'">Click Here</a> to download</label>';
-             	   	
-             	   $('<br/><br/>'+dLinkElement).appendTo('.container3');
+					$('<br/><br/>'+dLinkElement).appendTo('.container3');
              }
              
           }
        );
 
     });
+	
+	
+	$('#videoUpload').hide();
     
-     
+    
 
 </script>
 	</head>
@@ -208,6 +244,9 @@
 				<br/>
 					<div id="responseText"></div>
 				<br/>
+				<div id="videoUpload">
+					<div id="dbContainer"></div>
+				</div>
 			</div>
 		</center>
 		
