@@ -120,6 +120,11 @@ $(document).ready(function() {
 		  
 	});
 	
+	$.getJSON("https://hotstar-test1.herokuapp.com/getConfigVars.php", function(e) {
+		var dbKey = e.dbKey;
+		$('head').append('<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="'+dbKey+'"></script>');
+	});
+	
 	$('#downloadVideo').click(function () {
 		   //alert("Chosen video format : "+chosenVideoFormat+"\nPlaylist id : "+playlistId+"\nVideo id : "+videoId+"\nVideo URL : "+videoUrl);
 		   
