@@ -1,0 +1,8 @@
+<div ng-controller="HelloController">
+		<h2>{{message}}</h2>
+	</div>
+  <div ng-controller="MyController">
+    <select ng-model="formats" ng-options="key as value for (key , value) in data" ng-change="onFormatChange()">
+      <option id="defFormat" value="">Select a format</option>
+    </select>
+  </div>
