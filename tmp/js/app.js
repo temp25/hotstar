@@ -36,6 +36,7 @@ app.controller("ContainerController", function($scope, $location, $http) {
       console.log("data : "+data+", status : "+status+", xhr : "+xhr);
       var stringifiedData = JSON.stringify(data);
       console.log("stringifiedData : "+stringifiedData);
+	  $location.path('/container2');
     }, "json");
     
     
