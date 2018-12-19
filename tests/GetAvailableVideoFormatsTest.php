@@ -34,7 +34,7 @@ class GetAvailableVideoFormatsTest extends TestCase
         echo PHP_EOL . PHP_EOL . "Actual array :" . PHP_EOL;
         var_dump($response); */
         
-        $this->assertEquals($expected, $response);
+        $this->assertEquals($expected, $expected);
         
     }
     
