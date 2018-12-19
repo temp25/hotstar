@@ -31,7 +31,7 @@ app.controller("ContainerController", function($scope, $location, $http, $timeou
 	var videoUrl = $scope.urlTextBox;
 	
 	$http
-		.post('/getAvailableVideoFormats.php', JSON.stringify({url: videoUrl}))
+		.post('/getAvailableVideoFormats.php', {url: videoUrl})
 		.then(function(data, status, headers, config){
 			//success
 			responsePostData = data;
