@@ -68,7 +68,8 @@ $(document).ready(function() {
 				   playlistId = data["playlistId"];
 				   videoId = data["videoId"];
 				   var availableVideoFormats = data["availableFormats"];
-				   console.log("availableVideoFormats type : "+(typeof availableVideoFormats)+" , availableVideoFormats :\n"+availableVideoFormats);
+				   console.log("typeof data : "+(typeof data)+", data : \n"+data);
+				   //console.log("availableVideoFormats type : "+(typeof availableVideoFormats)+" , availableVideoFormats :\n"+availableVideoFormats);
 				   $.each(data, function(k, v){ 
 					 if(isValidFormat(k)){
 						   //add the maching keys to the dropDown
