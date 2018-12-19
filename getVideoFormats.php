@@ -47,14 +47,14 @@ if ($splitCount > 0) {
         //creating available formats associative array
         $formats["status"]     = "available";
         $formats["playlistId"] = $playlistId;
-		$formats["formats"] = array();
+		$formats["availableFormats"] = array();
         foreach ($formatResult as $key => $value) {
-			$formats["formats"][] = array(
+            $formats[$value[1]] = $value[3];
+			$formats["availableFormats"][] = array(
 				"id" => $value[2],
 				"format_code" => $value[1],
 				"format_resolution" => $value[3]
 			);
-            //$formats[$value[1]] = $value[2];
         }
         
     } else {
