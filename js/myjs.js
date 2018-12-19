@@ -1,5 +1,6 @@
 var cProgressOptions = {};
 var availableVideoFormats;
+var responseData;
 $(document).ready(function() {
 	
 	//var listItems = "<option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option>";
@@ -39,6 +40,7 @@ $(document).ready(function() {
        	
        	  //Response received from server. Dismiss the loader dialog
        	  stopLoading();
+		  responseData = data;
      	     
      	     var stringifiedData = JSON.stringify(data);
           //alert("status : "+status+"\n\ndata : "+stringifiedData+"\n\nxhr : "+xhr);
