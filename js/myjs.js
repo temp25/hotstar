@@ -40,6 +40,7 @@ $(document).ready(function() {
        	  stopLoading();
      	     
      	     var stringifiedData = JSON.stringify(data);
+			 console.log("stringifiedData : "+stringifiedData);
           //alert("status : "+status+"\n\ndata : "+stringifiedData+"\n\nxhr : "+xhr);
           //console.log("status : "+status+"\n\ndata : "+data+"\n\nxhr : "+xhr);
 
