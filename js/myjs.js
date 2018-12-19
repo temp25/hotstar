@@ -67,12 +67,13 @@ $(document).ready(function() {
 				var videoFormats = "";
 				   playlistId = data["playlistId"];
 				   videoId = data["videoId"];
-				   $.each(data, function(k, v){ 
+				   /* $.each(data, function(k, v){ 
 					 if(isValidFormat(k)){
 						   //add the maching keys to the dropDown
 						   videoFormats += "<option value='"+k+"'>"+k+" "+v+"</option>";
 					 }
-				  });
+				  }); */
+				  console.log("data type : "+(typeof data)+" , data :\n"+data);
 				 
 			  }else{
 				  
@@ -89,7 +90,7 @@ $(document).ready(function() {
 				  
 			  }
 			  
-			   $(".videoFormats").append(videoFormats);
+			   //$(".videoFormats").append(videoFormats);
           	   
           	   
           }else{

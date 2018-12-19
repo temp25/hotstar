@@ -42,13 +42,19 @@ if ($splitCount > 0) {
         }
     }
     
-    if (preg_match_all("/(hls-[0-9]+)[\s]*mp4[\s]*([0-9]+x[0-9]+)/", $videoFormatBuffer, $formatResult, PREG_SET_ORDER)) {
+    if (preg_match_all("/(hls-([0-9]+))[\s]*mp4[\s]*([0-9]+x[0-9]+)/", $videoFormatBuffer, $formatResult, PREG_SET_ORDER)) {
         
         //creating available formats associative array
         $formats["status"]     = "available";
         $formats["playlistId"] = $playlistId;
+		$formats["formats"] = array();
         foreach ($formatResult as $key => $value) {
-            $formats[$value[1]] = $value[2];
+			$formats["formats"][] = array(
+				"id" => $value[2],
+				"format_code" => $value[1],
+				"format_resolution" => $value[3]
+			);
+            //$formats[$value[1]] = $value[2];
         }
         
     } else {
