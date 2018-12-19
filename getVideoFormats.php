@@ -47,17 +47,16 @@ if ($splitCount > 0) {
         //creating available formats associative array
         $formats["status"]     = "available";
         $formats["playlistId"] = $playlistId;
-		$tmp = array();
+		$formats["availableFormats"] = array();
         foreach ($formatResult as $key => $value) {
             $formats[$value[1]] = $value[3];
-			$tmp[] = array(
+			
+			$formats["availableFormats"][] = array(
 				"id" => $value[2],
 				"format_code" => $value[1],
 				"format_resolution" => $value[3]
 			);
         }
-		$formats["tmpJsonArray"] = print_r($tmp, true);
-		$formats["formatsArray"] = print_r($formats, true);
         
     } else {
         $formats["status"] = "Video not found in playlist";

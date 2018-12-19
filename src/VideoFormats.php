@@ -74,11 +74,17 @@ class VideoFormats
             $formats['source']     = "ydl";
             $formats['videoId']    = $videoId;
             $formats['playlistId'] = $playlistId;
+			$formats['availableFormats'] = array();
             $formatsQuery          = "./youtube-dl -F " . $videoUrl . " --playlist-items " . $playlistId;
             $formatsBuffer         = shell_exec($formatsQuery);
-            if (preg_match_all("/(hls-[0-9]+)[\s]*mp4[\s]*([0-9]+x[0-9]+)/", $formatsBuffer, $formatsResult, PREG_SET_ORDER)) {
+            if (preg_match_all("/(hls-([0-9]+))[\s]*mp4[\s]*([0-9]+x[0-9]+)/", $formatsBuffer, $formatsResult, PREG_SET_ORDER)) {
                 foreach ($formatsResult as $key => $value) {
-                    $formats[$value[1]] = $value[2];
+                    $formats[$value[1]] = $value[3];
+					$formats["availableFormats"][] = array(
+						"id" => $value[2],
+						"format_code" => $value[1],
+						"format_resolution" => $value[3]
+					);
                 }
             } else {
                 $formats["errorMessage"] = "Error in fetching video formats for the given URL. Error message : " . $errorOutput;

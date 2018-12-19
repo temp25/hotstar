@@ -1,6 +1,4 @@
 var cProgressOptions = {};
-var availableVideoFormats;
-var responseData;
 $(document).ready(function() {
 	
 	//var listItems = "<option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option>";
@@ -40,7 +38,6 @@ $(document).ready(function() {
        	
        	  //Response received from server. Dismiss the loader dialog
        	  stopLoading();
-		  responseData = data;
      	     
      	     var stringifiedData = JSON.stringify(data);
           //alert("status : "+status+"\n\ndata : "+stringifiedData+"\n\nxhr : "+xhr);
@@ -70,9 +67,9 @@ $(document).ready(function() {
 				var videoFormats = "";
 				   playlistId = data["playlistId"];
 				   videoId = data["videoId"];
-				   availableVideoFormats = data["availableFormats"];
-				   console.log("typeof data : "+(typeof data)+", data : \n"+data);
-				   //console.log("availableVideoFormats type : "+(typeof availableVideoFormats)+" , availableVideoFormats :\n"+availableVideoFormats);
+				   var availableVideoFormats = data["availableFormats"];
+				   //console.log("typeof data : "+(typeof data)+", data : \n"+data);
+				   console.log("availableVideoFormats type : "+(typeof availableVideoFormats)+" , availableVideoFormats :\n"+availableVideoFormats);
 				   $.each(data, function(k, v){ 
 					 if(isValidFormat(k)){
 						   //add the maching keys to the dropDown
