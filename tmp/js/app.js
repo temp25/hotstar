@@ -2,7 +2,7 @@ var app = angular.module("app", ["ui.router"]);
 var responsePostData;
 app.config(function($stateProvider, $urlRouterProvider) {
   // For any unmatched url, send to /route1
-  $urlRouterProvider.otherwise("/route2");
+  $urlRouterProvider.otherwise("/route1");
   $stateProvider
     .state('route1', {
         url: "/route1",
