@@ -1,4 +1,5 @@
 var cProgressOptions = {};
+var availableVideoFormats;
 $(document).ready(function() {
 	
 	//var listItems = "<option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option>";
@@ -67,7 +68,7 @@ $(document).ready(function() {
 				var videoFormats = "";
 				   playlistId = data["playlistId"];
 				   videoId = data["videoId"];
-				   var availableVideoFormats = data["availableFormats"];
+				   availableVideoFormats = data["availableFormats"];
 				   console.log("typeof data : "+(typeof data)+", data : \n"+data);
 				   //console.log("availableVideoFormats type : "+(typeof availableVideoFormats)+" , availableVideoFormats :\n"+availableVideoFormats);
 				   $.each(data, function(k, v){ 
