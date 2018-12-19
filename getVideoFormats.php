@@ -50,6 +50,7 @@ if ($splitCount > 0) {
 		$formats["availableFormats"] = array();
         foreach ($formatResult as $key => $value) {
             $formats[$value[1]] = $value[3];
+			
 			$formats["availableFormats"][] = array(
 				"id" => $value[2],
 				"format_code" => $value[1],
