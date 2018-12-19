@@ -1,10 +1,22 @@
-var app = angular.module("app", ["ngRoute"]);
-var videoUrl = "";
-app.controller("HelloController", function($scope) {
-  $scope.message = "Hello, AngularJS";
+var app = angular.module("app", ["ui.router"]);
+app.config(function($stateProvider, $urlRouterProvider) {
+  // For any unmatched url, send to /route1
+  $urlRouterProvider.otherwise("/route2");
+  $stateProvider
+    .state('route1', {
+        url: "/route1",
+        templateUrl: "container1.html",
+        controller: "ContainerController"
+    })
+    .state('route2', {
+        url: "/route2",
+        templateUrl: "container2.html",
+        controller: "ContainerController"
+    });
 });
 
-app.controller("MyController", function($scope) {
+app.controller("ContainerController", function($scope, $location, $timeout) {
+  
   $scope.onFormatChange = function() {
     if ($scope.formats != null) {
       var element = document.getElementById("defFormat");
@@ -12,55 +24,22 @@ app.controller("MyController", function($scope) {
         document.getElementById("defFormat").remove();
     }
   };
-});
-
-app.controller("ContainerController", function($scope, $location, $http) {
-  var _location = $location;
-
-  $scope.data = {
-    "hls-121": "320x180",
-    "hls-241": "320x180",
-    "hls-461": "416x234",
-    "hls-861": "640x360",
-    "hls-1362": "720x404",
-    "hls-2063": "1280x720",
-    "hls-3192": "1600x900",
-    "hls-4694": "1920x1080"
-  };
 
   $scope.fetchFormats = function() {
-    videoUrl = $scope.urlTextBox;
-    console.log('value = '+videoUrl);
-    
-    jQuery.post("/getAvailableVideoFormats.php",{url: videoUrl}, function(data, status, xhr){
-      console.log("data : "+data+", status : "+status+", xhr : "+xhr);
-      var stringifiedData = JSON.stringify(data);
-      console.log("stringifiedData : "+stringifiedData);
-	  $location.path('/container2');
-    }, "json");
-    
-    
-    
+	
+	var videoUrl = $scope.urlTextBox;
+	
+	$http
+		.post('/getAvailableVideoFormats.php', JSON.stringify({url: videoUrl}))
+		.then(function(data, status, headers, config){
+			//success
+			console.log("status : "+status+" data : "+data);
+			$location.path("/route2");
+		}, function(data, status, headers, config){
+			//failure
+			console.log("status : "+status+" data : "+data);
+		});
     
     
   };
-});
-
-app.config(function($routeProvider) {
-  $routeProvider
-    .when("/container1", {
-      templateUrl: "container1.html",
-      controller: "ContainerController"
-    })
-    .when("/container2", {
-      templateUrl: "container2.html",
-      controller: "ContainerController"
-    })
-    .when("/container3", {
-      templateUrl: "container3.html",
-      controller: "ContainerController"
-    })
-    .otherwise({
-      redirectTo: "/container1"
-    });
 });
