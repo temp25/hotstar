@@ -16,7 +16,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     });
 });
 
-app.controller("ContainerController", function($scope, $location, $timeout) {
+app.controller("ContainerController", function($scope, $location, $http, $timeout) {
   
   $scope.onFormatChange = function() {
     if ($scope.formats != null) {
