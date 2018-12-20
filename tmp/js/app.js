@@ -83,5 +83,9 @@ app.controller("Controller2", function($scope, $stateParams, $http, $timeout) {
 			document.getElementById("defFormat").remove();
 		}
 	};
+	
+	$scope.generateVideo = function(){
+		console.log("selectedFormat : "+$scope.selectedFormat);
+	}
   
 });
