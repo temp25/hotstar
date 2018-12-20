@@ -60,7 +60,7 @@ app.controller("Controller2", function($scope, $stateParams, $http, $timeout) {
 	vidFormat.forEach((item) => {
 		console.log("item.id: "+item.id+"__item.format_code: "+item.format_code+"__item.format_resolution: "+item.format_resolution);
 	});
-	/* videoFormats = JSON.parse(JSON.stringify(vidFormat), function(k, v){	
+	videoFormats = JSON.parse(JSON.stringify(vidFormat), function(k, v){	
 		if(k === "id"){
 				if(isNaN(v))
 					return v;
@@ -69,10 +69,10 @@ app.controller("Controller2", function($scope, $stateParams, $http, $timeout) {
 		}
 		return v;
 	});
-	console.log(videoFormats); */
+	console.log(videoFormats);
 	
-	var jsonStringify = JSON.stringify(vidFormat);
-	console.log("jsonStringify : "+jsonStringify+"\n\n");
+	//var jsonStringify = JSON.stringify(vidFormat);
+	//console.log("jsonStringify : "+jsonStringify+"\n\n");
 	
 	$scope.videoFormats = videoFormats;
 	$scope.onFormatChange = function() {
