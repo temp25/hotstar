@@ -60,7 +60,8 @@ app.controller("Controller2", function($scope, $stateParams, $http, $timeout) {
 	//vidFormat.forEach((item) => {
 		//console.log("item.id: "+item.id+"__item.format_code: "+item.format_code+"__item.format_resolution: "+item.format_resolution);
 	//});
-	videoFormats = JSON.parse(JSON.stringify(vidFormat), function(k, v){	
+	
+	/* videoFormats = JSON.parse(JSON.stringify(vidFormat), function(k, v){	
 		if(k === "id"){
 				if(isNaN(v))
 					return v;
@@ -69,21 +70,12 @@ app.controller("Controller2", function($scope, $stateParams, $http, $timeout) {
 		}
 		return v;
 	});
-	console.log(videoFormats);
+	console.log(videoFormats); */
 	
 	//var jsonStringify = JSON.stringify(vidFormat);
 	//console.log("jsonStringify : "+jsonStringify+"\n\n");
 	
-	videoFormats = [{id: 121, format_code: "hls-121", format_resolution: "320x180"},
-	{id: 241, format_code: "hls-241", format_resolution: "320x180"},
-	{id: 461, format_code: "hls-461", format_resolution: "416x234"},
-	{id: 861, format_code: "hls-861", format_resolution: "640x360"},
-	{id: 1362, format_code: "hls-1362", format_resolution: "720x404"},
-	{id: 2063, format_code: "hls-2063", format_resolution: "1280x720"},
-	{id: 3192, format_code: "hls-3192", format_resolution: "1600x900"},
-	{id: 4694, format_code: "hls-4694", format_resolution: "1920x1080"}];
-	
-	$scope.videoFormats = videoFormats;
+	$scope.videoFormats = vidFormat;
 	$scope.onFormatChange = function() {
 		if ($scope.formats != null) {
 		  var element = document.getElementById("defFormat");
