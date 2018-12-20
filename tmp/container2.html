@@ -5,8 +5,8 @@
 </select>
 -->
 <select ng-model="selectedFormat" ng-options="format.format_code as format.format_code+' '+format.format_resolution for format in videoFormats" ng-change="onFormatChange()">
-<option id="defFormat" disabled="disabled" selected="selected">Select a format</option>
+<option id="defFormat" value="" disabled="disabled" selected="selected">Select a format</option>
 </select>
 <br/><br/>
-<button ng-click="generateVideo()">Fetch</button>
+<button ng-click="generateVideo()">Generate Video</button>
 </div>
