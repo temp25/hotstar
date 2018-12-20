@@ -47,7 +47,8 @@ app.controller("ContainerController", function($scope, $location, $http, $timeou
 	$http({
 		url: '/getAvailableVideoFormats.php',
 		method: "POST",
-		data: { 'url' : videoUrl }
+		data: 'url='+videoUrl,
+		headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 	})
 	.then(function(response) {
 		//success
