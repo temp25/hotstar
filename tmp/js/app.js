@@ -30,6 +30,7 @@ app.controller("ContainerController", function($scope, $location, $http, $timeou
 	
 	var videoUrl = $scope.urlTextBox;
 	
+	/*
 	$http
 		.post('/getAvailableVideoFormats.php', {url: videoUrl})
 		.then(function(data, status, headers, config){
@@ -41,6 +42,25 @@ app.controller("ContainerController", function($scope, $location, $http, $timeou
 			//failure
 			console.log("status : "+status+" data : "+data);
 		});
+	*/
+		
+	$http({
+		url: '/getAvailableVideoFormats.php',
+		method: "POST",
+		data: { 'url' : videoUrl }
+	})
+	.then(function(response) {
+		//success
+		responsePostData = data;
+		console.log("status : "+response.status+" data : "+response.data);
+		$location.path("/route2");
+	},
+	function(response) { // optional
+		// failed
+		responsePostData = data;
+		console.log("status : "+response.status+" data : "+response.data);
+		$location.path("/route2");
+    });
     
     
   };
