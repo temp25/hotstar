@@ -1,5 +1,6 @@
 var app = angular.module("app", ["ui.router"]);
 var videoFormats = [];
+var vidFormat = [];
 app.config(function($stateProvider, $urlRouterProvider) {
   // For any unmatched url, send to /route1
   $urlRouterProvider.otherwise("/route1");
@@ -54,7 +55,7 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 
 app.controller("Controller2", function($scope, $stateParams, $http, $timeout) {
 	//SharedLoc.get('container1');
-	var vidFormat = $stateParams.vidFormat;
+	vidFormat = $stateParams.vidFormat;
 	console.log("typeof vidFormat : "+(typeof vidFormat)+"\nvidFormat:\n"+vidFormat);
 	vidFormat.forEach((item) => {
 		console.log("item.id: "+item.id+"__item.format_code: "+item.format_code+"__item.format_resolution: "+item.format_resolution);
