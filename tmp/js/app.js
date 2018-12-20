@@ -51,13 +51,13 @@ app.controller("ContainerController", function($scope, $location, $http, $timeou
 	})
 	.then(function(response) {
 		//success
-		responsePostData = data;
+		responsePostData = response.data;
 		console.log("status : "+response.status+" data : "+response.data);
 		$location.path("/route2");
 	},
 	function(response) { // optional
 		// failed
-		responsePostData = data;
+		responsePostData = response.data;
 		console.log("status : "+response.status+" data : "+response.data);
 		$location.path("/route2");
     });
