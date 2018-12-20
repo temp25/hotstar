@@ -13,7 +13,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         templateUrl: "container2.html",
         controller: "Controller2",
 		params: {
-			'vidFormat': []
+			'videoFormats': []
 		}
     });
 });
@@ -33,11 +33,11 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 	.then(function(response) {
 		//success
 		responsePostData = response.data;
-		$scope.videoFormats = response.data.availableFormats;
+		//$scope.videoFormats = response.data.availableFormats;
 		//SharedLoc.put('container1', $scope);
 		console.log("status : "+response.status+" data : "+response.data);
 		//$location.path("/route2");
-		$state.go("route2", {vidFormat: response.data.availableFormats});
+		$state.go("route2", {videoFormats: response.data.availableFormats});
 	},
 	function(response) { // optional
 		// failed
@@ -53,8 +53,9 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 
 app.controller("Controller2", function($scope, $stateParams, $http, $timeout) {
 	//SharedLoc.get('container1');
-	var vidFormat = $stateParams.vidFormat;
-	console.log("vidFormat = "+vidFormat);
+	//var vidFormat = $stateParams.vidFormat;
+	//console.log("vidFormat = "+vidFormat);
+	$scope.videoFormats = $stateParams.videoFormats;
 	$scope.onFormatChange = function() {
 		if ($scope.formats != null) {
 		  var element = document.getElementById("defFormat");
