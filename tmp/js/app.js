@@ -6,43 +6,24 @@ app.config(function($stateProvider, $urlRouterProvider) {
     .state('route1', {
         url: "/route1",
         templateUrl: "container1.html",
-        controller: "ContainerController"
+        controller: "Controller1"
     })
     .state('route2', {
         url: "/route2",
         templateUrl: "container2.html",
-        controller: "ContainerController"
+        controller: "Controller2",
+		params: {
+			'vidFormat': []
+		}
     });
 });
 
-app.controller("ContainerController", function($scope, $location, $http, $timeout) {
-  
-  $scope.onFormatChange = function() {
-    if ($scope.formats != null) {
-      var element = document.getElementById("defFormat");
-      if (typeof element != "undefined" && element != null)
-        document.getElementById("defFormat").remove();
-    }
-  };
+app.controller("Controller1", function($scope, $state, $http, $timeout) {
 
   $scope.fetchFormats = function() {
 	
 	var videoUrl = $scope.urlTextBox;
-	
-	/*
-	$http
-		.post('/getAvailableVideoFormats.php', {url: videoUrl})
-		.then(function(data, status, headers, config){
-			//success
-			responsePostData = data;
-			console.log("status : "+status+" data : "+data);
-			$location.path("/route2");
-		}, function(data, status, headers, config){
-			//failure
-			console.log("status : "+status+" data : "+data);
-		});
-	*/
-		
+			
 	$http({
 		url: '/getAvailableVideoFormats.php',
 		method: "POST",
@@ -53,16 +34,33 @@ app.controller("ContainerController", function($scope, $location, $http, $timeou
 		//success
 		responsePostData = response.data;
 		$scope.videoFormats = response.data.availableFormats;
+		//SharedLoc.put('container1', $scope);
 		console.log("status : "+response.status+" data : "+response.data);
-		$location.path("/route2");
+		//$location.path("/route2");
+		$state.go("route2", {vidFormat: response.data.availableFormats});
 	},
 	function(response) { // optional
 		// failed
 		responsePostData = response.data;
 		console.log("status : "+response.status+" data : "+response.data);
-		$location.path("/route2");
+		//$location.path("/route2");
     });
     
     
   };
+});
+
+
+app.controller("Controller2", function($scope, $stateParams, $http, $timeout) {
+	//SharedLoc.get('container1');
+	var vidFormat = stateParams.vidFormat;
+	console.log("vidFormat = "+vidFormat);
+	$scope.onFormatChange = function() {
+		if ($scope.formats != null) {
+		  var element = document.getElementById("defFormat");
+		  if (typeof element != "undefined" && element != null)
+			document.getElementById("defFormat").remove();
+		}
+	};
+  
 });
