@@ -56,8 +56,6 @@ app.controller("Controller2", function($scope, $stateParams, $http, $timeout) {
 	//SharedLoc.get('container1');
 	var vidFormat = $stateParams.vidFormat;
 	console.log("typeof vidFormat : "+(typeof vidFormat)+"\nvidFormat:\n"+vidFormat);
-	val jsonStringify = JSON.stringify(vidFormat);
-	console.log("jsonStringify : "+jsonStringify+"\n\n");
 	vidFormat.forEach((item) => {
 		console.log("item.id: "+item.id+"__item.format_code: "+item.format_code+"__item.format_resolution: "item.format_resolution);
 	});
@@ -71,6 +69,10 @@ app.controller("Controller2", function($scope, $stateParams, $http, $timeout) {
 		return v;
 	});
 	console.log(videoFormats); */
+	
+	val jsonStringify = JSON.stringify(vidFormat);
+	console.log("jsonStringify : "+jsonStringify+"\n\n");
+	
 	$scope.videoFormats = videoFormats;
 	$scope.onFormatChange = function() {
 		if ($scope.formats != null) {
