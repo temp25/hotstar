@@ -53,7 +53,7 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 
 app.controller("Controller2", function($scope, $stateParams, $http, $timeout) {
 	//SharedLoc.get('container1');
-	var vidFormat = stateParams.vidFormat;
+	var vidFormat = $stateParams.vidFormat;
 	console.log("vidFormat = "+vidFormat);
 	$scope.onFormatChange = function() {
 		if ($scope.formats != null) {
