@@ -1,5 +1,4 @@
 var app = angular.module("app", ["ui.router"]);
-var responsePostData;
 app.config(function($stateProvider, $urlRouterProvider) {
   // For any unmatched url, send to /route1
   $urlRouterProvider.otherwise("/route1");
@@ -53,6 +52,7 @@ app.controller("ContainerController", function($scope, $location, $http, $timeou
 	.then(function(response) {
 		//success
 		responsePostData = response.data;
+		$scope.videoFormats = response.data.availableFormats;
 		console.log("status : "+response.status+" data : "+response.data);
 		$location.path("/route2");
 	},
