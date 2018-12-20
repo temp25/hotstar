@@ -1,5 +1,5 @@
 <div>
 <select ng-model="formats" ng-options="opt.id as opt.format_resolution for opt in videoFormats" ng-change="onFormatChange()">
-  <option id="defFormat" value="">Select a format</option>
+  <option id="defFormat" value="" disabled="disabled" selected="selected">Select a format</option>
 </select>
 </div>

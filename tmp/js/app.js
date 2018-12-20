@@ -1,4 +1,6 @@
 var app = angular.module("app", ["ui.router"]);
+var jsonArray = [];
+var jsonStringifiedArray = [];
 app.config(function($stateProvider, $urlRouterProvider) {
   // For any unmatched url, send to /route1
   $urlRouterProvider.otherwise("/route1");
@@ -53,8 +55,14 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 
 app.controller("Controller2", function($scope, $stateParams, $http, $timeout) {
 	//SharedLoc.get('container1');
-	//var vidFormat = $stateParams.vidFormat;
-	//console.log("vidFormat = "+vidFormat);
+	var vidFormat = $stateParams.vidFormat;
+	console.log("vidFormat="+vidFormat);
+	jsonArray = JSON.parse(vidFormat);
+	console.log("jsonArray : ");
+	console.log(jsonArray);
+	jsonStringifiedArray = JSON.parse(JSON.stringify(vidFormat));
+	console.log("jsonStringifiedArray : ");
+	console.log(jsonStringifiedArray);
 	$scope.videoFormats = $stateParams.videoFormats;
 	$scope.onFormatChange = function() {
 		if ($scope.formats != null) {
