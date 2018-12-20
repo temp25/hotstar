@@ -38,7 +38,7 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 		//SharedLoc.put('container1', $scope);
 		console.log("status : "+response.status+" data : "+response.data);
 		//$location.path("/route2");
-		$state.go("route2", {videoFormats: response.data.availableFormats});
+		$state.go("route2", {videoFormats: response.data.availableFormats}, {location:false});
 	},
 	function(response) { // optional
 		// failed
@@ -70,7 +70,7 @@ app.controller("Controller2", function($scope, $stateParams, $http, $timeout) {
 	});
 	console.log(videoFormats); */
 	
-	val jsonStringify = JSON.stringify(vidFormat);
+	var jsonStringify = JSON.stringify(vidFormat);
 	console.log("jsonStringify : "+jsonStringify+"\n\n");
 	
 	$scope.videoFormats = videoFormats;
