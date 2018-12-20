@@ -38,7 +38,7 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 		//SharedLoc.put('container1', $scope);
 		console.log("status : "+response.status+" data : "+response.data);
 		//$location.path("/route2");
-		$state.go("route2", {videoFormats: response.data.availableFormats}, {location:false});
+		$state.go("route2", {videoFormats: response.data.availableFormats});
 	},
 	function(response) { // optional
 		// failed
