@@ -1,6 +1,5 @@
 var app = angular.module("app", ["ui.router"]);
-var jsonArray = [];
-var jsonStringifiedArray = [];
+var videoFormats = [];
 app.config(function($stateProvider, $urlRouterProvider) {
   // For any unmatched url, send to /route1
   $urlRouterProvider.otherwise("/route1");
@@ -56,14 +55,17 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 app.controller("Controller2", function($scope, $stateParams, $http, $timeout) {
 	//SharedLoc.get('container1');
 	var vidFormat = $stateParams.vidFormat;
-	console.log("vidFormat="+vidFormat);
-	jsonArray = JSON.parse(vidFormat);
-	console.log("jsonArray : ");
-	console.log(jsonArray);
-	jsonStringifiedArray = JSON.parse(JSON.stringify(vidFormat));
-	console.log("jsonStringifiedArray : ");
-	console.log(jsonStringifiedArray);
-	$scope.videoFormats = $stateParams.videoFormats;
+	videoFormats = JSON.parse(JSON.stringify(vidFormat), function(k, v){	
+		if(k === "id"){
+				if(isNaN(v))
+					return v;
+				else
+					return parseInt(v, 10);
+		}
+		return v;
+	});
+	console.log(videoFormats);
+	$scope.videoFormats = videoFormats;
 	$scope.onFormatChange = function() {
 		if ($scope.formats != null) {
 		  var element = document.getElementById("defFormat");
