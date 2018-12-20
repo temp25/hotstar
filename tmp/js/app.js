@@ -57,7 +57,7 @@ app.controller("Controller2", function($scope, $stateParams, $http, $timeout) {
 	var vidFormat = $stateParams.vidFormat;
 	console.log("typeof vidFormat : "+(typeof vidFormat)+"\nvidFormat:\n"+vidFormat);
 	vidFormat.forEach((item) => {
-		console.log("item.id: "+item.id+"__item.format_code: "+item.format_code+"__item.format_resolution: "item.format_resolution);
+		console.log("item.id: "+item.id+"__item.format_code: "+item.format_code+"__item.format_resolution: "+item.format_resolution);
 	});
 	/* videoFormats = JSON.parse(JSON.stringify(vidFormat), function(k, v){	
 		if(k === "id"){
