@@ -12,7 +12,10 @@ var pusherEventCallback = function(event){
 	var message = event.message;
 	var data = message['data'];
 	var videoId = message['videoId'];
-	document.querySelector('#responseText').innerHTML += data+"<br/>";
+	var consoleElement = document.querySelector('#responseText');
+	if (typeof consoleElement != "undefined" && consoleElement != null){
+		consoleElement.innerHTML += data+"<br/>";
+	}			
 };
 
 var request = new XMLHttpRequest();
