@@ -3,13 +3,10 @@ var ipAddr_userAgent = "";
 
 // Enable pusher logging - don't include this in production 
 Pusher.logToConsole = true; 
-var pusher = new Pusher(
-   'a44d3a9ebac525080cf1', 
-	{ 
-	   cluster: 'ap2', 
-	   encrypted: true 
-	}
-);
+var pusher = new Pusher('a44d3a9ebac525080cf1', {
+  cluster: 'ap2',
+  forceTLS: true
+});
 
 var pusherEventCallback = function(event){
 	var message = event.message;

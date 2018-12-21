@@ -147,11 +147,15 @@ function sendProgressToClient($progress, $ipAddr_userAgent)
 {
     
     $options = array(
-        'cluster' => 'ap2',
-        'encrypted' => true
-    );
-    
-    $pusher = new Pusher\Pusher('a44d3a9ebac525080cf1', '37da1edfa06cf988f19f', '505386', $options);
+		'cluster' => 'ap2',
+		'useTLS' => true
+	);
+	$pusher = new Pusher\Pusher(
+		'a44d3a9ebac525080cf1',
+		'37da1edfa06cf988f19f',
+		'505386',
+		$options
+	);
     
     $message['message'] = $progress;
     
