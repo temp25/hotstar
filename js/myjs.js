@@ -215,6 +215,7 @@ $(document).ready(function() {
 		 swal({
 		 	  type: 'success',
 		 	  title: successMessage,
+			  allowOutsideClick: () => false,
 		 	  showConfirmButton: false,
 		 	  timer: 2000, //dismiss after 2 seconds
 		 });
@@ -223,6 +224,7 @@ $(document).ready(function() {
 	function showErrorDialog(errorMessage){
 		swal({
 			type: 'error',
+			allowOutsideClick: () => false,
 			title: 'Error in fetching the video format',
 			text: errorMessage,
 			footer: 'Try again with valid video URL',

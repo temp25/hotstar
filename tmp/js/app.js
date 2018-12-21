@@ -15,6 +15,7 @@ var pusherEventCallback = function(event){
 	var consoleElement = document.querySelector('#responseText');
 	if (typeof consoleElement != "undefined" && consoleElement != null){
 		consoleElement.innerHTML += data+"<br/>";
+		consoleElement.scrollTop = consoleElement.scrollHeight; 
 	}			
 };
 
@@ -72,6 +73,7 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
   $scope.fetchFormats = function() {
 	
 	var videoUrl = $scope.urlTextBox;
+	showLoading();
 			
 	$http({
 		url: 'http://hotstar-test1.herokuapp.com/tmp/getAvailableVideoFormats.php',
@@ -81,17 +83,23 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 	})
 	.then(function(response) {
 		//success
-		responsePostData = response.data;
-		$state.go("route2", {
-			url: videoUrl,
-			source: response.data.source,
-			videoFormats: response.data.availableFormats,
-			videoId: response.data.videoId,
-			playlistId: response.data.playlistId
-		});
+		stopLoading();
+		if(response.data.status === "true"){
+			showSuccessDialog("Located video in the playlist for the given url"); 
+			$state.go("route2", {
+				url: videoUrl,
+				source: response.data.source,
+				videoFormats: response.data.availableFormats,
+				videoId: response.data.videoId,
+				playlistId: response.data.playlistId
+			});			
+		}else{
+			showErrorDialog(response.data.errorMessage);
+		}
+		
 	},
 	function(response) { // optional
-		console.error("Error occured in getting available video formats");
+		showErrorDialog(response.data);
     });
     
     
@@ -109,8 +117,6 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 	};
 	
 	$scope.generateVideo = function(){
-		console.log("selectedFormat : "+$scope.selectedFormat);
-		
 		$http({
 			url: 'http://hotstar-test1.herokuapp.com/tmp/generateVideo.php',
 			method: "POST",
@@ -147,3 +153,38 @@ app.controller("Controller3", function($scope, $stateParams, $http, $timeout) {
 	};
 	
 });
+
+
+function showSuccessDialog(successMessage){
+	 swal({
+		  type: 'success',
+		  title: successMessage,
+		  allowOutsideClick: () => false,
+		  showConfirmButton: false,
+		  timer: 2000, //dismiss after 2 seconds
+	 });
+}
+
+function showErrorDialog(errorMessage){
+	swal({
+		type: 'error',
+		allowOutsideClick: () => false,
+		title: 'Error in fetching the video format',
+		text: errorMessage,
+		footer: 'Try again with valid video URL',
+	});
+}
+
+function showLoading(){
+	swal({
+		title: 'Fetching available video formats',
+		allowOutsideClick: () => false,
+		onOpen: () => {
+			   swal.showLoading();
+		}
+	});
+}
+
+function stopLoading(){
+	swal.close();
+}
