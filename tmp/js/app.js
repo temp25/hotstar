@@ -146,4 +146,4 @@ app.controller("Controller3", function($scope, $stateParams, $http, $timeout) {
 		$scope.showHideText = $scope.consoleVisibility ? "Hide Console" : "Show Console";
 	};
 	
-}
+});
