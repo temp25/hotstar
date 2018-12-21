@@ -23,6 +23,7 @@ request.open('GET', 'https://api.ipify.org/?format=json', true);
 request.onload = function() {
   if (request.status >= 200 && request.status < 400) {
     var data = JSON.parse(request.responseText);
+	var channel = pusher.subscribe('hotstar-video-download-v1'); 
 	ipAddr_userAgent = data.ip+"_"+navigator.userAgent;
 	channel.bind(ipAddr_userAgent, pusherEventCallback);
   } else {
