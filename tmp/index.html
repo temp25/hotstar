@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<body ng-app="app" style="background: #333;">
-<!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<!-- Angular -->
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script> -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.8/angular.min.js"></script>
-  <!-- UI-Router -->
-  <!-- <script src="https://angular-ui.github.io/ui-router/release/angular-ui-router.js"></script> -->
-  <script src="//unpkg.com/@uirouter/angularjs@1.0.7/release/angular-ui-router.min.js"></script>
+<head>
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<!-- Angular -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.8/angular.min.js"></script>
+	<!-- UI-Router -->
+	<script src="//unpkg.com/@uirouter/angularjs@1.0.7/release/angular-ui-router.min.js"></script>
 
-<!-- Sweetalert2 js and css-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.32.4/sweetalert2.all.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.32.4/sweetalert2.min.css"/>
-<script src="js/app.js"></script>
+	<!-- Sweetalert2 js and css -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.32.4/sweetalert2.all.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.32.4/sweetalert2.min.css"/>
+	
+	<!-- Pusher API -->
+	<script src="https://js.pusher.com/4.3/pusher.min.js"></script>
+	
+	<script src="js/app.js"></script>
+</head>
+<body ng-app="app" style="background: #333;">
 
 <div ui-view>
 </div>
