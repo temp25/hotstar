@@ -79,7 +79,7 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 			source: response.data.source,
 			videoFormats: response.data.availableFormats,
 			videoId: response.data.videoId,
-			playlistId: playlistId
+			playlistId: response.data.playlistId
 		});
 	},
 	function(response) { // optional
