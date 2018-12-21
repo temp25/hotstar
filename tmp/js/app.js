@@ -124,7 +124,7 @@ app.controller("Controller2", function($scope, $stateParams, $http, $timeout) {
 		})
 		.then(function(response) {
 			console.log("generateVideo request completed successfully "+response.data);
-			$state.go("route3", {
+			$stateParams.go("route3", {
 				videoId: $stateParams.videoId
 			});
 		},
