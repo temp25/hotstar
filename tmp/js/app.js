@@ -111,7 +111,7 @@ app.controller("Controller2", function($scope, $stateParams, $http, $timeout) {
 			'&playlistId=' + $stateParams.playlistId +
 			'&videoId=' + $stateParams.videoId +
 			'&videoFormat=' + $scope.selectedFormat +
-			'uniqueId=' + ipAddr_userAgent,
+			'&uniqueId=' + ipAddr_userAgent,
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		})
 		.then(function(response) {
