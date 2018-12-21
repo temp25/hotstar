@@ -66,7 +66,7 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 	var videoUrl = $scope.urlTextBox;
 			
 	$http({
-		url: '/getAvailableVideoFormats.php',
+		url: 'http://hotstar-test1.herokuapp.com/tmp/getAvailableVideoFormats.php',
 		method: "POST",
 		data: 'url='+videoUrl,
 		headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -104,13 +104,14 @@ app.controller("Controller2", function($scope, $stateParams, $http, $timeout) {
 		console.log("selectedFormat : "+$scope.selectedFormat);
 		
 		$http({
-			url: '/generateVideo.php',
+			url: 'http://hotstar-test1.herokuapp.com/tmp/generateVideo.php',
 			method: "POST",
 			data:  'src=' + $stateParams.source +
 			'&videoUrl=' + $stateParams.url + 
 			'&playlistId=' + $stateParams.playlistId +
 			'&videoId=' + $stateParams.videoId +
-			'&videoFormat=' + $scope.selectedFormat,
+			'&videoFormat=' + $scope.selectedFormat +
+			'uniqueId=' + ipAddr_userAgent,
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		})
 		.then(function(response) {
