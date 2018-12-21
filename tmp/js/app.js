@@ -99,7 +99,7 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 });
 
 
-app.controller("Controller2", function($scope, $stateParams, $http, $timeout) {
+app.controller("Controller2", function($scope, $state, $stateParams, $http, $timeout) {
 	$scope.videoFormats = $stateParams.videoFormats;
 	
 	$scope.onFormatChange = function() {
@@ -124,7 +124,7 @@ app.controller("Controller2", function($scope, $stateParams, $http, $timeout) {
 		})
 		.then(function(response) {
 			console.log("generateVideo request completed successfully "+response.data);
-			$stateParams.go("route3", {
+			$state.go("route3", {
 				videoId: $stateParams.videoId
 			});
 		},
