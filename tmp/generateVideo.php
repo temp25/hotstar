@@ -16,7 +16,14 @@ if (isset($_POST['src'])) {
     $playlistId       = $_POST['playlistId'];
     $videoId          = $_POST['videoId'];
     
-    respondOK();
+    respondOK("for User Agent : "+$ipAddr_userAgent);
+	
+	$progress = array();
+	$progress['videoId']	= $videoId;
+    $progress['data']		= nl2br($data);
+	$progress['playlistId']	= $playlistId;
+	$progress['videoUrl']	= $videoUrl;
+	sendProgressToClient($progress, $ipAddr_userAgent);
     
     if ($src === "ydl") {
         

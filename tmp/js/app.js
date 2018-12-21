@@ -114,7 +114,7 @@ app.controller("Controller2", function($scope, $stateParams, $http, $timeout) {
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		})
 		.then(function(response) {
-			console.log("generateVideo request completed successfully");
+			console.log("generateVideo request completed successfully "+response.data);
 		},
 		function(response) { // optional
 			console.error("Error occured in generateVideo request completion");
