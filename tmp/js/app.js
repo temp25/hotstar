@@ -1,6 +1,4 @@
 var app = angular.module("app", ["ui.router"]);
-var videoFormats = [];
-var vidFormat = [];
 app.config(function($stateProvider, $urlRouterProvider) {
   // For any unmatched url, send to /route1
   $urlRouterProvider.otherwise("/route1");
@@ -51,11 +49,9 @@ app.controller("Controller2", function($scope, $stateParams, $http, $timeout) {
 	$scope.videoFormats = $stateParams.videoFormats;
 	
 	$scope.onFormatChange = function() {
-		if ($scope.formats != null) {
-		  var element = document.getElementById("defFormat");
-		  if (typeof element != "undefined" && element != null)
-			document.getElementById("defFormat").remove();
-		}
+		var element = document.getElementById("defFormat");
+		if (typeof element != "undefined" && element != null)
+			element.remove();
 	};
 	
 	$scope.generateVideo = function(){
