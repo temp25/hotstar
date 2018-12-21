@@ -15,7 +15,7 @@ var pusherEventCallback = function(event){
 	var message = event.message;
 	var data = message['data'];
 	var videoId = message['videoId'];
-	console.log("Event : "+event);
+	document.querySelector('#responseText').innerHTML += data+"<br/>";
 };
 
 var request = new XMLHttpRequest();
@@ -55,6 +55,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			'videoFormats': [],
 			'videoId': '',
 			'playlistId': ''
+		}
+    })
+	.state('route3', {
+        url: "/route3",
+        templateUrl: "container3.html",
+        controller: "Controller3",
+		params: {
+			'videoId': ''
 		}
     });
 });
@@ -116,10 +124,26 @@ app.controller("Controller2", function($scope, $stateParams, $http, $timeout) {
 		})
 		.then(function(response) {
 			console.log("generateVideo request completed successfully "+response.data);
+			$state.go("route3", {
+				videoId: $stateParams.videoId
+			});
 		},
 		function(response) { // optional
 			console.error("Error occured in generateVideo request completion");
 		});
-	}
+	};
 	
 });
+
+
+app.controller("Controller3", function($scope, $stateParams, $http, $timeout) {
+	
+	$scope.consoleVisibility = false;
+	$scope.showHideText = "Show Console";
+	
+	$scope.showHideConsole = function(){
+		$scope.consoleVisibility = !$scope.consoleVisibility;
+		$scope.showHideText = $scope.consoleVisibility ? "Hide Console" : "Show Console";
+	};
+	
+}
