@@ -1,5 +1,6 @@
 var app = angular.module("app", ["ui.router"]);
 var ipAddr_userAgent = "";
+var pageUrl="";
 var cProgressOptions = {
 	line_width: 6,
 	color: "#e08833",
@@ -73,7 +74,7 @@ var pusherEventCallback = function(event){
 					alert("Error occurred in saving your file to Dropbox.");
 				}
 			};
-			var dbSaveBtn = Dropbox.createSaveButton("https://hotstar-test1.herokuapp.com/"+videoFileName, videoFileName, options);
+			var dbSaveBtn = Dropbox.createSaveButton(pageUrl+videoFileName, videoFileName, options);
 			dbContainer.appendChild(dbSaveBtn);
 		}
 	}			
@@ -137,7 +138,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 app.controller("Controller1", function($scope, $state, $http, $timeout) {
 	
-	var pageUrl = window.location.href.replace("index.html", "");
+	pageUrl = window.location.href.replace("index.html", "");
 	if(pageUrl[pageUrl.length-1] != "/"){
 		pageUrl += "/";
 	}
