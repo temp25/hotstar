@@ -122,6 +122,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 app.controller("Controller1", function($scope, $state, $http, $timeout) {
 	
+	var absUrl = $location.absUrl();
+	console.log("absUrl : "+absUrl);
+	
 	jQuery.getJSON("https://hotstar-test1.herokuapp.com/getConfigVars.php", function(e) {
 		var dbKey = e.dbKey;
 		jQuery('head').append('<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="'+dbKey+'"></script>');
