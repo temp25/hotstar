@@ -20,8 +20,6 @@ var pusher = new Pusher('a44d3a9ebac525080cf1', {
   forceTLS: true
 });
 
-jQuery(".my-progress-bar").circularProgress(cProgressOptions);
-
 function populateCompletionProgress(data){
 	var timeMatches = getMatches(data, timeRegex, 1);
 	var sizeMatches = getMatches(data, sizeRegex, 1);
@@ -29,7 +27,7 @@ function populateCompletionProgress(data){
 		var durationMatches = getMatches(data, durationRegex, 1);
 		var totalDuration = durationMatches[0];
 		totalDurationInMilliSec = getMilliseconds(totalDuration);
-		console.log("Total duration : "+totalDuration+" ms : "+totalDurationInMilliSec);
+		//console.log("Total duration : "+totalDuration+" ms : "+totalDurationInMilliSec);
 	 }else{
 		var matchSize = Math.max(timeMatches.length, sizeMatches.length);
 		for(var i=0; i< matchSize; i++){
@@ -85,6 +83,7 @@ request.send();
 
 
 app.config(function($stateProvider, $urlRouterProvider) {
+	
   // For any unmatched url, send to /route1
   $urlRouterProvider.otherwise("/route1");
   $stateProvider
@@ -190,6 +189,8 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 
 
 app.controller("Controller3", function($scope, $stateParams, $http, $timeout) {
+	
+	jQuery(".my-progress-bar").circularProgress(cProgressOptions);
 	
 	$scope.consoleVisibility = false;
 	$scope.showHideText = "Show Console";
