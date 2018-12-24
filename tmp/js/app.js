@@ -1,12 +1,37 @@
 var app = angular.module("app", ["ui.router"]);
 var ipAddr_userAgent = "";
+var cProgressOptions = {};
+var durationRegex = /Duration: (\d{2}:\d{2}:\d{2}.\d{2})/g;
+var timeRegex = /time=(\d{2}:\d{2}:\d{2}\.\d{2})/g;
+var sizeRegex = /size=\s*(\d+)kB/g;
 
 // Enable pusher logging - don't include this in production 
-Pusher.logToConsole = true; 
+Pusher.logToConsole = false; 
 var pusher = new Pusher('a44d3a9ebac525080cf1', {
   cluster: 'ap2',
   forceTLS: true
 });
+
+function populateCompletionProgress(data){
+	var timeMatches = getMatches(data, timeRegex, 1);
+	var sizeMatches = getMatches(data, sizeRegex, 1);
+	if(data.indexOf("Duration") > -1 ){
+		var durationMatches = getMatches(data, durationRegex, 1);
+		var totalDuration = durationMatches[0];
+		totalDurationInMilliSec = getMilliseconds(totalDuration);
+		console.log("Total duration : "+totalDuration+" ms : "+totalDurationInMilliSec);
+	 }else{
+		var matchSize = Math.max(timeMatches.length, sizeMatches.length);
+		for(var i=0; i< matchSize; i++){
+			console.log("% complete : "+Math.round(((getMilliseconds(timeMatches[i])/totalDurationInMilliSec).toFixed(2) * 100 )));
+			console.log("Size : "+formatBytes((sizeMatches[i] || 0)*1000));
+			//cProgressOptions.percent = Math.round(((getMilliseconds(timeMatches[i])/totalDurationInMilliSec).toFixed(2) * 100 ));
+			//cProgressOptions.text = "Size : "+formatBytes((sizeMatches[i] || 0)*1000);
+			//$(".my-progress-bar").circularProgress(cProgressOptions);
+		}
+		
+	 }
+}
 
 var pusherEventCallback = function(event){
 	var message = event.message;
@@ -16,9 +41,15 @@ var pusherEventCallback = function(event){
 	if (typeof consoleElement != "undefined" && consoleElement != null){
 		consoleElement.innerHTML += data+"<br/>";
 		consoleElement.scrollTop = consoleElement.scrollHeight;
-		var isVideoGenerationComplete = data.indexOf('Video generation complete') > -1;
-		if(isVideoGenerationComplete){
-			console.log("Download complete");
+		
+		populateCompletionProgress(data);
+		
+		if(data.indexOf('Video generation complete') > -1){
+			//console.log("Download complete");
+			//var generationElement = document.querySelector('#videoGeneration');
+			//if (typeof generationElement != "undefined" && generationElement != null){
+			//	generationElement.remove();
+			//}
 		}
 	}			
 };
@@ -191,4 +222,32 @@ function showLoading(){
 
 function stopLoading(){
 	swal.close();
+}
+
+
+function getMatches(string, regex, index) {
+  index || (index = 1); // default to the first capturing group
+  var matches = [];
+  var match;
+  while (match = regex.exec(string)) {
+	matches.push(match[index]);
+  }
+  return matches;
+}
+
+function getMilliseconds(timeStr){
+	var time = timeStr.split(/\.|:/);
+	var hh = time[0];
+	var mm = time[1];
+	var ss = time[2];
+	var milliSec = time[3];
+	var total = (hh * 60 * 60 * 1000) + (mm * 60 * 1000) + (ss * 1000) + milliSec;
+	return total;
+}
+
+function formatBytes(a,b){
+	if(0 == a)
+		return"0 Bytes";
+	var c=1000/*Since base 10 values*/, d=b||2, e=["Bytes","KB","MB","GB","TB","PB","EB","ZB","YB"], f= Math.floor(Math.log(a)/Math.log(c)); 
+	return parseFloat((a/Math.pow(c,f)).toFixed(d))+" "+e[f]
 }
