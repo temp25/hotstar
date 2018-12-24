@@ -1,6 +1,14 @@
 var app = angular.module("app", ["ui.router"]);
 var ipAddr_userAgent = "";
-var cProgressOptions = {};
+var cProgressOptions = {
+	line_width: 6,
+	color: "#e08833",
+	starting_position: 0, // 12.00 o' clock position, 25 stands for 3.00 o'clock (clock-wise)
+	percent: 0, // percent starts from
+	percentage: true,
+	text: "Size : N/A"
+};
+var totalDurationInMilliSec = 0;
 var durationRegex = /Duration: (\d{2}:\d{2}:\d{2}.\d{2})/g;
 var timeRegex = /time=(\d{2}:\d{2}:\d{2}\.\d{2})/g;
 var sizeRegex = /size=\s*(\d+)kB/g;
@@ -11,6 +19,8 @@ var pusher = new Pusher('a44d3a9ebac525080cf1', {
   cluster: 'ap2',
   forceTLS: true
 });
+
+jQuery(".my-progress-bar").circularProgress(cProgressOptions);
 
 function populateCompletionProgress(data){
 	var timeMatches = getMatches(data, timeRegex, 1);
@@ -23,11 +33,11 @@ function populateCompletionProgress(data){
 	 }else{
 		var matchSize = Math.max(timeMatches.length, sizeMatches.length);
 		for(var i=0; i< matchSize; i++){
-			console.log("% complete : "+Math.round(((getMilliseconds(timeMatches[i])/totalDurationInMilliSec).toFixed(2) * 100 )));
-			console.log("Size : "+formatBytes((sizeMatches[i] || 0)*1000));
-			//cProgressOptions.percent = Math.round(((getMilliseconds(timeMatches[i])/totalDurationInMilliSec).toFixed(2) * 100 ));
-			//cProgressOptions.text = "Size : "+formatBytes((sizeMatches[i] || 0)*1000);
-			//$(".my-progress-bar").circularProgress(cProgressOptions);
+			//console.log("% complete : "+Math.round(((getMilliseconds(timeMatches[i])/totalDurationInMilliSec).toFixed(2) * 100 )));
+			//console.log("Size : "+formatBytes((sizeMatches[i] || 0)*1000));
+			cProgressOptions.percent = Math.round(((getMilliseconds(timeMatches[i])/totalDurationInMilliSec).toFixed(2) * 100 ));
+			cProgressOptions.text = "Size : "+formatBytes((sizeMatches[i] || 0)*1000);
+			jQuery(".my-progress-bar").circularProgress(cProgressOptions);
 		}
 		
 	 }
@@ -46,10 +56,10 @@ var pusherEventCallback = function(event){
 		
 		if(data.indexOf('Video generation complete') > -1){
 			//console.log("Download complete");
-			//var generationElement = document.querySelector('#videoGeneration');
-			//if (typeof generationElement != "undefined" && generationElement != null){
-			//	generationElement.remove();
-			//}
+			var generationElement = document.querySelector('#videoGeneration');
+			if (typeof generationElement != "undefined" && generationElement != null){
+				generationElement.remove();
+			}
 		}
 	}			
 };
