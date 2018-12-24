@@ -15,6 +15,8 @@ if (isset($_POST['src'])) {
     $videoUrl         = $_POST['videoUrl'];
     $playlistId       = $_POST['playlistId'];
     $videoId          = $_POST['videoId'];
+    
+    respondOK();
 	
 	$progress = array();
 	$progress['videoId']	= $videoId;
