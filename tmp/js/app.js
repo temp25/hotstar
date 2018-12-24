@@ -57,9 +57,11 @@ var pusherEventCallback = function(event){
 		if(data.indexOf('Video generation complete') > -1){
 			//console.log("Download complete");
 			var generationElement = document.querySelector('#videoGeneration');
+			var dLinkElement = angular.element('<br/><label>Video Link has been generated below</label><br/><br/><label><a href="downloadVideo.php?videoId='+videoId+'">Click Here</a> to download</label>');
 			if (typeof generationElement != "undefined" && generationElement != null){
 				generationElement.remove();
 			}
+			angular.element(document.getElementById("dbContainer")).append(dLinkElement);
 		}
 	}			
 };
