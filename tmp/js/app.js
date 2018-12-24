@@ -122,11 +122,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 app.controller("Controller1", function($scope, $state, $http, $timeout) {
 	
-	console.log(window.location);
-	console.log(window.location.href);
-	console.log(window.location.origin);
+	var pageUrl = window.location.href.replace("index.html", "");
+	if(pageUrl[pageUrl.length-1] != "/"){
+		pageUrl += "/";
+	}
 	
-	jQuery.getJSON("https://hotstar-test1.herokuapp.com/getConfigVars.php", function(e) {
+	jQuery.getJSON(pageUrl+"getConfigVars.php", function(e) {
 		var dbKey = e.dbKey;
 		jQuery('head').append('<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="'+dbKey+'"></script>');
 	});
