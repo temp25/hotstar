@@ -85,7 +85,13 @@ request.send();
 app.config(function($stateProvider, $urlRouterProvider) {
 	
   // For any unmatched url, send to /route1
-  $urlRouterProvider.otherwise("/route1");
+	$urlRouterProvider.otherwise(function($injector){
+		$injector.invoke(['$state', function($state) {
+			$state.go('route1', {}, { location: false } );
+		}]);
+	});
+  //$urlRouterProvider.otherwise("/route1", {}, { location: false });
+  
   $stateProvider
     .state('route1', {
         url: "/route1",
@@ -143,7 +149,7 @@ app.controller("Controller1", function($scope, $state, $http, $timeout) {
 				videoFormats: response.data.availableFormats,
 				videoId: response.data.videoId,
 				playlistId: response.data.playlistId
-			});			
+			}, { location: false });			
 		}else{
 			showErrorDialog(response.data.errorMessage);
 		}
@@ -183,7 +189,7 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 			console.log("generateVideo request completed successfully "+response.data);
 			$state.go("route3", {
 				videoId: $stateParams.videoId
-			});
+			}, { location: false });
 		},
 		function(response) { // optional
 			console.error("Error occured in generateVideo request completion");
