@@ -196,7 +196,7 @@ app.controller("Controller2", function($scope, $state, $stateParams, $http, $tim
 	
 	$scope.generateVideo = function(){
 		$http({
-			url: 'http://hotstar-test1.herokuapp.com/tmp/generateVideo.php',
+			url: pageUrl+'generateVideo.php',
 			method: "POST",
 			data:  'src=' + $stateParams.source +
 			'&videoUrl=' + $stateParams.url + 
