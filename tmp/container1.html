@@ -1,12 +1,7 @@
-<div>
-  <label>Enter Video URL</label>
-  <br />
-
-  <input id="url" type="text" ng-model="urlTextBox" />
-
-  <br />
-
-  <br />
-
-  <button id="videoFormatGenerator" ng-click="fetchFormats()">Fetch</button>
+<div class="container1">  
+ 
+		<input type="text" placeholder="Enter your video url here" ng-model="urlTextBox">
+    <hr>
+    <a href="" class="square_btn" ng-keyup="$event.keyCode == 13 ? fetchFormats() : null" ng-click="fetchFormats()">Fetch Video</a>
+ 
 </div>

@@ -27,17 +27,13 @@ function populateCompletionProgress(data){
 		var durationMatches = getMatches(data, durationRegex, 1);
 		var totalDuration = durationMatches[0];
 		totalDurationInMilliSec = getMilliseconds(totalDuration);
-		//console.log("Total duration : "+totalDuration+" ms : "+totalDurationInMilliSec);
 	 }else{
 		var matchSize = Math.max(timeMatches.length, sizeMatches.length);
 		for(var i=0; i< matchSize; i++){
-			//console.log("% complete : "+Math.round(((getMilliseconds(timeMatches[i])/totalDurationInMilliSec).toFixed(2) * 100 )));
-			//console.log("Size : "+formatBytes((sizeMatches[i] || 0)*1000));
 			cProgressOptions.percent = Math.round(((getMilliseconds(timeMatches[i])/totalDurationInMilliSec).toFixed(2) * 100 ));
 			cProgressOptions.text = "Size : "+formatBytes((sizeMatches[i] || 0)*1000);
 			jQuery(".my-progress-bar").circularProgress(cProgressOptions);
 		}
-		
 	 }
 }
 
@@ -53,13 +49,17 @@ var pusherEventCallback = function(event){
 		populateCompletionProgress(data);
 		
 		if(data.indexOf('Video generation complete') > -1){
-			//console.log("Download complete");
+			showSuccessDialog("Video generation complete");
 			var generationElement = document.querySelector('#videoGeneration');
+			var dbContainer = document.getElementById("dbContainer");
 			var dLinkElement = angular.element('<br/><label>Video Link has been generated below</label><br/><br/><label><a href="downloadVideo.php?videoId='+videoId+'">Click Here</a> to download</label>');
 			if (typeof generationElement != "undefined" && generationElement != null){
 				generationElement.remove();
 			}
-			angular.element(document.getElementById("dbContainer")).append(dLinkElement);
+			angular.element(dbContainer).append(dLinkElement);
+			var videoFileName = videoId + ".zip";
+			var dbSaveBtn = Dropbox.createSaveButton("https://hotstar-test1.herokuapp.com/"+videoFileName, videoFileName, options);
+			dbContainer.appendChild(dbSaveBtn);
 		}
 	}			
 };
@@ -115,6 +115,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 });
 
 app.controller("Controller1", function($scope, $state, $http, $timeout) {
+	
+	jQuery.getJSON("https://hotstar-test1.herokuapp.com/getConfigVars.php", function(e) {
+		var dbKey = e.dbKey;
+		jQuery('head').append('<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="'+dbKey+'"></script>');
+	});
 
   $scope.fetchFormats = function() {
 	
