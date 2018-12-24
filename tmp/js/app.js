@@ -122,8 +122,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 app.controller("Controller1", function($scope, $state, $http, $timeout) {
 	
-	var absUrl = $location.absUrl();
-	console.log("absUrl : "+absUrl);
+	console.log("$state.current.name : "+$state.current.name);
+    console.log("$state.href($state.current.name) : "+$state.href($state.current.name));
 	
 	jQuery.getJSON("https://hotstar-test1.herokuapp.com/getConfigVars.php", function(e) {
 		var dbKey = e.dbKey;
