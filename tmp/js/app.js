@@ -58,6 +58,21 @@ var pusherEventCallback = function(event){
 			}
 			angular.element(dbContainer).append(dLinkElement);
 			var videoFileName = videoId + ".zip";
+			var options = {
+				files: [],
+				success: function () {
+					alert("File saved to your Dropbox successfully");
+				},
+				progress: function (progress) {
+					//console.log("Dropbox file upload progress : "+progress);
+				},
+				cancel: function () {
+					alert("Save to Dropbox cancelled.");
+				},
+				error: function (errorMessage) {
+					alert("Error occurred in saving your file to Dropbox.");
+				}
+			};
 			var dbSaveBtn = Dropbox.createSaveButton("https://hotstar-test1.herokuapp.com/"+videoFileName, videoFileName, options);
 			dbContainer.appendChild(dbSaveBtn);
 		}
