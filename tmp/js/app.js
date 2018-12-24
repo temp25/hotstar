@@ -15,7 +15,11 @@ var pusherEventCallback = function(event){
 	var consoleElement = document.querySelector('#responseText');
 	if (typeof consoleElement != "undefined" && consoleElement != null){
 		consoleElement.innerHTML += data+"<br/>";
-		consoleElement.scrollTop = consoleElement.scrollHeight; 
+		consoleElement.scrollTop = consoleElement.scrollHeight;
+		var isVideoGenerationComplete = data.indexOf('Video generation complete') > -1;
+		if(isVideoGenerationComplete){
+			console.log("Download complete");
+		}
 	}			
 };
 
