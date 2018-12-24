@@ -122,8 +122,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 app.controller("Controller1", function($scope, $state, $http, $timeout) {
 	
-	console.log("$state.current.name : "+$state.current.name);
-    console.log("$state.href($state.current.name) : "+$state.href($state.current.name));
+	console.log(window.location);
+	console.log(window.location.href);
+	console.log(window.location.origin);
 	
 	jQuery.getJSON("https://hotstar-test1.herokuapp.com/getConfigVars.php", function(e) {
 		var dbKey = e.dbKey;
