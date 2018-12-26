@@ -1,6 +1,6 @@
 <?
 
-include 'vendor/autoload.php';
+include '../vendor/autoload.php';
 
 if(isset($_POST)){
 	$ipAddr_userAgent = $_POST['uniqueId'];
