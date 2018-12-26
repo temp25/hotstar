@@ -87,7 +87,7 @@ class VideoFormats
 					);
                 }
             } else {
-                $formats["errorMessage"] = "Error in fetching video formats for the given URL. Error message : " . $errorOutput;
+                $formats["errorMessage"] = "Error : " . $errorOutput;
             }
             
         } else {

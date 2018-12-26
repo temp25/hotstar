@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Pusher Test</title>
+  <script src="https://js.pusher.com/4.3/pusher.min.js"></script>
+  <script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('a44d3a9ebac525080cf1', {
+      cluster: 'ap2',
+      forceTLS: true
+    });
+	
+	
+	$.getJSON("https://api.ipify.org/?format=json", function(e) { 
+		var ipAddr_userAgent = e.ip + "_" + navigator.userAgent;
+		var channel = pusher.subscribe('gdrive');
+		channel.bind(ipAddr_userAgent, function(data) {
+			alert(data.message);
+			console.log("Auth Url : "+data.message);
+		});
+	});
+	
+	function getAuthUrl(){
+		$.ajax({ 
+		   url: "uploadFileGDrive.php", 
+		   type: "POST",
+		   data: {
+				uniqueId: ipAddr_userAgent,
+			},
+		})
+		.done(function() {
+			console.log("POST request completed successfully");
+		})
+		.fail(function() {
+			console.error("Error occured in POST request completion");
+		});
+	}
+
+  </script>
+</head>
+<body>
+  <h1>Pusher Test</h1>
+  <p>
+    Try publishing an event to channel <code>my-channel</code>
+    with event name <code>my-event</code>.
+  </p>
+  
+  <br/>
+  <button onclick="getAuthUrl()">Click me</button>
+  
+</body>
+
+</html>
