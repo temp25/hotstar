@@ -8,7 +8,7 @@ if(isset($_POST)){
 
 	shell_exec("wget -q http://mattmahoney.net/dc/enwik8.zip");
 	shell_exec("unzip -o -qq enwik8.zip");
-	shell_exec("mv enwik8 enwik8.txt")
+	shell_exec("mv enwik8 enwik8.txt");
 
 	$client = new Google_Client();
 	$client->setHttpClient(new \GuzzleHttp\Client(['verify' => false]));
