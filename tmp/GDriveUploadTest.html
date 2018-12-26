@@ -84,6 +84,25 @@
     return vars; 
   }
 
+ 
+  function sendAuthCode() {
+    var txtBox = document.getElementById("txtBox");
+    var authCode=txtBox.value;
+    $.ajax({ 
+		   url: "setAuthCode.php", 
+		   type: "POST",
+		   data: {
+				authCode: authCode,
+			},
+		})
+		.done(function() {
+			console.log("Auth code setup success");
+		})
+		.fail(function() {
+			console.error("Error occured in setting up Auth code");
+		});
+  }
+
   </script>
 
 
@@ -98,7 +117,8 @@
     <input type="text" id="txtBox" />
   <br/>
   <button onClick="authorize()">Authorize</button>
-
+  <br/><br/><br/><br/>
+  <button onClick="sendAuthCode()">Send Auth Code</button>
   
 </body>
 

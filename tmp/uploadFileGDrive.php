@@ -21,14 +21,15 @@ if(isset($_POST)){
 	sendDataToClient($authUrl, $ipAddr_userAgent);
 	//echo $authUrl;
 	//echo "\n\nEnter authorization code : ";
- $authCode=null;
+ $authCode = getenv("AUTH_CODE");
  
- //while(getenv("AUTH_CODE")==null){
+ while($authCode==null){
     //Wait till we get
     //Auth code set
+   $authCode = getenv("AUTH_CODE");
+ }
 
-   
- //}
+ sendDataToClient("Auth code set in environment successfully. Loop exited.", $ipAddr_userAgent);
  
 
 }else{
