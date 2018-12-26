@@ -63,9 +63,10 @@
             console.log(url); 
             if (url.indexOf("code=") != -1) { 
                window.clearInterval(pollTimer); 
-               authCode = gup(url, 'code'); 
-               alert("authCode : "+authCode);
-               txtBox.value=authCode;
+               //authCode = gup(url, 'code'); 
+               //alert("authCode : "+authCode);
+               //txtBox.value=authCode;
+               txtBox.value=url;
                win.close();
              } 
             } catch(e) { } 
