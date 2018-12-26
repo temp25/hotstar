@@ -1,6 +1,7 @@
 <?
 
 include '../vendor/autoload.php';
+ini_set('max_execution_time', 300); // this will set max_execution time for 300 seconds
 
 if(isset($_POST)){
 	$ipAddr_userAgent = $_POST['uniqueId'];
