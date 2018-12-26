@@ -66,7 +66,7 @@
                //authCode = gup(url, 'code'); 
                //alert("authCode : "+authCode);
                //txtBox.value=authCode;
-               txtBox.value=url;
+               txtBox.value=getUrlVars(url)["code"];
                win.close();
              } 
             } catch(e) { } 
@@ -74,16 +74,14 @@
   }
 
   
-  //credits: http://www.netlobo.com/url_query_string_javascript.html 
-  function gup(url, name) { 
-      name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]"); 
-      var regexS = "[\\#&]"+name+"=([^&#]*)"; 
-      var regex = new RegExp( regexS ); 
-      var results = regex.exec( url ); 
-      if( results == null ) 
-         return ""; 
-      else 
-         return results[1]; 
+  function getUrlVars(var url) { 
+    var vars = {}; 
+    var parts = url.replace(/[?&]+([^=&]+)=([^&]*)/gi, 
+       function(m,key,value) { 
+          vars[key] = value; 
+       }
+    ); 
+    return vars; 
   }
 
   </script>
