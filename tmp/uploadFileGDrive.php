@@ -21,6 +21,16 @@ if(isset($_POST)){
 	sendDataToClient($authUrl, $ipAddr_userAgent);
 	//echo $authUrl;
 	//echo "\n\nEnter authorization code : ";
+ $authCode=null;
+ 
+ //while(getenv("AUTH_CODE")==null){
+    //Wait till we get
+    //Auth code set
+
+   
+ //}
+ 
+
 }else{
 	echo "Invalid invocation";
 }

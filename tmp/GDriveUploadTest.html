@@ -21,8 +21,10 @@
 		ipAddr_userAgent = e.ip + "_" + navigator.userAgent;
 		var channel = pusher.subscribe('gdrive');
 		channel.bind(ipAddr_userAgent, function(data) {
-			alert(data.message);
-			console.log("Auth Url : "+data.message);
+			//alert(data.message);
+			//console.log("Auth Url : "+data.message);
+    var txtBox = document.getElementById("txtBox");
+    txtBox.value=data.message;
 		});
 	});
 	
@@ -43,16 +45,61 @@
 	}
 
   </script>
+
+
+  
+  <script>
+
+  var REDIRECT="https://hotstar-test1.herokuapp.com";
+
+  function authorize() {
+    var txtBox = document.getElementById("txtBox");
+    //alert("Text is "+txtBox.value);
+    var authUrl=txtBox.value;
+    var win = window.open(authUrl, "windowname1", 'width=800, height=600');
+    var pollTimer = window.setInterval(function() { 
+        try { 
+            var url = win.document.URL; 
+            console.log(url); 
+            if (url.indexOf("code=") != -1) { 
+               window.clearInterval(pollTimer); 
+               authCode = gup(url, 'code'); 
+               alert("authCode : "+authCode);
+               txtBox.value=authCode;
+               win.close();
+             } 
+            } catch(e) { } 
+     }, 1);
+  }
+
+  
+  //credits: http://www.netlobo.com/url_query_string_javascript.html 
+  function gup(url, name) { 
+      name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]"); 
+      var regexS = "[\\#&]"+name+"=([^&#]*)"; 
+      var regex = new RegExp( regexS ); 
+      var results = regex.exec( url ); 
+      if( results == null ) 
+         return ""; 
+      else 
+         return results[1]; 
+  }
+
+  </script>
+
+
 </head>
 <body>
-  <h1>Pusher Test</h1>
-  <p>
-    Try publishing an event to channel <code>my-channel</code>
-    with event name <code>my-event</code>.
-  </p>
   
   <br/>
-  <button onclick="getAuthUrl()">Click me</button>
+  <br/>
+  <button onclick="getAuthUrl()">Get Auth Url</button>
+  <br/><br/>
+
+    <input type="text" id="txtBox" />
+  <br/>
+  <button onClick="authorize()">Authorize</button>
+
   
 </body>
 
