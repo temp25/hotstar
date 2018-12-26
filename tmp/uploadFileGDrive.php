@@ -2,37 +2,25 @@
 
 include 'vendor/autoload.php';
 
-define('STDIN',fopen("php://stdin","r"));
+$ipAddr_userAgent = $_POST['uniqueId'];
+respondOK();
 
-function formatSizeUnits($bytes)
-{
-	if ($bytes >= 1073741824)
-	{
-		$bytes = number_format($bytes / 1073741824, 2) . ' GB';
-	}
-	elseif ($bytes >= 1048576)
-	{
-		$bytes = number_format($bytes / 1048576, 2) . ' MB';
-	}
-	elseif ($bytes >= 1024)
-	{
-		$bytes = number_format($bytes / 1024, 2) . ' KB';
-	}
-	elseif ($bytes > 1)
-	{
-		$bytes = $bytes . ' bytes';
-	}
-	elseif ($bytes == 1)
-	{
-		$bytes = $bytes . ' byte';
-	}
-	else
-	{
-		$bytes = '0 bytes';
-	}
+shell_exec("wget -q http://mattmahoney.net/dc/enwik8.zip");
+shell_exec("unzip -o -qq enwik8.zip");
+shell_exec("mv enwik8 enwik8.txt")
 
-	return $bytes;
-}
+$client = new Google_Client();
+$client->setHttpClient(new \GuzzleHttp\Client(['verify' => false]));
+$client->setClientId('905044047037-h0pl1t3r3qlimegtjd5h3q2u24pebqpl.apps.googleusercontent.com');
+$client->setClientSecret('Dc0BijZKsFzLYwCBm_eTY-Sf');
+$client->setRedirectUri("https://hotstar-test1.herokuapp.com");
+$client->setScopes(array('https://www.googleapis.com/auth/drive'));
+$service = new Google_Service_Drive($client);
+$authUrl = $client->createAuthUrl();
+sendDataToClient($authUrl, $ipAddr_userAgent);
+//echo $authUrl;
+//echo "\n\nEnter authorization code : ";
+
 
 /**
  * Respond 200 OK with an optional
@@ -95,23 +83,5 @@ function sendDataToClient($data, $ipAddr_userAgent)
     
 }
 
-$ipAddr_userAgent = $_POST['uniqueId'];
-respondOK();
-
-shell_exec("wget -q http://mattmahoney.net/dc/enwik8.zip");
-shell_exec("unzip -o -qq enwik8.zip");
-shell_exec("mv enwik8 enwik8.txt")
-
-$client = new Google_Client();
-$client->setHttpClient(new \GuzzleHttp\Client(['verify' => false]));
-$client->setClientId('905044047037-h0pl1t3r3qlimegtjd5h3q2u24pebqpl.apps.googleusercontent.com');
-$client->setClientSecret('Dc0BijZKsFzLYwCBm_eTY-Sf');
-$client->setRedirectUri("https://hotstar-test1.herokuapp.com");
-$client->setScopes(array('https://www.googleapis.com/auth/drive'));
-$service = new Google_Service_Drive($client);
-$authUrl = $client->createAuthUrl();
-sendDataToClient($authUrl, $ipAddr_userAgent);
-//echo $authUrl;
-//echo "\n\nEnter authorization code : ";
 
 ?>
