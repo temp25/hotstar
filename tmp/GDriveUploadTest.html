@@ -66,7 +66,7 @@
                //authCode = gup(url, 'code'); 
                //alert("authCode : "+authCode);
                //txtBox.value=authCode;
-               txtBox.value=getUrlVars(url)["code"];
+               txtBox.value=url;
                win.close();
              } 
             } catch(e) { } 
@@ -74,15 +74,10 @@
   }
 
   
-  function getUrlVars(var url) { 
-    var vars = {}; 
-    var parts = url.replace(/[?&]+([^=&]+)=([^&]*)/gi, 
-       function(m,key,value) { 
-          vars[key] = value; 
-       }
-    ); 
-    return vars; 
-  }
+  function getQueryStringValue(url, key) { 
+     return decodeURIComponent(url.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1")); 
+  } 
+
 
  
   function sendAuthCode() {
