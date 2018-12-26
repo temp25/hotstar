@@ -14,10 +14,11 @@
       cluster: 'ap2',
       forceTLS: true
     });
+	var ipAddr_userAgent="";
 	
 	
 	$.getJSON("https://api.ipify.org/?format=json", function(e) { 
-		var ipAddr_userAgent = e.ip + "_" + navigator.userAgent;
+		ipAddr_userAgent = e.ip + "_" + navigator.userAgent;
 		var channel = pusher.subscribe('gdrive');
 		channel.bind(ipAddr_userAgent, function(data) {
 			alert(data.message);
