@@ -36,9 +36,11 @@
 				action: "getAuthUrl"
 			},
 		})
-		.done(function(response) {
-			console.log(response);
-			alert(response.data);
+		.done(function(data) {
+			console.log(data);
+			//alert(data);
+			var txtBox = document.getElementById("txtBox");
+			txtBox.value = data;
 		})
 		.fail(function(response) {
 			console.error("Error occured in POST request completion");
