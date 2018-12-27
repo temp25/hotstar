@@ -36,10 +36,11 @@
 				action: "getAuthUrl"
 			},
 		})
-		.done(function() {
-			console.log("POST request completed successfully");
+		.done(function(response) {
+			console.log(response);
+			alert(response.data);
 		})
-		.fail(function() {
+		.fail(function(response) {
 			console.error("Error occured in POST request completion");
 		});
 	}
