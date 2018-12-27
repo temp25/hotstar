@@ -64,19 +64,20 @@
     var pollTimer = window.setInterval(function() { 
         try { 
             var url = win.document.URL; 
-            console.log(url); 
-            if (url.indexOf("code=") != -1) { 
-               window.clearInterval(pollTimer); 
+			alert("Url : "+url+"___isContains : "+(url.indexOf("code=") != -1));
+            //console.log(url); 
+            //if (url.indexOf("code=") != -1) { 
+               //window.clearInterval(pollTimer); 
                //authCode = gup(url, 'code'); 
                //alert("authCode : "+authCode);
                //txtBox.value=authCode;
                //var authCode=getQueryStringValue(url, "code");
                //txtBox.value=authCode;
-			   txtBox.value=url;
-               win.close();
-             } 
+			   //txtBox.value=url;
+               //win.close();
+             //} 
             } catch(e) { } 
-     }, 30);
+     }, 3000);
   }
 
   
