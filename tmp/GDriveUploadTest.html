@@ -70,12 +70,13 @@
                //authCode = gup(url, 'code'); 
                //alert("authCode : "+authCode);
                //txtBox.value=authCode;
-               var authCode=getQueryStringValue(url, "code");
-               txtBox.value=authCode;
+               //var authCode=getQueryStringValue(url, "code");
+               //txtBox.value=authCode;
+			   txtBox.value=url;
                win.close();
              } 
             } catch(e) { } 
-     }, 1);
+     }, 30);
   }
 
   
