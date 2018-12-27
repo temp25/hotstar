@@ -33,7 +33,7 @@
 		   url: "uploadFileGDrive.php", 
 		   type: "POST",
 		   data: {
-				uniqueId: ipAddr_userAgent,
+				action: "getAuthUrl"
 			},
 		})
 		.done(function() {
@@ -81,14 +81,15 @@
 
 
  
-  function sendAuthCode() {
+  function uploadFile() {
     var txtBox = document.getElementById("txtBox");
     var authCode=txtBox.value;
     $.ajax({ 
-		   url: "setAuthCode.php", 
+		   url: "uploadFileGDrive.php", 
 		   type: "POST",
 		   data: {
-				authCode: authCode,
+				action: "uploadFile",
+				authCode: authCode
 			},
 		})
 		.done(function() {
@@ -116,7 +117,7 @@
   <br/>
   <button onClick="authorize()">Authorize</button>
   <br/><br/><br/><br/>
-  <button onClick="sendAuthCode()">Send Auth Code</button>
+  <button onClick="uploadFile()">Upload File</button>
   
 </body>
 

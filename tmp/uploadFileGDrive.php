@@ -3,14 +3,11 @@
 include '../vendor/autoload.php';
 ini_set('max_execution_time', 300); // this will set max_execution time for 300 seconds
 
-if(isset($_POST)){
-	$ipAddr_userAgent = $_POST['uniqueId'];
-	respondOK();
-
-	shell_exec("wget -q http://mattmahoney.net/dc/enwik8.zip");
-	shell_exec("unzip -o -qq enwik8.zip");
-	shell_exec("mv enwik8 enwik8.txt");
-
+if(isset($_POST) && isset($_POST["action"])) {
+	
+	$action = $_POST["action"];
+	
+	//$ipAddr_userAgent = $_POST['uniqueId'];
 	$client = new Google_Client();
 	$client->setHttpClient(new \GuzzleHttp\Client(['verify' => false]));
 	$client->setClientId('905044047037-h0pl1t3r3qlimegtjd5h3q2u24pebqpl.apps.googleusercontent.com');
@@ -18,20 +15,21 @@ if(isset($_POST)){
 	$client->setRedirectUri("https://hotstar-test1.herokuapp.com");
 	$client->setScopes(array('https://www.googleapis.com/auth/drive'));
 	$service = new Google_Service_Drive($client);
-	$authUrl = $client->createAuthUrl();
-	sendDataToClient($authUrl, $ipAddr_userAgent);
-	//echo $authUrl;
-	//echo "\n\nEnter authorization code : ";
- $authCode = getenv("AUTH_CODE");
- 
- while($authCode==null){
-    //Wait till we get
-    //Auth code set
-   $authCode = getenv("AUTH_CODE");
- }
-
- sendDataToClient("Auth code set in environment successfully. Loop exited.", $ipAddr_userAgent);
- 
+	
+	if($action=="getAuthUrl"){
+		echo $client->createAuthUrl();
+	} else if($action=="uploadFile" && isset($_POST["authCode"])){
+		shell_exec("wget -q http://mattmahoney.net/dc/enwik8.zip");
+		shell_exec("unzip -o -qq enwik8.zip");
+		shell_exec("mv enwik8 enwik8.txt");
+		
+		respondOK();
+		
+		$authCode = $_POST["authCode"];
+		
+	}else{
+		echo "Error occurred :-(";
+	}
 
 }else{
 	echo "Invalid invocation";
