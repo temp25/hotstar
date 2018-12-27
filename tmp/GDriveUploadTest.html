@@ -23,8 +23,9 @@
 		channel.bind(ipAddr_userAgent, function(data) {
 			//alert(data.message);
 			//console.log("Auth Url : "+data.message);
-    var txtBox = document.getElementById("txtBox");
-    txtBox.value=data.message;
+			//var txtBox = document.getElementById("txtBox");
+			//txtBox.value=data.message;
+			console.log("Message : \n"+data.message);
 		});
 	});
 	
@@ -92,7 +93,8 @@
 		   type: "POST",
 		   data: {
 				action: "uploadFile",
-				authCode: authCode
+				authCode: authCode,
+				uniqueId: ipAddr_userAgent
 			},
 		})
 		.done(function() {

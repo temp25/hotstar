@@ -3,6 +3,8 @@
 include '../vendor/autoload.php';
 ini_set('max_execution_time', 300); // this will set max_execution time for 300 seconds
 
+$ipAddr_userAgent="";
+
 if(isset($_POST) && isset($_POST["action"])) {
 	
 	$action = $_POST["action"];
@@ -26,6 +28,7 @@ if(isset($_POST) && isset($_POST["action"])) {
 		respondOK();
 		
 		$authCode = $_POST["authCode"];
+		$ipAddr_userAgent = $_POST["uniqueId"];
 		$token = $client->fetchAccessTokenWithAuthCode($authCode);
 		$client->setAccessToken($token);
 		
@@ -86,6 +89,7 @@ function readVideoChunk ($handle, $chunkSize)
         // fread will never return more than 8192 bytes if the stream is read buffered and it does not represent a plain file
         $chunk = fread($handle, 8192);
         $byteCount += strlen($chunk);
+		sendDataToClient("chunkSize : ".$chunkSize."___byteCount : ".$byteCount, $ipAddr_userAgent);
         $giantChunk .= $chunk;
         if ($byteCount >= $chunkSize)
         {
