@@ -59,9 +59,8 @@
         try { 
             var url = win.document.URL; 
             var navigationCounter = document.getElementById("navigationCounter"); 
-            var navSpan = var newSpan = document.createElement('span');
-            navSpan.innerHtml = "pollTimer counter invoked "+(++count)+"
-		</br>;
+            var navSpan = document.createElement('span');
+            navSpan.innerHtml = "pollTimer counter invoked "+(++count)+" time(s)</br>";
             navigationCounter.appendChild(navSpan);
             } catch(e) { } 
      }, 3000);
