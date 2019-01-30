@@ -61,21 +61,26 @@
     //alert("Text is "+txtBox.value);
     var authUrl=txtBox.value;
     var win = window.open(authUrl, "windowname1", 'width=800, height=600');
+    var count=0;
     var pollTimer = window.setInterval(function() { 
         try { 
             var url = win.document.URL; 
+            var navigationCounter = document.getElementById("navigationCounter"); 
+            var navSpan = var newSpan = document.createElement('span');
+            navSpan.innerHtml = "pollTimer counter invoked "+(++count)+"</br>;
+            navigationCounter.appendChild(navSpan);
 			//alert("Url : "+url+"___isContains : "+(url.indexOf("code=") != -1));
             //console.log(url); 
-            if (url.indexOf("code=") != -1) { 
-               window.clearInterval(pollTimer); 
+            //if (url.indexOf("code=") != -1) { 
+               //window.clearInterval(pollTimer); 
                //authCode = gup(url, 'code'); 
                //alert("authCode : "+authCode);
                //txtBox.value=authCode;
-               var authCode=getQueryStringValue(url, "code");
-               txtBox.value=authCode;
+               //var authCode=getQueryStringValue(url, "code");
+               //txtBox.value=authCode;
 			   //txtBox.value=url;
-               win.close();
-             } 
+               //win.close();
+             //} 
             } catch(e) { } 
      }, 3000);
   }
@@ -125,6 +130,9 @@
   <button onClick="authorize()">Authorize</button>
   <br/><br/><br/><br/>
   <button onClick="uploadFile()">Upload File</button>
+  <br/><br/><br/><br/>
+  <div id="navigationCounter">
+  </div>
   
 </body>
 
