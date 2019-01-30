@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <title>Pusher Test</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="https://js.pusher.com/4.3/pusher.min.js"></script>
-  <script>
+	<head>
+		<title>Pusher Test</title>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<script src="https://js.pusher.com/4.3/pusher.min.js"></script>
+		<script>
 
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
@@ -48,12 +47,6 @@
 		});
 	}
 
-  </script>
-
-
-  
-  <script>
-
   var REDIRECT="https://hotstar-test1.herokuapp.com";
 
   function authorize() {
@@ -67,73 +60,34 @@
             var url = win.document.URL; 
             var navigationCounter = document.getElementById("navigationCounter"); 
             var navSpan = var newSpan = document.createElement('span');
-            navSpan.innerHtml = "pollTimer counter invoked "+(++count)+"</br>;
+            navSpan.innerHtml = "pollTimer counter invoked "+(++count)+"
+		</br>;
             navigationCounter.appendChild(navSpan);
-			//alert("Url : "+url+"___isContains : "+(url.indexOf("code=") != -1));
-            //console.log(url); 
-            //if (url.indexOf("code=") != -1) { 
-               //window.clearInterval(pollTimer); 
-               //authCode = gup(url, 'code'); 
-               //alert("authCode : "+authCode);
-               //txtBox.value=authCode;
-               //var authCode=getQueryStringValue(url, "code");
-               //txtBox.value=authCode;
-			   //txtBox.value=url;
-               //win.close();
-             //} 
             } catch(e) { } 
      }, 3000);
   }
 
   
-  function getQueryStringValue(url, key) { 
-     return decodeURIComponent(url.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1")); 
-  } 
-
-
- 
-  function uploadFile() {
-    var txtBox = document.getElementById("txtBox");
-    var authCode=txtBox.value;
-    $.ajax({ 
-		   url: "uploadFileGDrive.php", 
-		   type: "POST",
-		   data: {
-				action: "uploadFile",
-				authCode: authCode,
-				uniqueId: ipAddr_userAgent
-			},
-		})
-		.done(function() {
-			console.log("Auth code setup success");
-   alert("Auth code setup success");
-		})
-		.fail(function() {
-			console.error("Error occured in setting up Auth code");
-   alert("Error occured in setting up Auth code");
-		});
-  }
-
-  </script>
-
-
+	</script>
 </head>
 <body>
-  
-  <br/>
-  <br/>
-  <button onclick="getAuthUrl()">Get Auth Url</button>
-  <br/><br/>
-
-    <input type="text" id="txtBox" />
-  <br/>
-  <button onClick="authorize()">Authorize</button>
-  <br/><br/><br/><br/>
-  <button onClick="uploadFile()">Upload File</button>
-  <br/><br/><br/><br/>
-  <div id="navigationCounter">
-  </div>
-  
+	<br/>
+	<br/>
+	<button onclick="getAuthUrl()">Get Auth Url</button>
+	<br/>
+	<br/>
+	<input type="text" id="txtBox" />
+	<br/>
+	<button onClick="authorize()">Authorize</button>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<button onClick="uploadFile()">Upload File</button>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<div id="navigationCounter"></div>
 </body>
-
 </html>
