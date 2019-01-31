@@ -62,10 +62,33 @@
             } catch(e) { } 
      }, 3000);
 	 alert("pollTimer : "+pollTimer); */
-	 var pollTimer = window.setInterval(function() { 
-        console.log(popup.location.href);
-		if(popupIntervalLog.toLowerCase() === "stop") {
-			clearInterval(pollTimer);
-		}
-     }, 1000);
+	 
+	 
+	 
+	 
+	 popup.addEventListener('message', function(event) { 
+	 
+	 console.log(event.origin);
+
+			// IMPORTANT: Check the origin of the data! 
+			// if (~event.origin.indexOf('http://yoursite.com')) { 
+				// The data has been sent from your site 
+
+				// The data sent with postMessage is stored in event.data 
+				// console.log(event.data); 
+			// } else { 
+				// The data hasn't been sent from your site! 
+				// Be careful! Do not use it. 
+				// return; 
+			// } 
+	}); 
+	 
+	 
+	 
+	 // var pollTimer = window.setInterval(function() { 
+        // console.log(popup.location.href);
+		// if(popupIntervalLog.toLowerCase() === "stop") {
+			// clearInterval(pollTimer);
+		// }
+     // }, 1000);
   }
