@@ -44,19 +44,28 @@
 
   function authorize() {
     var txtBox = document.getElementById("txtBox");
-    //alert("Text is "+txtBox.value);
     var authUrl=txtBox.value;
-    var win = window.open(authUrl, "windowname1", 'width=800, height=600');
+    alert("authUrl : "+authUrl);
     var count=0;
+    /* var win = window.open(authUrl, "windowname1", 'width=800, height=600');
     var pollTimer = window.setInterval(function() { 
         try { 
             var url = win.document.URL; 
 			console.log(url);
-            var navigationCounter = document.getElementById("navigationCounter"); 
+            var navigationCounter = document.getElementById("navigationCounter");
             var navSpan = document.createElement('span');
             navSpan.innerHtml = "pollTimer counter invoked "+(++count)+" time(s)</br>";
             navigationCounter.appendChild(navSpan);
             } catch(e) { } 
      }, 3000);
-	 alert("pollTimer : "+pollTimer);
+	 alert("pollTimer : "+pollTimer); */
+	 var pollTimer = window.setInterval(function() { 
+        try {
+			var navigationCounter = document.getElementById("navigationCounter");
+            var navSpan = document.createElement('span');
+            navSpan.innerHtml = "pollTimer counter invoked "+(++count)+" time(s)</br>";
+            navigationCounter.appendChild(navSpan);
+			console.log("navigationCounter : "+navigationCounter);
+            } catch(e) { } 
+     }, 3000);
   }
