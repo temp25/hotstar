@@ -103,8 +103,10 @@
 // }
 // winopen();
 
-var wnd = window.open(authUrl, "", "width=1000,height=600");
-wnd.onload = function() { alert("complete"); };
-
+var wnd = window.open(authUrl, "", "width=800, height=600");
+//wnd.onload = function() { alert("complete"); };
+jQuery(wnd.document).load(function() {
+   alert('loaded'); // do other things
+});
 
   }
