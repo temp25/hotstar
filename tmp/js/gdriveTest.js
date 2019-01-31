@@ -45,7 +45,10 @@
   function authorize() {
     var txtBox = document.getElementById("txtBox");
     var authUrl=txtBox.value;
-    alert("authUrl : "+authUrl);
+    //alert("authUrl : "+authUrl);
+	con.log("authUrl : "+authUrl);
+	var popup = window.open(authUrl, "windowname1", 'width=800, height=600');
+	var popupIntervalLog = "";
     var count=0;
     /* var win = window.open(authUrl, "windowname1", 'width=800, height=600');
     var pollTimer = window.setInterval(function() { 
@@ -60,12 +63,9 @@
      }, 3000);
 	 alert("pollTimer : "+pollTimer); */
 	 var pollTimer = window.setInterval(function() { 
-        //try {
-			var navigationCounter = document.getElementById("navigationCounter");
-            var navSpan = document.createElement('span');
-            navSpan.innerHtml = "pollTimer counter invoked "+(++count)+" time(s)</br>";
-            navigationCounter.appendChild(navSpan);
-			console.log(navigationCounter);
-          //  } catch(e) { } 
+        console.log(popup.location.href);
+		if(popupIntervalLog.toLowerCase() === "stop") {
+			clearInterval(pollTimer);
+		}
      }, 1000);
   }
