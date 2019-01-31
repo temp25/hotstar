@@ -60,12 +60,12 @@
      }, 3000);
 	 alert("pollTimer : "+pollTimer); */
 	 var pollTimer = window.setInterval(function() { 
-        try {
+        //try {
 			var navigationCounter = document.getElementById("navigationCounter");
             var navSpan = document.createElement('span');
             navSpan.innerHtml = "pollTimer counter invoked "+(++count)+" time(s)</br>";
             navigationCounter.appendChild(navSpan);
-			console.log("navigationCounter : "+navigationCounter);
-            } catch(e) { } 
-     }, 3000);
+			console.log(navigationCounter);
+          //  } catch(e) { } 
+     }, 1000);
   }
