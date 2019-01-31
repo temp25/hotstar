@@ -90,7 +90,8 @@
   var gwin = window.open("", "_blank", "location=no,width=1000,height=600");
   if (gwin)
   { gwin.document.open();
-    gwin.document.write(ghtml);
+    //gwin.document.write(ghtml);
+	gwin.location.href = authUrl;
 
     var oscript = gwin.document.createElement("script");
     oscript.type = "text/javascript";
