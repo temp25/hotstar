@@ -63,7 +63,7 @@
      }, 3000);
 	 alert("pollTimer : "+pollTimer); */
 	 
-	 popup.load(function() {
+	 popup.onLoad = function() {
 		alert('loaded');
 		// do other things
 		var pollTimer = window.setInterval(function() { 
@@ -71,7 +71,7 @@
 			sessionStorage.setItem("popupUrl", window.location.href);
 			
 		 }, 1000);
-	});
+	};
 	 
 	 event
 	 
