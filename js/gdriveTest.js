@@ -47,7 +47,7 @@
     var authUrl=txtBox.value;
     //alert("authUrl : "+authUrl);
 	console.log("authUrl : "+authUrl);
-	var popup = window.open(authUrl, "windowname1", 'width=800, height=600');
+	//var popup = window.open(authUrl, "windowname1", 'width=800, height=600');
 	var popupIntervalLog = "";
     var count=0;
     /* var win = window.open(authUrl, "windowname1", 'width=800, height=600');
@@ -63,20 +63,44 @@
      }, 3000);
 	 alert("pollTimer : "+pollTimer); */
 	 
-	 popup.onLoad = function() {
-		alert('loaded');
-		// do other things
-		var pollTimer = window.setInterval(function() { 
+	 // popup.onLoad = function() {
+		// alert('loaded');
+		// // do other things
+		// var pollTimer = window.setInterval(function() { 
 		 
-			sessionStorage.setItem("popupUrl", window.location.href);
+			// sessionStorage.setItem("popupUrl", window.location.href);
 			
-		 }, 1000);
-	};
+		 // }, 1000);
+	// };
 	 
-	 event
+	 // event
 	 
-	 var pollTimer = window.setInterval(function() { 
-		var popupUrl = sessionStorage.getItem("popupUrl");
-		console.log("popupUrl : "+popupUrl);
-     }, 2000);
+	 // var pollTimer = window.setInterval(function() { 
+		// var popupUrl = sessionStorage.getItem("popupUrl");
+		// console.log("popupUrl : "+popupUrl);
+     // }, 2000);
+	 
+	 
+	 
+	 
+	 
+	 function winopen()
+{
+  var ghtml = "<h1>sasaasas</h1>";
+  var gwin = window.open("", "_blank", "location=no,width=1000,height=600");
+  if (gwin)
+  { gwin.document.open();
+    gwin.document.write(ghtml);
+
+    var oscript = gwin.document.createElement("script");
+    oscript.type = "text/javascript";
+    oscript.innerHTML = "alert('loaded'); var pollTimer = window.setInterval(function() { console.log('popupUrl '+ window.location.href); }, 1000);";
+    gwin.document.getElementsByTagName("head")[0].appendChild(oscript);
+
+    //gwin.document.close();
+  }
+}
+winopen();
+
+
   }
