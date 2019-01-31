@@ -84,24 +84,27 @@
 	 
 	 
 	 
-	 function winopen()
-{
-  var ghtml = "<h1>sasaasas</h1>";
-  var gwin = window.open("", "_blank", "location=no,width=1000,height=600");
-  if (gwin)
-  { gwin.document.open();
-    //gwin.document.write(ghtml);
-	gwin.location.href = authUrl;
+	 // function winopen()
+// {
+  // var ghtml = "<h1>sasaasas</h1>";
+  // var gwin = window.open("", "_blank", "location=no,width=1000,height=600");
+  // if (gwin)
+  // { gwin.document.open();
+    // //gwin.document.write(ghtml);
+	// gwin.location.href = authUrl;
 
-    var oscript = gwin.document.createElement("script");
-    oscript.type = "text/javascript";
-    oscript.innerHTML = "alert('loaded'); var pollTimer = window.setInterval(function() { console.log('popupUrl '+ window.location.href); }, 1000);";
-    gwin.document.getElementsByTagName("head")[0].appendChild(oscript);
+    // var oscript = gwin.document.createElement("script");
+    // oscript.type = "text/javascript";
+    // oscript.innerHTML = "alert('loaded'); var pollTimer = window.setInterval(function() { console.log('popupUrl '+ window.location.href); }, 1000);";
+    // gwin.document.getElementsByTagName("head")[0].appendChild(oscript);
 
-    //gwin.document.close();
-  }
-}
-winopen();
+    // //gwin.document.close();
+  // }
+// }
+// winopen();
+
+var wnd = window.open(authUrl, "", "width=1000,height=600");
+wnd.onload = function() { alert("complete"); };
 
 
   }
