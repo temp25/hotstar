@@ -58,12 +58,15 @@
 	//var popupIntervalLog = "";
 	
     var count=0;
-    popup.onload = function() {
-	    var navigationCounter = document.getElementById("navigationCounter");
-     var navSpan = document.createElement('span');
-     navSpan.innerHtml = "pollTimer counter invoked "+(++count)+" time(s)</br>";
-     navigationCounter.appendChild(navSpan);
-	   };
+    
+	   var pollTimer = window.setInterval(function() { 
+        popup.onload = function() {
+	          var navigationCounter = document.getElementById("navigationCounter");
+           var navSpan = document.createElement('span');
+           navSpan.innerHtml = "pollTimer counter invoked "+(++count)+" time(s)</br>";
+           navigationCounter.appendChild(navSpan);
+	       };
+     }, 3000);
     //var navigationCounter = document.getElementById('navigationCounter');var navSpan = document.createElement('span');navSpan.innerHtml = window.location.html;navigationCounter.appendChild(navSpan);
     //popup.load("javascript:{var tmp = setInterval(() => {var navigationCounter = document.getElementById('navigationCounter');var navSpan = document.createElement('span');navSpan.innerHtml = window.location.html;navigationCounter.appendChild(navSpan);}, 1000);}");
     
