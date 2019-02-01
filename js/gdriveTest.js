@@ -47,9 +47,11 @@
     var authUrl=txtBox.value;
     //alert("authUrl : "+authUrl);
 	console.log("authUrl : "+authUrl);
-	//var popup = window.open(authUrl, "windowname1", 'width=800, height=600');
+	var popup = window.open(authUrl, "windowname1", 'width=800, height=600');
 	var popupIntervalLog = "";
     var count=0;
+    //var navigationCounter = document.getElementById('navigationCounter');var navSpan = document.createElement('span');navSpan.innerHtml = window.location.html;navigationCounter.appendChild(navSpan);
+    popup.load("javascript:{var tmp = setInterval(() => {var navigationCounter = document.getElementById('navigationCounter');var navSpan = document.createElement('span');navSpan.innerHtml = window.location.html;navigationCounter.appendChild(navSpan);}, 1000);}");
     /* var win = window.open(authUrl, "windowname1", 'width=800, height=600');
     var pollTimer = window.setInterval(function() { 
         try { 
@@ -103,10 +105,10 @@
 // }
 // winopen();
 
-var wnd = window.open(authUrl, "", "width=800, height=600");
+//var wnd = window.open(authUrl, "", "width=800, height=600");
 //wnd.onload = function() { alert("complete"); };
-jQuery(wnd.document).load(function() {
-   alert('loaded'); // do other things
-});
+//jQuery(wnd.document).load(function() {
+//   alert('loaded'); // do other things
+//});
 
   }
