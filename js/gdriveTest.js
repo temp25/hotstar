@@ -54,14 +54,21 @@
     var authUrl=txtBox.value;
     //alert("authUrl : "+authUrl);
 	console.log("authUrl : "+authUrl);
-	//var popup = window.open(authUrl, "windowname1", 'width=800, height=600');
+	var popup = window.open(authUrl, "windowname1", 'width=800, height=600');
 	//var popupIntervalLog = "";
+	
     var count=0;
+    popup.onload = function() {
+	    var navigationCounter = document.getElementById("navigationCounter");
+     var navSpan = document.createElement('span');
+     navSpan.innerHtml = "pollTimer counter invoked "+(++count)+" time(s)</br>";
+     navigationCounter.appendChild(navSpan);
+	   };
     //var navigationCounter = document.getElementById('navigationCounter');var navSpan = document.createElement('span');navSpan.innerHtml = window.location.html;navigationCounter.appendChild(navSpan);
     //popup.load("javascript:{var tmp = setInterval(() => {var navigationCounter = document.getElementById('navigationCounter');var navSpan = document.createElement('span');navSpan.innerHtml = window.location.html;navigationCounter.appendChild(navSpan);}, 1000);}");
     
-    window.open(authUrl, "windowname1", 'width=800, height=600');
-    window.open("javascript:{window.onload = function() { var popupTimer = setInterval(function() { window.opener.showAuthUrl(window.location.href); }, 3000); } }", "windowname1", 'width=800, height=600');
+    //window.open(authUrl, "windowname1", 'width=800, height=600');
+    //window.open("javascript:{window.onload = function() { var popupTimer = setInterval(function() { window.opener.showAuthUrl(window.location.href); }, 3000); } }", "windowname1", 'width=800, height=600');
     
     /* var win = window.open(authUrl, "windowname1", 'width=800, height=600');
     var pollTimer = window.setInterval(function() { 
