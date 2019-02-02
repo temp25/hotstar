@@ -1,4 +1,3 @@
-
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
 
@@ -13,10 +12,6 @@
 		ipAddr_userAgent = e.ip + "_" + navigator.userAgent;
 		var channel = pusher.subscribe('gdrive');
 		channel.bind(ipAddr_userAgent, function(data) {
-			//alert(data.message);
-			//console.log("Auth Url : "+data.message);
-			//var txtBox = document.getElementById("txtBox");
-			//txtBox.value=data.message;
 			console.log("Message : \n"+data.message);
 		});
 	});
@@ -53,83 +48,16 @@
     var txtBox = document.getElementById("txtBox");
     var authUrl=txtBox.value;
     //alert("authUrl : "+authUrl);
-	console.log("authUrl : "+authUrl);
-	var count=0;
-    
-	   var pollTimer = window.setInterval(function() {
-	       console.log("pollTimer called "+count);
-	          var navigationCounter = document.getElementById("navigationCounter");
-           var navSpan = document.createElement('span');
-           navSpan.innerHtml = "pollTimer counter invoked "+(++count)+" time(s)</br>";
-           navigationCounter.appendChild(navSpan);
+
+    var pollTimer = window.setInterval(function() {
+    	var tmpMsg = "pollTimer counter invoked "+(++count)+" time(s)</br>";
+    	console.log(tmpMsg);
+        var navigationCounter = document.getElementById("navigationCounter");
+        var navSpan = document.createElement('span');
+        navSpan.innerHtml = tmpMsg;
+        navigationCounter.appendChild(navSpan);
      }, 1000);
-     
+
+	console.log("authUrl : "+authUrl);
 	var popup = window.open(authUrl, "windowname1", 'width=800, height=600');
-	//var popupIntervalLog = "";
-	
-    //var navigationCounter = document.getElementById('navigationCounter');var navSpan = document.createElement('span');navSpan.innerHtml = window.location.html;navigationCounter.appendChild(navSpan);
-    //popup.load("javascript:{var tmp = setInterval(() => {var navigationCounter = document.getElementById('navigationCounter');var navSpan = document.createElement('span');navSpan.innerHtml = window.location.html;navigationCounter.appendChild(navSpan);}, 1000);}");
-    
-    //window.open(authUrl, "windowname1", 'width=800, height=600');
-    //window.open("javascript:{window.onload = function() { var popupTimer = setInterval(function() { window.opener.showAuthUrl(window.location.href); }, 3000); } }", "windowname1", 'width=800, height=600');
-    
-    /* var win = window.open(authUrl, "windowname1", 'width=800, height=600');
-    var pollTimer = window.setInterval(function() { 
-        try { 
-            var url = win.document.URL; 
-			console.log(url);
-            var navigationCounter = document.getElementById("navigationCounter");
-            var navSpan = document.createElement('span');
-            navSpan.innerHtml = "pollTimer counter invoked "+(++count)+" time(s)</br>";
-            navigationCounter.appendChild(navSpan);
-            } catch(e) { } 
-     }, 3000);
-	 alert("pollTimer : "+pollTimer); */
-	 
-	 // popup.onLoad = function() {
-		// alert('loaded');
-		// // do other things
-		// var pollTimer = window.setInterval(function() { 
-		 
-			// sessionStorage.setItem("popupUrl", window.location.href);
-			
-		 // }, 1000);
-	// };
-	 
-	 // event
-	 
-	 // var pollTimer = window.setInterval(function() { 
-		// var popupUrl = sessionStorage.getItem("popupUrl");
-		// console.log("popupUrl : "+popupUrl);
-     // }, 2000);
-	 
-	 
-	 
-	 
-	 
-	 // function winopen()
-// {
-  // var ghtml = "<h1>sasaasas</h1>";
-  // var gwin = window.open("", "_blank", "location=no,width=1000,height=600");
-  // if (gwin)
-  // { gwin.document.open();
-    // //gwin.document.write(ghtml);
-	// gwin.location.href = authUrl;
-
-    // var oscript = gwin.document.createElement("script");
-    // oscript.type = "text/javascript";
-    // oscript.innerHTML = "alert('loaded'); var pollTimer = window.setInterval(function() { console.log('popupUrl '+ window.location.href); }, 1000);";
-    // gwin.document.getElementsByTagName("head")[0].appendChild(oscript);
-
-    // //gwin.document.close();
-  // }
-// }
-// winopen();
-
-//var wnd = window.open(authUrl, "", "width=800, height=600");
-//wnd.onload = function() { alert("complete"); };
-//jQuery(wnd.document).load(function() {
-//   alert('loaded'); // do other things
-//});
-
   }
