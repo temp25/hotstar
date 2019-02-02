@@ -14,7 +14,7 @@ if(isset($_POST) && isset($_POST["action"])) {
 	$client->setHttpClient(new \GuzzleHttp\Client(['verify' => false]));
 	$client->setClientId('905044047037-h0pl1t3r3qlimegtjd5h3q2u24pebqpl.apps.googleusercontent.com');
 	$client->setClientSecret('Dc0BijZKsFzLYwCBm_eTY-Sf');
-	$client->setRedirectUri("https://hotstar-test1.herokuapp.com");
+	$client->setRedirectUri("https://hotstar-test1.herokuapp.com/redirect.html");
 	$client->setScopes(array('https://www.googleapis.com/auth/drive'));
 	$service = new Google_Service_Drive($client);
 	
