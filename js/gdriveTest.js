@@ -48,6 +48,7 @@
     var txtBox = document.getElementById("txtBox");
     var authUrl=txtBox.value;
     //alert("authUrl : "+authUrl);
+    var count=0;
 
     var pollTimer = window.setInterval(function() {
     	var tmpMsg = "pollTimer counter invoked "+(++count)+" time(s)</br>";
