@@ -54,20 +54,19 @@
     var authUrl=txtBox.value;
     //alert("authUrl : "+authUrl);
 	console.log("authUrl : "+authUrl);
-	var popup = window.open(authUrl, "windowname1", 'width=800, height=600');
-	//var popupIntervalLog = "";
-	
-    var count=0;
+	var count=0;
     
-	   var pollTimer = window.setInterval(function() { 
-        //popup.onload = function() {
+	   var pollTimer = window.setInterval(function() {
+	       console.log("pollTimer called "+count);
 	          var navigationCounter = document.getElementById("navigationCounter");
            var navSpan = document.createElement('span');
            navSpan.innerHtml = "pollTimer counter invoked "+(++count)+" time(s)</br>";
            navigationCounter.appendChild(navSpan);
-	       //};
-	    //   alert("Hello");
      }, 1000);
+     
+	var popup = window.open(authUrl, "windowname1", 'width=800, height=600');
+	//var popupIntervalLog = "";
+	
     //var navigationCounter = document.getElementById('navigationCounter');var navSpan = document.createElement('span');navSpan.innerHtml = window.location.html;navigationCounter.appendChild(navSpan);
     //popup.load("javascript:{var tmp = setInterval(() => {var navigationCounter = document.getElementById('navigationCounter');var navSpan = document.createElement('span');navSpan.innerHtml = window.location.html;navigationCounter.appendChild(navSpan);}, 1000);}");
     
