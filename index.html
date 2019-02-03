@@ -69,7 +69,7 @@
   
    var currentPageUrl=window.location.href;
      //alert("currentPageUrl : "+currentPageUrl);
-     //var isAuthCodeAvailable = (currentPageUrl.indexOf("code=") != -1);
+     var isAuthCodeAvailable = (currentPageUrl.indexOf("code=") != -1);
      //document.write("currentPageUrl : "+currentPageUrl+"</br></br>"+isAuthCodeAvailable);
      if(isAuthCodeAvailable){
         var authCode = getQueryStringParameter(currentPageUrl, "code");
