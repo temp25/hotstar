@@ -9,7 +9,7 @@ if(isset($_POST) && isset($_POST["action"])) {
 	
 	$action = $_POST["action"];
 	
-	//$ipAddr_userAgent = $_POST['uniqueId'];
+	$ipAddr_userAgent = $_POST['uniqueId'];
 	$client = new Google_Client();
 	$client->setHttpClient(new \GuzzleHttp\Client(['verify' => false]));
 	$client->setClientId('905044047037-h0pl1t3r3qlimegtjd5h3q2u24pebqpl.apps.googleusercontent.com');
@@ -63,6 +63,7 @@ if(isset($_POST) && isset($_POST["action"])) {
 			// An example of a read buffered file is when reading from a URL
 			$chunk = readVideoChunk($handle, $chunkSizeBytes);
 			$status = $media->nextChunk($chunk);
+			sendDataToClient("status : ".$status, $ipAddr_userAgent);
 		}
 		// The final value of $status will be the data from the API for the object
 		// that has been uploaded.
@@ -72,6 +73,7 @@ if(isset($_POST) && isset($_POST["action"])) {
 		}
 		fclose($handle);
 		
+		sendDataToClient("result : ".$result, $ipAddr_userAgent);
 		
 	}else{
 		echo "Error occurred :-(";

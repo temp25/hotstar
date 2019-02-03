@@ -43,6 +43,29 @@
 	}
 
   var REDIRECT="https://hotstar-test1.herokuapp.com";
+  
+  function uploadFile(authCode) {
+    //var txtBox = document.getElementById("txtBox");
+    //var authCode=txtBox.value;
+    console.log("uploadFile() method called");
+    $.ajax({ 
+		   url: "uploadFileGDrive.php", 
+		   type: "POST",
+		   data: {
+				action: "uploadFile",
+				authCode: authCode,
+				uniqueId: ipAddr_userAgent
+			},
+		})
+		.done(function() {
+			console.log("Auth code setup success");
+   alert("Auth code setup success");
+		})
+		.fail(function() {
+			console.error("Error occured in setting up Auth code");
+   alert("Error occured in setting up Auth code");
+		});
+  }
 
   function authorize() {
     var txtBox = document.getElementById("txtBox");
@@ -61,6 +84,7 @@
           console.log("authCode :"+authCode);
           popup.close();
           clearInterval(pollTimer);
+          uploadFile(authCode);
        }
      }
         //var navigationCounter = document.getElementById("navigationCounter");
