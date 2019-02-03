@@ -53,10 +53,16 @@
     var pollTimer = window.setInterval(function() {
     	var tmpMsg = "pollTimer counter invoked "+(++count)+" time(s)</br>";
     	console.log(tmpMsg);
-        var navigationCounter = document.getElementById("navigationCounter");
-        var navSpan = document.createElement('span');
-        navSpan.innerHtml = tmpMsg;
-        navigationCounter.appendChild(navSpan);
+    	if(Cookies.enabled){
+       var authCode = Cookies.get('authCode');
+       if(authCode != null && authCode!==undefined){
+          alert("authCode :"+authCode);
+       }
+     }
+        //var navigationCounter = document.getElementById("navigationCounter");
+        //var navSpan = document.createElement('span');
+        //navSpan.innerHtml = tmpMsg;
+        //navigationCounter.appendChild(navSpan);
      }, 1000);
 
 	console.log("authUrl : "+authUrl);

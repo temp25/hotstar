@@ -69,10 +69,14 @@
   
    var currentPageUrl=window.location.href;
      //alert("currentPageUrl : "+currentPageUrl);
-     var isAuthCodeAvailable = (currentPageUrl.indexOf("code=") != -1);
-     document.write("currentPageUrl : "+currentPageUrl+"</br></br>"+isAuthCodeAvailable);
+     //var isAuthCodeAvailable = (currentPageUrl.indexOf("code=") != -1);
+     //document.write("currentPageUrl : "+currentPageUrl+"</br></br>"+isAuthCodeAvailable);
      if(isAuthCodeAvailable){
-        alert("Url contains access code : "+getQueryStringParameter(currentPageUrl, "code"));
+        var authCode = getQueryStringParameter(currentPageUrl, "code");
+        if(Cookies.enabled){
+          Cookies.set('authCode', authCode);
+        }
+        alert("Url contains access code : "+authCode);
      }
   </script>
 		<link rel="stylesheet" href="css/mycss.css">
