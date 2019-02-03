@@ -49,14 +49,18 @@
     var authUrl=txtBox.value;
     //alert("authUrl : "+authUrl);
     var count=0;
+    var popup;
 
     var pollTimer = window.setInterval(function() {
     	var tmpMsg = "pollTimer counter invoked "+(++count)+" time(s)</br>";
-    	console.log(tmpMsg);
+    	//console.log(tmpMsg);
     	if(Cookies.enabled){
        var authCode = Cookies.get('authCode');
        if(authCode != null && authCode!==undefined){
-          alert("authCode :"+authCode);
+          //alert("authCode :"+authCode);
+          console.log("authCode :"+authCode);
+          popup.close();
+          clearInterval(pollTimer);
        }
      }
         //var navigationCounter = document.getElementById("navigationCounter");
@@ -66,5 +70,5 @@
      }, 1000);
 
 	console.log("authUrl : "+authUrl);
-	var popup = window.open(authUrl, "windowname1", 'width=800, height=600');
+	popup = window.open(authUrl, "windowname1", 'width=800, height=600');
   }
