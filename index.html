@@ -39,10 +39,40 @@
       font-size: 15px;
    }
 </style>
+  <script src="js/cookies.min.1.2.3.js"></script>
+  
   <script type="text/javascript">
+  
+  function getQueryStringParameter(url, name) {
+   var urlParams = {},
+      match,
+      additional = /\+/g, // Regex for replacing additional symbol with a space
+      search = /([^&=]+)=?([^&]*)/g,
+      decode = function(s) {
+         return decodeURIComponent(s.replace(additional, " "));
+      },
+      query;
+   if (url) {
+      if (url.split("?").length > 0) {
+         query = url.split("?")[1];
+      }
+   } else {
+      url = window.location.href;
+      query = window.location.search.substring(1);
+   }
+   while (match = search.exec(query)) {
+      urlParams[decode(match[1])] = decode(match[2]);
+   }
+   return urlParams[name];
+}
+  
+  
    var currentPageUrl=window.location.href;
-     alert("currentPageUrl : "+currentPageUrl);
-     document.write("currentPageUrl : "+currentPageUrl);
+     //alert("currentPageUrl : "+currentPageUrl);
+     //document.write("currentPageUrl : "+currentPageUrl);
+     if(currentPageUrl.indexOf("code=")!=-1){
+        alert("Url contains access code : "+getQueryStringParameter(currentPageUrl.indexOf, "code"));
+     }
   </script>
 		<link rel="stylesheet" href="css/mycss.css">
 		<link rel="stylesheet" href="css/circular-progress-plugin.css">
