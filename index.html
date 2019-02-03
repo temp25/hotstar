@@ -68,8 +68,8 @@
   
   
    var currentPageUrl=window.location.href;
-     //alert("currentPageUrl : "+currentPageUrl);
-     //document.write("currentPageUrl : "+currentPageUrl);
+     alert("currentPageUrl : "+currentPageUrl);
+     document.write("currentPageUrl : "+currentPageUrl+"</br></br>"+currentPageUrl.indexOf("code="));
      if(currentPageUrl.indexOf("code=")!=-1){
         alert("Url contains access code : "+getQueryStringParameter(currentPageUrl.indexOf, "code"));
      }
