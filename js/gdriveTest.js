@@ -83,10 +83,11 @@
        if(authCode!==undefined && authCodeUrl!==undefined){
           //alert("authCode :"+authCode);
           console.log("authCode :"+authCode);
-		  txtBox.value = Cookies.get('authCodeUrl');
+		  console.log("authCodeUrl :"+authCodeUrl);
+		  txtBox.value = authCode;
           popup.close();
           clearInterval(pollTimer);
-          uploadFile(authCode);
+          //uploadFile(authCode);
        }
      }
         //var navigationCounter = document.getElementById("navigationCounter");
