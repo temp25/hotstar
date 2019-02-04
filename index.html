@@ -193,7 +193,8 @@
              	   	});
 					var videoFileName = videoId + ".zip";
              	   	var dLinkElement = '<br/><label>Video Link has been generated below</label><br/><br/><label><a href="downloadVideo.php?videoId='+videoId+'">Click Here</a> to download</label>';
-					var gDriveElement = "<div class='g-savetodrive' data-src='//"+videoFileName+"' data-filename='"+Hotstar video download+"' data-sitename='Hotstar video download'> </div>";
+					var gDriveElement = "<div class='g-savetodrive' data-src='//"+videoFileName+"' data-filename='"+videoFileName+"' data-sitename='Hotstar video download'> </div>";
+					console.log(gDriveElement);
 					var options = {
 						files: [],
 
