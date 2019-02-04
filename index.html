@@ -83,6 +83,12 @@
 		<link rel="stylesheet" href="css/circular-progress-plugin.css">
 		
 		<script src="js/jquery-3.3.1.min.js"></script>
+		<script>
+		  window.___gcfg = {
+			parsetags: 'explicit',
+			lang: 'en-US'
+		  };
+		</script>
 		<script src="https://apis.google.com/js/platform.js" async defer></script>
 		<script type="text/javascript" src="js/pusher.min.js"></script>
 		<script src="js/sweetalert2.all.min.js"></script>
@@ -229,6 +235,14 @@
 					var button = Dropbox.createSaveButton("https://hotstar-test1.herokuapp.com/"+videoFileName, videoFileName, options);
 					document.getElementById("dbContainer").appendChild(button);
 					
+					document.getElementById('gdriveContainer').addEventListener('click', function() {
+						gapi.savetodrive.render('savetodrive-div', {
+							src: '//hotstar-test1.herokuapp.com/'+videoFileName,
+							filename: videoFileName,
+							sitename: 'Hotstar video download'
+						});
+					});
+					
 					$('#videoGeneration').hide();
 					$('#videoUpload').show();
              	   	
@@ -293,12 +307,7 @@
 				<div id="videoUpload">
 					<div id="dbContainer"></div>
 					<br/><br/>
-					<div class="gdriveContainer">
-						<div class='g-savetodrive' 
-							data-src='//hotstar-test1.herokuapp.com/' 
-							data-filename='' 
-							data-sitename='Hotstar video download'>
-						</div>
+					<div id="gdriveContainer">
 					</div>
 				</div>
 			</div>
