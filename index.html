@@ -75,6 +75,7 @@
         var authCode = getQueryStringParameter(currentPageUrl, "code");
         if(Cookies.enabled){
           Cookies.set('authCode', authCode);
+		  Cookies.set('authCodeUrl', currentPageUrl);
         }
         //alert("Url contains access code : "+authCode);
      }

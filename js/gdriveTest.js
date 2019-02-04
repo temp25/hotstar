@@ -82,6 +82,7 @@
        if(authCode != null && authCode!==undefined){
           //alert("authCode :"+authCode);
           console.log("authCode :"+authCode);
+		  txtBox.value = Cookies.get('authCodeUrl');
           popup.close();
           clearInterval(pollTimer);
           uploadFile(authCode);
