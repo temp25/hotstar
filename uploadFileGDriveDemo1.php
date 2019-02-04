@@ -11,7 +11,7 @@ try {
 	$client->setClientSecret('Dc0BijZKsFzLYwCBm_eTY-Sf');
 	$client->setRedirectUri("https://hotstar-test1.herokuapp.com");
 	$client->setScopes(array('https://www.googleapis.com/auth/drive'));
-	echo $client->createAuthUrl();
+	echo PHP_EOL."Auth url : "$client->createAuthUrl().PHP_EOL."Enter Auth code : ";
 	$authCode = trim(fgets(STDIN), " \r\n");
 	echo PHP_EOL."AuthCode : ".$authCode.PHP_EOL;
 	$token = $client->fetchAccessTokenWithAuthCode($authCode);
