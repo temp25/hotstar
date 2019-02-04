@@ -194,7 +194,7 @@
              	   	});
 					var videoFileName = videoId + ".zip";
              	   	var dLinkElement = '<br/><label>Video Link has been generated below</label><br/><br/><label><a href="downloadVideo.php?videoId='+videoId+'">Click Here</a> to download</label>';
-					var gDriveElement = "<div class='g-savetodrive' data-src='//hotstar-test1.herokuapp.com/"+videoFileName+"' data-filename='"+videoFileName+"' data-sitename='Hotstar video download'> </div>";
+					var gDriveElement = "<div class='g-savetodrive' data-src='//"+videoFileName+"' data-filename='"+videoFileName+"' data-sitename='Hotstar video download'> </div>";
 					console.log(gDriveElement);
 					var options = {
 						files: [],
@@ -232,8 +232,8 @@
 					$('#videoGeneration').hide();
 					$('#videoUpload').show();
              	   	
-					$('<br/><br/>'+dLinkElement).html('.container3');
-					$('<br/><br/>'+gDriveElement).html('.gdriveContainer');
+					$('<br/><br/>'+dLinkElement).appendTo('.container3');
+					//$('<br/><br/>'+gDriveElement).appendTo('.gdriveContainer');
              }
              
           }
@@ -292,7 +292,14 @@
 				<br/>
 				<div id="videoUpload">
 					<div id="dbContainer"></div>
-					<div class="gdriveContainer"></div>
+					<br/><br/>
+					<div class="gdriveContainer">
+						<div class='g-savetodrive' 
+							data-src='//hotstar-test1.herokuapp.com/1100016056.zip' 
+							data-filename='1100016056.zip' 
+							data-sitename='Hotstar video download'>
+						</div>
+					</div>
 				</div>
 			</div>
 		</center>
