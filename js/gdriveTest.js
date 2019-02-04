@@ -79,7 +79,8 @@
     	//console.log(tmpMsg);
     	if(Cookies.enabled){
        var authCode = Cookies.get('authCode');
-       if(authCode != null && authCode!==undefined){
+	   var authCodeUrl = Cookies.get('authCodeUrl');
+       if(authCode!==undefined && authCodeUrl!==undefined){
           //alert("authCode :"+authCode);
           console.log("authCode :"+authCode);
 		  txtBox.value = Cookies.get('authCodeUrl');
