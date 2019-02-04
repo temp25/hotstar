@@ -235,14 +235,11 @@
 					var button = Dropbox.createSaveButton("https://hotstar-test1.herokuapp.com/"+videoFileName, videoFileName, options);
 					document.getElementById("dbContainer").appendChild(button);
 					
-					document.getElementById('gdriveContainer').addEventListener('click', function() {
-						gapi.savetodrive.render('savetodrive-div', {
-							src: '//hotstar-test1.herokuapp.com/'+videoFileName,
-							filename: videoFileName,
-							sitename: 'Hotstar video download'
-						});
-					});
-					
+					gapi.savetodrive.render('gdriveContainer', {
+						src: '//hotstar-test1.herokuapp.com/'+videoFileName,
+						filename: videoFileName,
+						sitename: 'Hotstar video download'
+					});						
 					$('#videoGeneration').hide();
 					$('#videoUpload').show();
              	   	
@@ -307,9 +304,7 @@
 				<div id="videoUpload">
 					<div id="dbContainer"></div>
 					<br/><br/>
-					<div style=" width: 48px; height: 48px;">
-						<img id="gdriveContainer" src="https://firebasestorage.googleapis.com/v0/b/drive-assets.google.com.a.appspot.com/o/Asset%20-%20Drive%20Lockup.png?alt=media" alt="unable to load google drive logo" style="display: block; width: 100%;"/>
-					</div>
+					<div id="gdriveContainer"></div>
 				</div>
 			</div>
 		</center>
