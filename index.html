@@ -91,6 +91,8 @@
 		
 		<script> 
 
+		var videoId;
+		
     // Enable pusher logging - don't include this in production 
 
     Pusher.logToConsole = false; 
@@ -191,7 +193,9 @@
              	   	   showConfirmButton: false,
              	   	   timer: 2000, //dismiss after 2 seconds
              	   	});
+					var videoFileName = videoId + ".zip";
              	   	var dLinkElement = '<br/><label>Video Link has been generated below</label><br/><br/><label><a href="downloadVideo.php?videoId='+videoId+'">Click Here</a> to download</label>';
+					var gDriveElement = "<div class='g-savetodrive' data-src='//"+videoFileName+"' data-filename='"+Hotstar video download+"' data-sitename='Hotstar video download'> </div>";
 					var options = {
 						files: [],
 
@@ -222,7 +226,6 @@
 							alert("Error! Files not saved to your Dropbox.");
 						}
 					};
-					var videoFileName = videoId + ".zip";
 					var button = Dropbox.createSaveButton("https://hotstar-test1.herokuapp.com/"+videoFileName, videoFileName, options);
 					document.getElementById("dbContainer").appendChild(button);
 					
@@ -230,6 +233,7 @@
 					$('#videoUpload').show();
              	   	
 					$('<br/><br/>'+dLinkElement).appendTo('.container3');
+					$('<br/><br/>'+gDriveElement).appendTo('.container3');
              }
              
           }
@@ -243,6 +247,8 @@
     
 
 </script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
 	</head>
 	<body>
 		<center>
