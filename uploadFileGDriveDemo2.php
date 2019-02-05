@@ -76,12 +76,15 @@ echo PHP_EOL."Token : ".$token.PHP_EOL;
   // complete.
   $status = false;
   $handle = fopen(TESTFILE, "rb");
+  $bytesRead = 0;
   while (!$status && !feof($handle)) {
     // read until you get $chunkSizeBytes from TESTFILE
     // fread will never return more than 8192 bytes if the stream is read buffered and it does not represent a plain file
     // An example of a read buffered file is when reading from a URL
     $chunk = readVideoChunk($handle, $chunkSizeBytes);
-	echo PHP_EOL."chunk size(in bytes) : ".strlen($chunk);
+	$bytesRead += strlen($chunk);
+	//echo PHP_EOL."chunk size(in bytes) : ".strlen($chunk);
+	echo PHP_EOL."Bytes Read : ".$bytesRead;
     $status = $media->nextChunk($chunk);
   }
 
