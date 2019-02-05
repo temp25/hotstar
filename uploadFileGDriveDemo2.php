@@ -19,6 +19,12 @@ function readVideoChunk ($handle, $chunkSize) {
 
 echo "File Upload - Uploading a large file";
 
+if($argc==1){
+	die("Must pass atleast one parameter");
+}
+
+$authCode = $argv[1];
+
 $client = new Google_Client();
 $client->setHttpClient(new \GuzzleHttp\Client(['verify' => false]));
 $client->setClientId('905044047037-h0pl1t3r3qlimegtjd5h3q2u24pebqpl.apps.googleusercontent.com');
