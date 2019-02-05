@@ -67,9 +67,9 @@ echo PHP_EOL."Token : ".$token.PHP_EOL;
       true,
       $chunkSizeBytes
   );
-  $fileSize = filesize(TESTFILE);
-  $media->setFileSize(fileSize);
-  echo PHP_EOL."filesize(TESTFILE) : ".$fileSize;
+  $file_size = filesize(TESTFILE);
+  $media->setFileSize($file_size);
+  echo PHP_EOL."file_size(TESTFILE) : ".$file_size;
 
   // Upload the various chunks. $status will be false until the process is
   // complete.
