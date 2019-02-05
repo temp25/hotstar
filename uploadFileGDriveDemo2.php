@@ -42,13 +42,15 @@ echo PHP_EOL."Token : ".$token.PHP_EOL;
   /************************************************
    * We'll setup an empty 20MB file to upload.
    ************************************************/
-  DEFINE("TESTFILE", 'testfile.txt');
-  if (!file_exists(TESTFILE)) {
-    $fh = fopen(TESTFILE, 'w');
-    fseek($fh, 1024*1024*20);
-    fwrite($fh, "!", 1);
-    fclose($fh);
-  }
+  // DEFINE("TESTFILE", 'testfile.txt');
+  // if (!file_exists(TESTFILE)) {
+    // $fh = fopen(TESTFILE, 'w');
+    // fseek($fh, 1024*1024*20);
+    // fwrite($fh, "!", 1);
+    // fclose($fh);
+  // }
+  DEFINE("TESTFILE", 'enwik8.zip');
+  shell_exec("wget -q http://mattmahoney.net/dc/enwik8.zip");
 
   $file = new Google_Service_Drive_DriveFile();
   $file->name = "Big File";
@@ -62,7 +64,7 @@ echo PHP_EOL."Token : ".$token.PHP_EOL;
   $media = new Google_Http_MediaFileUpload(
       $client,
       $request,
-      'text/plain',
+      'application/zip', /*'text/plain',*/
       null,
       true,
       $chunkSizeBytes
