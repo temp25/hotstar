@@ -53,7 +53,7 @@ echo PHP_EOL."Token : ".$token.PHP_EOL;
   shell_exec("wget -q http://mattmahoney.net/dc/enwik8.zip");
 
   $file = new Google_Service_Drive_DriveFile();
-  $file->name = "Big File";
+  $file->name = "enwik8.zip";
   $chunkSizeBytes = 1 * 1024 * 1024;
 
   // Call the API with the media upload, defer so it doesn't immediately return.
