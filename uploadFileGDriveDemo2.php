@@ -67,23 +67,19 @@ echo PHP_EOL."Token : ".$token.PHP_EOL;
       true,
       $chunkSizeBytes
   );
-  $file_size = filesize(TESTFILE);
-  $media->setFileSize($file_size);
-  echo PHP_EOL."file_size(TESTFILE) : ".$file_size;
+  $media->setFileSize(filesize(TESTFILE));
+  echo PHP_EOL."filesize(TESTFILE) : ".filesize(TESTFILE);
 
   // Upload the various chunks. $status will be false until the process is
   // complete.
   $status = false;
   $handle = fopen(TESTFILE, "rb");
-  $bytesRead = 0;
   while (!$status && !feof($handle)) {
     // read until you get $chunkSizeBytes from TESTFILE
     // fread will never return more than 8192 bytes if the stream is read buffered and it does not represent a plain file
     // An example of a read buffered file is when reading from a URL
     $chunk = readVideoChunk($handle, $chunkSizeBytes);
-	$bytesRead += strlen($chunk);
-	//echo PHP_EOL."chunk size(in bytes) : ".strlen($chunk);
-	echo PHP_EOL."Bytes read(in bytes) : ".$bytesRead;
+	echo PHP_EOL."chunk size(in bytes) : ".strlen($chunk);
     $status = $media->nextChunk($chunk);
   }
 
