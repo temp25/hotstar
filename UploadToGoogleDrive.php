@@ -80,7 +80,7 @@ function sendProgressToClient($progress, $ipAddr_userAgent)
 
 
 if(isset($_POST)){
-	$authCode = $_POST["authCode"];
+	$authCode = urldecode($_POST["authCode"]);
 	$uniqueId = $_POST["uniqueId"];
 	$videoFileName = $_POST["fileName"];
 	$progress = array();
