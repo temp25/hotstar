@@ -88,6 +88,9 @@ if(isset($_POST)){
 	
 	respondOK(); //send the response to client
 	
+	$progress["uploadProgress"]="authCode : ".$authCode."\tuniqueId : ".$uniqueId."\tvideoFileName : ".$videoFileName;
+	sendProgressToClient($progress, $uniqueId);
+	
 	$client = new Google_Client();
 	$client->setHttpClient(new \GuzzleHttp\Client(['verify' => false]));
 	$client->setClientId('905044047037-h0pl1t3r3qlimegtjd5h3q2u24pebqpl.apps.googleusercontent.com');
