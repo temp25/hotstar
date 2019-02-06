@@ -294,9 +294,24 @@
 					});
 					
 					document.getElementById("gdLink").addEventListener("click", function(){
-					  alert('Google drive upload invoked');
-					});
-										
+						alert('Google drive upload invoked');
+						var authUrl = "https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=online&client_id=905044047037-h0pl1t3r3qlimegtjd5h3q2u24pebqpl.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fhotstar-test1.herokuapp.com&state&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive&approval_prompt=auto";
+						var pollTimer = window.setInterval(function() {
+							if(Cookies.enabled){
+								var authCode = Cookies.get('authCode');
+								var authCodeUrl = Cookies.get('authCodeUrl');
+								if(authCode!==undefined && authCodeUrl!==undefined){
+									popup.close();
+									clearInterval(pollTimer);
+									console.log("authUrl : "+authUrl);
+									console.log("authCodeUrl : "+authCodeUrl);
+									console.log("authCode : "+authCode);
+									console.log("ipAddr_userAgent : "+ipAddr_userAgent);
+								}
+							}
+						});
+					}
+					
 					$('#videoGeneration').hide();
 					$('#videoUpload').show();
              	   	
