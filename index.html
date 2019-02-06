@@ -82,6 +82,18 @@
   </script>
 		<link rel="stylesheet" href="css/mycss.css">
 		<link rel="stylesheet" href="css/circular-progress-plugin.css">
+		<style type="text/css">
+			img {
+				border: 1px solid transparent;
+			}
+			img:hover {
+				box-shadow: 0 0 5px 1px rgba(81, 203, 238, 1);
+			}
+			img:active {
+				box-shadow: 0 0 5px 1px rgba(81, 203, 238, 1);
+				transform: translateY(3px);
+			}
+		</style>
 		
 		<script src="js/jquery-3.3.1.min.js"></script>
 		<script>
@@ -200,9 +212,12 @@
              	   	   timer: 2000, //dismiss after 2 seconds
              	   	});
 					var videoFileName = videoId + ".zip";
-             	   	var dLinkElement = '<br/><label>Video Link has been generated below</label><br/><br/><label><a href="downloadVideo.php?videoId='+videoId+'">Click Here</a> to download</label>';
-					var gDriveElement = "<div class='g-savetodrive' data-src='//"+videoFileName+"' data-filename='"+videoFileName+"' data-sitename='Hotstar video download'> </div>";
-					console.log(gDriveElement);
+             	   	//var dLinkElement = '<br/><label>Video Link has been generated below</label><br/><br/><label><a href="downloadVideo.php?videoId='+videoId+'">Click Here</a> to download</label>';
+					var dLinkElement = '<br/><label>Video Link has been generated below</label><br/><br/>';
+					//var gDriveElement = "<div class='g-savetodrive' data-src='//"+videoFileName+"' data-filename='"+videoFileName+"' data-sitename='Hotstar video download'> </div>";
+					document.getElementById("dLink").href="downloadVideo.php?videoId="+videoId;
+					//console.log(gDriveElement);
+					var isDropboxUploadDialogShown = false;
 					var options = {
 						files: [],
 
@@ -210,7 +225,16 @@
 						// Dropbox, although they may not have synced to the user's devices yet.
 						success: function () {
 							// Indicate to the user that the files have been saved.
-							alert("Success! Files saved to your Dropbox.");
+							//alert("Success! Files saved to your Dropbox.");
+							swal.close();
+							isDropboxUploadDialogShown = false;
+							swal({
+								  type: 'success',
+								  title: "File "+videoFileName+" saved to Dropbox successfully",
+								  allowOutsideClick: () => false,
+								  showConfirmButton: false,
+								  timer: 2000, //dismiss after 2 seconds
+							 });
 						},
 
 						// Progress is called periodically to update the application on the progress
@@ -218,29 +242,59 @@
 						// between 0 and 1. The progress callback is guaranteed to be called at least
 						// once with the value 1.
 						progress: function (progress) {
-							console.log("Dropbox file upload progress : "+progress);
+							console.info("Dropbox file upload progress....");
+							if(!isUploadDialogShown) {
+								isDropboxUploadDialogShown = true;
+								swal({
+									title: 'Uploading file '+videoFileName+' to Dropbox',
+									allowOutsideClick: () => false,
+									onOpen: () => {
+										swal.showLoading();
+									}
+								});								
+							}
 						},
 
 						// Cancel is called if the user presses the Cancel button or closes the Saver.
 						cancel: function () {
-							alert("Save to Dropbox cancelled.");
+							//alert("Save to Dropbox cancelled.");
+							swal({
+								type: 'info',
+								title: 'Save to dropbox cancelled',
+								text: "You have closed the save window without clicking save",
+								allowOutsideClick: () => true,
+								showConfirmButton: false,
+								timer: 1000, //dismiss after 2 seconds
+							});
 						},
 
 						// Error is called in the event of an unexpected response from the server
 						// hosting the files, such as not being able to find a file. This callback is
 						// also called if there is an error on Dropbox or if the user is over quota.
 						error: function (errorMessage) {
-							alert("Error! Files not saved to your Dropbox.");
+							//alert("Error! Files not saved to your Dropbox.");
+							swal.close();
+							isDropboxUploadDialogShown = false;
+							swal({
+								type: 'error',
+								allowOutsideClick: () => false,
+								title: 'Error in uploading file '+videoFileName,
+								text: errorMessage,
+								footer: '',
+							});
 						}
 					};
-					var button = Dropbox.createSaveButton("https://hotstar-test1.herokuapp.com/"+videoFileName, videoFileName, options);
-					document.getElementById("dbContainer").appendChild(button);
+					//var button = Dropbox.createSaveButton("https://hotstar-test1.herokuapp.com/"+videoFileName, videoFileName, options);
+					//document.getElementById("dbContainer").appendChild(button);
 					
-					gapi.savetodrive.render('gdriveContainer', {
-						src: '//hotstar-test1.herokuapp.com/'+videoFileName,
-						filename: videoFileName,
-						sitename: 'Hotstar video download'
-					});						
+					document.getElementById("dbLink")addEventListener("click", function(){
+					  Dropbox.save("https://hotstar-test1.herokuapp.com/"+videoFileName, videoFileName, options);
+					});
+					
+					document.getElementById("gdLink")addEventListener("click", function(){
+					  alert('Google drive upload invoked');
+					});
+										
 					$('#videoGeneration').hide();
 					$('#videoUpload').show();
              	   	
@@ -303,9 +357,9 @@
 					<div id="responseText"></div>
 				<br/>
 				<div id="videoUpload">
-					<div id="dbContainer"></div>
-					<br/><br/>
-					<div id="gdriveContainer"></div>
+					<a href=""><img id="dLink" src="image/dPng.gif" height="42" width="42" title="Download file"/></a>
+					<img id="dbLink" src="image/dbPng.png" height="42" width="42" title="Save to Dropbox"/>
+					<img id="gdLink" src="image/gdPng.png" height="42" width="42" title="Save to Google Drive"/>
 				</div>
 			</div>
 		</center>
