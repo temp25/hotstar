@@ -65,6 +65,10 @@
    }
    return urlParams[name];
 }
+
+function getQueryStringValue(url, key) {
+	return decodeURIComponent(url.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1")); 
+} 
   
   
    var currentPageUrl=window.location.href;
@@ -72,7 +76,7 @@
      var isAuthCodeAvailable = (currentPageUrl.indexOf("code=") != -1);
      //document.write("currentPageUrl : "+currentPageUrl+"</br></br>"+isAuthCodeAvailable);
      if(isAuthCodeAvailable){
-        var authCode = getQueryStringParameter(currentPageUrl, "code");
+        var authCode = getQueryStringValue(currentPageUrl, "code"); //getQueryStringParameter(currentPageUrl, "code");
         if(Cookies.enabled){
           Cookies.set('authCode', authCode);
 		  Cookies.set('authCodeUrl', currentPageUrl);
