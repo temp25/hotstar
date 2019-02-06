@@ -81,78 +81,24 @@ function sendProgressToClient($progress, $ipAddr_userAgent)
 
 if(isset($_POST)){
 	$authCode = urldecode($_POST["authCode"]);
-	$uniqueId = $_POST["uniqueId"];
+	$ipAddr_userAgent = $_POST["uniqueId"];
 	$videoFileName = $_POST["fileName"];
 	$progress = array();
 	$progress["uploadStatus"] = "uploading";
 	
 	respondOK(); //send the response to client
 	
-	$progress["uploadProgress"]="authCode : ".$authCode."\tuniqueId : ".$uniqueId."\tvideoFileName : ".$videoFileName;
-	sendProgressToClient($progress, $uniqueId);
+	$gdriveUploadCommand = "php gdrive.php ".$authCode." ".$videoFileName;
 	
-	$client = new Google_Client();
-	$client->setHttpClient(new \GuzzleHttp\Client(['verify' => false]));
-	$client->setClientId('905044047037-h0pl1t3r3qlimegtjd5h3q2u24pebqpl.apps.googleusercontent.com');
-	$client->setClientSecret('Dc0BijZKsFzLYwCBm_eTY-Sf');
-	$client->setRedirectUri("https://hotstar-test1.herokuapp.com");
-	$client->addScope("https://www.googleapis.com/auth/drive");
-	$service = new Google_Service_Drive($client);
-	$token = $client->fetchAccessTokenWithAuthCode($authCode);
-	$client->setAccessToken($token);
-	$authUrl = $client->createAuthUrl();
-	
-	$file = new Google_Service_Drive_DriveFile();
-	$file->name = $videoFileName;
-	$chunkSizeBytes = 1 * 1024 * 1024;
+	$process = new Process($gdriveUploadCommand);
+	$process->setTimeout(30 * 60); //wait for atleast dyno inactivity time for the process to complete
+	$process->start();
 
-	// Call the API with the media upload, defer so it doesn't immediately return.
-	$client->setDefer(true);
-	$request = $service->files->create($file);
-
-	// Create a media file upload to represent our upload process.
-	$media = new Google_Http_MediaFileUpload(
-		$client,
-		$request,
-		'application/zip',
-		null,
-		true,
-		$chunkSizeBytes
-	);
-	$videoFileSize = filesize($videoFileName);
-	$media->setFileSize($videoFileSize);
-
-	// Upload the various chunks. $status will be false until the process is complete.
-	$status = false;
-	$handle = fopen($videoFileName, "rb");
-	$bytesRead = 0;
-	while (!$status && !feof($handle)) {
-		// read until you get $chunkSizeBytes from $videoFileName
-		// fread will never return more than 8192 bytes if the stream is read buffered and it does not represent a plain file
-		// An example of a read buffered file is when reading from a URL
-		$chunk = readVideoChunk($handle, $chunkSizeBytes);
-		$bytesRead += strlen($chunk);
-		$status = $media->nextChunk($chunk);
-		$progress["uploadProgress"]="File size : ".$videoFileSize." Bytes read : ".$bytesRead;
-		sendProgressToClient($progress, $uniqueId);
+	foreach ($process as $type => $data) {
+		$progress["uploadProgress"] = $data;
+		sendProgressToClient($progress, $ipAddr_userAgent);
 	}
 	
-	// The final value of $status will be the data from the API for the object
-	// that has been uploaded.
-	$result = false;
-	if ($status != false) {
-		$result = $status;
-	}
-	
-	$progress["uploadStatus"] = $result;
-	
-	$progress["uploadMessage"] = ($result == true) ? "File uploaded successfully" : "Error occurred in uploading file to drive";
-	
-	sendProgressToClient($progress, $uniqueId);
-
-	fclose($handle);
-
-	
-}else{
-	die("Invalid invocation of script");
+	$progress["uploadStatus"] = "uploaded";
+	sendProgressToClient($progress, $ipAddr_userAgent);
 }
