@@ -226,6 +226,7 @@
 						success: function () {
 							// Indicate to the user that the files have been saved.
 							//alert("Success! Files saved to your Dropbox.");
+							console.debug("Success! Files saved to your Dropbox.");
 							swal.close();
 							isDropboxUploadDialogShown = false;
 							swal({
@@ -242,8 +243,8 @@
 						// between 0 and 1. The progress callback is guaranteed to be called at least
 						// once with the value 1.
 						progress: function (progress) {
-							console.info("Dropbox file upload progress....");
-							if(!isUploadDialogShown) {
+							console.debug("Dropbox file upload in progress....");
+							if(!isDropboxUploadDialogShown) {
 								isDropboxUploadDialogShown = true;
 								swal({
 									title: 'Uploading file '+videoFileName+' to Dropbox',
@@ -258,13 +259,14 @@
 						// Cancel is called if the user presses the Cancel button or closes the Saver.
 						cancel: function () {
 							//alert("Save to Dropbox cancelled.");
+							console.debug("Save to Dropbox cancelled.");
 							swal({
 								type: 'info',
 								title: 'Save to dropbox cancelled',
 								text: "You have closed the save window without clicking save",
 								allowOutsideClick: () => true,
 								showConfirmButton: false,
-								timer: 1000, //dismiss after 2 seconds
+								timer: 2000, //dismiss after 2 seconds
 							});
 						},
 
@@ -357,7 +359,7 @@
 					<div id="responseText"></div>
 				<br/>
 				<div id="videoUpload">
-					<a href=""><img id="dLink" src="image/dPng.gif" height="42" width="42" title="Download file"/></a>
+					<a id="dLink" href=""><img src="image/dPng.gif" height="42" width="42" title="Download file"/></a>
 					<img id="dbLink" src="image/dbPng.png" height="42" width="42" title="Save to Dropbox"/>
 					<img id="gdLink" src="image/gdPng.png" height="42" width="42" title="Save to Google Drive"/>
 				</div>
