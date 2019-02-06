@@ -79,7 +79,6 @@ function getQueryStringValue(url, key) {
         var authCode = getQueryStringValue(currentPageUrl, "code"); //getQueryStringParameter(currentPageUrl, "code");
         if(Cookies.enabled){
           Cookies.set('authCode', authCode);
-		  Cookies.set('authCodeUrl', currentPageUrl);
         }
         //alert("Url contains access code : "+authCode);
      }
@@ -117,7 +116,7 @@ function getQueryStringValue(url, key) {
 		
     // Enable pusher logging - don't include this in production 
 
-    Pusher.logToConsole = false; 
+    Pusher.logToConsole = true; 
     var pusher = new Pusher(
        'a44d3a9ebac525080cf1', 
         { 
@@ -160,9 +159,9 @@ function getQueryStringValue(url, key) {
        var isAlertShown = false;
        var isTotalDuration = true;
        var totalDurationInMilliSec = 0;
-       var channel = pusher.subscribe('hotstar-video-download-v1'); 
+       var videoGenerationChannel = pusher.subscribe('hotstar-video-download-v1-generateVideo');
        
-       channel.bind(
+       videoGenerationChannel.bind(
           ipAddr_userAgent, 
           function(data) { 
              var msg=data.message;
@@ -303,15 +302,30 @@ function getQueryStringValue(url, key) {
 						var popup = window.open(authUrl, "windowname1", 'width=800, height=600');
 						var pollTimer = window.setInterval(function() {
 							if(Cookies.enabled){
-								var authCode = Cookies.get('authCode');
-								var authCodeUrl = Cookies.get('authCodeUrl');
-								if(authCode!==undefined && authCodeUrl!==undefined){
+								var authorizationCode = Cookies.get('authCode');
+								//var authCodeUrl = Cookies.get('authCodeUrl');
+								if(authorizationCode!==undefined) {// && authCodeUrl!==undefined){
 									popup.close();
 									clearInterval(pollTimer);
 									console.log("authUrl : "+authUrl);
 									console.log("authCodeUrl : "+authCodeUrl);
 									console.log("authCode : "+authCode);
 									console.log("ipAddr_userAgent : "+ipAddr_userAgent);
+									$.ajax({
+										url: "UploadToGoogleDrive.php",
+										type: "POST",
+										data: {
+											authCode: authorizationCode,
+											uniqueId: ipAddr_userAgent,
+											fileName: videoFileName,
+										},
+									}).done(function() {
+										console.log("File upload invoked successfully");
+										//alert("Auth code setup success");
+									}).fail(function() {
+										console.error("Error occured in fie upload");
+										//alert("Error occured in setting up Auth code");
+									});
 								}
 							}
 						});
@@ -326,6 +340,19 @@ function getQueryStringValue(url, key) {
              
           }
        );
+	   
+	   var uploadVideoGoogleDriveChannel = pusher.subscribe('hotstar-video-download-v1-uploadVideoGoogleDrive');
+	   
+	   uploadVideoGoogleDriveChannel.bind(
+			ipAddr_userAgent,
+			function(data) {
+				var message = data.message;
+				var uploadStatus = message["uploadStatus"];
+				var uploadProgress = message["uploadProgress"];
+				var uploadMessage = message["uploadMessage"];
+				console.log("uploadStatus : "+uploadStatus+"\tuploadProgress : "+uploadProgress+"\tuploadMessage : "+uploadMessage+"\n\n");
+			}
+	   );
 
     });
 	
