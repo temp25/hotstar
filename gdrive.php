@@ -28,10 +28,11 @@ if($argc === 3){
 			$client->setClientSecret('Dc0BijZKsFzLYwCBm_eTY-Sf');
 			$client->setRedirectUri("https://hotstar-test1.herokuapp.com");
 			$client->addScope("https://www.googleapis.com/auth/drive");
-			$service = new Google_Service_Drive($client);
+			$authUrl = $client->createAuthUrl();
+			echo PHP_EOL."authUrl : ".$authUrl.PHP_EOL;
 			$token = $client->fetchAccessTokenWithAuthCode($authCode);
 			$client->setAccessToken($token);
-			$authUrl = $client->createAuthUrl();
+			$service = new Google_Service_Drive($client);
 			
 			$file = new Google_Service_Drive_DriveFile();
 			$file->name = $videoFileName;
