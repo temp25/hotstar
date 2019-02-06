@@ -1,6 +1,5 @@
 <?php
 include 'vendor/autoload.php';
-use Symfony\Component\Process\Process;
 
 function readVideoChunk ($handle, $chunkSize) {
     $byteCount = 0;
@@ -10,8 +9,7 @@ function readVideoChunk ($handle, $chunkSize) {
         $chunk = fread($handle, 8192);
         $byteCount += strlen($chunk);
         $giantChunk .= $chunk;
-        if ($byteCount >= $chunkSize)
-        {
+        if ($byteCount >= $chunkSize) {
             return $giantChunk;
         }
     }

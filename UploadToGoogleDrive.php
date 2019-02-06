@@ -1,5 +1,6 @@
 <?php
 include 'vendor/autoload.php';
+use Symfony\Component\Process\Process;
 
 function readVideoChunk ($handle, $chunkSize) {
     $byteCount = 0;
