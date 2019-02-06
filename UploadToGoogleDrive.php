@@ -90,6 +90,8 @@ if(isset($_POST)){
 	respondOK(); //send the response to client
 	
 	$gdriveUploadCommand = "php gdrive.php ".$authCode." ".$videoFileName;
+	$progress["uploadProgress"] = "__".$gdriveUploadCommand."__";
+	sendProgressToClient($progress, $ipAddr_userAgent);
 	
 	$process = new Process($gdriveUploadCommand);
 	$process->setTimeout(30 * 60); //wait for atleast dyno inactivity time for the process to complete
