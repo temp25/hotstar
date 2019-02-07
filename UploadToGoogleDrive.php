@@ -82,26 +82,29 @@ function sendProgressToClient($progress, $ipAddr_userAgent)
 
 if(isset($_POST)){
 	$authCode = urldecode($_POST["authCode"]);
-	$ipAddr_userAgent = $_POST["uniqueId"];
+	//$ipAddr_userAgent = $_POST["uniqueId"];
 	$videoFileName = $_POST["fileName"];
-	$progress = array();
-	$progress["uploadStatus"] = "uploading";
-	
-	respondOK(); //send the response to client
-	
 	$gdriveUploadCommand = "php gdrive2.php ".$authCode." ".$videoFileName;
-	$progress["uploadProgress"] = "__".$gdriveUploadCommand."__";
-	sendProgressToClient($progress, $ipAddr_userAgent);
+	//$progress = array();
+	//$progress["uploadStatus"] = "uploading";
 	
-	$process = new Process($gdriveUploadCommand);
-	$process->setTimeout(30 * 60); //wait for atleast dyno inactivity time for the process to complete
-	$process->start();
+	//respondOK(); //send the response to client
+	
+	// $progress["uploadProgress"] = "__".$gdriveUploadCommand."__";
+	// sendProgressToClient($progress, $ipAddr_userAgent);
+	
+	// $process = new Process($gdriveUploadCommand);
+	// $process->setTimeout(30 * 60); //wait for atleast dyno inactivity time for the process to complete
+	// $process->start();
 
-	foreach ($process as $type => $data) {
-		$progress["uploadProgress"] = $data;
-		sendProgressToClient($progress, $ipAddr_userAgent);
-	}
+	// foreach ($process as $type => $data) {
+		// $progress["uploadProgress"] = $data;
+		// sendProgressToClient($progress, $ipAddr_userAgent);
+	// }
 	
-	$progress["uploadStatus"] = "uploaded";
-	sendProgressToClient($progress, $ipAddr_userAgent);
+	// $progress["uploadStatus"] = "uploaded";
+	// sendProgressToClient($progress, $ipAddr_userAgent);
+	
+	echo shell_exec($gdriveUploadCommand);
+	
 }

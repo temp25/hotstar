@@ -30,7 +30,7 @@ if($argc === 3){
 			$client->setRedirectUri('https://hotstar-test1.herokuapp.com/redirect.php');
 			$auth_url = $client->createAuthUrl();
 			$sanitized_auth_url = filter_var($auth_url, FILTER_SANITIZE_URL);
-			echo $sanitized_auth_url;
+			//echo $sanitized_auth_url;
 			$client->authenticate($authCode);
 
 			$service = new Google_Service_Drive($client);
@@ -66,7 +66,7 @@ if($argc === 3){
 				$chunk = readVideoChunk($handle, $chunkSizeBytes);
 				$bytesRead += strlen($chunk);
 				$status = $media->nextChunk($chunk);
-				echo PHP_EOL."File size : ".$videoFileSize." Bytes read : ".$bytesRead;
+				//echo PHP_EOL."File size : ".$videoFileSize." Bytes read : ".$bytesRead;
 			}
 			
 			// The final value of $status will be the data from the API for the object

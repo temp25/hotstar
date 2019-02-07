@@ -307,6 +307,12 @@ function getQueryStringValue(url, key) {
 						//alert('Google drive upload invoked');
 						//var authUrl = "https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=offline&client_id=41184220874-6jo3qvfhl1ugoudi1icb250574n2ftdl.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fhotstar-test1.herokuapp.com%2Fredirect.php&state&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive&approval_prompt=auto&include_granted_scopes=true"; //"https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=online&client_id=905044047037-h0pl1t3r3qlimegtjd5h3q2u24pebqpl.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fhotstar-test1.herokuapp.com&state&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive&approval_prompt=auto";
 						var popup = window.open("/oauthFetch.php", "AuthFetchWindow", 'width=800, height=600');
+						popup.addEventListener("beforeunload", function (e) {
+							console.log("beforeunload for popup window triggered");
+						});
+						popup.addEventListener("onunload", function (e) {
+							console.log("onunload for popup window triggered");
+						});
 						var pollTimer = window.setInterval(function() {
 							if(Cookies.enabled){
 								var authorizationCode = Cookies.get('authCode');
@@ -321,19 +327,42 @@ function getQueryStringValue(url, key) {
 									console.log("authRedirectUri : "+authRedirectUri);
 									console.log("authCode : "+authorizationCode);
 									console.log("ipAddr_userAgent : "+ipAddr_userAgent);
+									swal({
+										title: 'Uploading file '+videoFileName+' to Google Drive',
+										allowOutsideClick: () => false,
+										onOpen: () => {
+											swal.showLoading();
+										}
+									});
+											//uniqueId: ipAddr_userAgent,
 									$.ajax({
 										url: "UploadToGoogleDrive.php",
 										type: "POST",
 										data: {
 											authCode: authorizationCode,
-											uniqueId: ipAddr_userAgent,
 											fileName: videoFileName,
 										},
 									}).done(function() {
-										console.log("File upload invoked successfully");
+										swal.close();
+										swal({
+											  type: 'success',
+											  title: "File "+videoFileName+" saved to Google Drive successfully",
+											  allowOutsideClick: () => false,
+											  showConfirmButton: false,
+											  timer: 2000, //dismiss after 2 seconds
+										 });
+										//console.log("File upload invoked successfully");
 										//alert("Auth code setup success");
 									}).fail(function() {
-										console.error("Error occured in fie upload");
+										swal.close();
+										swal({
+											type: 'error',
+											allowOutsideClick: () => false,
+											title: 'Error in uploading file '+videoFileName,
+											text: errorMessage,
+											footer: '',
+										});
+										//console.error("Error occured in fie upload");
 										//alert("Error occured in setting up Auth code");
 									});
 								}
