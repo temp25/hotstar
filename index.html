@@ -342,8 +342,10 @@ function getQueryStringValue(url, key) {
 											authCode: authorizationCode,
 											fileName: videoFileName,
 										},
-									}).done(function() {
+									}).done(function(data) {
 										swal.close();
+										console.log("\nsuccess data : ");
+										console.log(data);
 										swal({
 											  type: 'success',
 											  title: "File "+videoFileName+" saved to Google Drive successfully",
@@ -353,8 +355,10 @@ function getQueryStringValue(url, key) {
 										 });
 										//console.log("File upload invoked successfully");
 										//alert("Auth code setup success");
-									}).fail(function() {
+									}).fail(function(data) {
 										swal.close();
+										console.log("\error data : ");
+										console.log(data);
 										swal({
 											type: 'error',
 											allowOutsideClick: () => false,
