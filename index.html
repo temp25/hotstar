@@ -310,7 +310,7 @@ function getQueryStringValue(url, key) {
 						var pollTimer = window.setInterval(function() {
 							if(Cookies.enabled){
 								var authorizationCode = Cookies.get('authCode');
-								//var authCodeUrl = Cookies.get('authCodeUrl');
+								var authCodeUrl = Cookies.get('authCodeUrl');
 								var authRedirectUri = Cookies.get('authRedirectUri');
 								if(authorizationCode!==undefined && authRedirectUri!==undefined) {// && authCodeUrl!==undefined){
 									popup.close();
