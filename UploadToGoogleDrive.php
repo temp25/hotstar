@@ -105,6 +105,7 @@ if(isset($_POST)){
 	// $progress["uploadStatus"] = "uploaded";
 	// sendProgressToClient($progress, $ipAddr_userAgent);
 	
-	echo shell_exec($gdriveUploadCommand);
+	$gdriveUploadOutput = shell_exec($gdriveUploadCommand)
 	
+	echo $gdriveUploadOutput;
 }

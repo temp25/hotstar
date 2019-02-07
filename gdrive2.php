@@ -20,9 +20,9 @@ if($argc === 3){
 
 	$authCode = $argv[1];
 	$videoFileName = $argv[2];
+	$client = new Google_Client();
 	
 	try {
-			$client = new Google_Client();
 			$client->setAuthConfig('client_secrets.json');
 			$client->setAccessType("offline");
 			$client->setIncludeGrantedScopes(true);
@@ -72,9 +72,14 @@ if($argc === 3){
 			// The final value of $status will be the data from the API for the object
 			// that has been uploaded.
 			$result = false;
+			
 			if ($status != false) {
 				$result = $status;
 			}
+			
+			fclose($handle);
+
+			$client->revokeToken();
 			
 			if($result == true) {
 				echo PHP_EOL."File uploaded successfully".PHP_EOL;
@@ -82,9 +87,8 @@ if($argc === 3){
 				echo PHP_EOL."Error occurred in uploading file to drive".PHP_EOL;
 			}
 			
-			fclose($handle);
-
 	} catch(Exception $e) {
+		$client->revokeToken();
 		echo "Error occurred. Error Message : ".$e->getMessage();
 	}
 	
