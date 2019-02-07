@@ -89,7 +89,7 @@ if(isset($_POST)){
 	
 	respondOK(); //send the response to client
 	
-	$gdriveUploadCommand = "php gdrive.php ".$authCode." ".$videoFileName;
+	$gdriveUploadCommand = "php gdrive2.php ".$authCode." ".$videoFileName;
 	$progress["uploadProgress"] = "__".$gdriveUploadCommand."__";
 	sendProgressToClient($progress, $ipAddr_userAgent);
 	
