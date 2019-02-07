@@ -306,6 +306,10 @@ function getQueryStringValue(url, key) {
 					document.getElementById("gdLink").addEventListener("click", function(){
 						//alert('Google drive upload invoked');
 						//var authUrl = "https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=offline&client_id=41184220874-6jo3qvfhl1ugoudi1icb250574n2ftdl.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fhotstar-test1.herokuapp.com%2Fredirect.php&state&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive&approval_prompt=auto&include_granted_scopes=true"; //"https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=online&client_id=905044047037-h0pl1t3r3qlimegtjd5h3q2u24pebqpl.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fhotstar-test1.herokuapp.com&state&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive&approval_prompt=auto";
+						if(Cookies.enabled){
+							Cookies.expire('authCode');
+							Cookies.expire('authRedirectUri');
+						}
 						var popup = window.open("/oauthFetch.php", "AuthFetchWindow", 'width=800, height=600');
 						popup.addEventListener("beforeunload", function (e) {
 							console.log("beforeunload for popup window triggered");
@@ -371,7 +375,7 @@ function getQueryStringValue(url, key) {
 									});
 								}
 							}
-						});
+						}, 10);
 					});
 					
 					$('#videoGeneration').hide();
