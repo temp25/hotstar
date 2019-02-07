@@ -27,7 +27,7 @@ if($argc === 3){
 			$client->setAccessType("offline");
 			$client->setIncludeGrantedScopes(true);
 			$client->addScope(Google_Service_Drive::DRIVE);
-			$client->setRedirectUri('https://hotstar-test1.herokuapp.com');
+			$client->setRedirectUri('https://hotstar-test1.herokuapp.com/redirect.html');
 			$auth_url = $client->createAuthUrl();
 			$sanitized_auth_url = filter_var($auth_url, FILTER_SANITIZE_URL);
 			echo $sanitized_auth_url;
