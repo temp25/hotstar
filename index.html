@@ -112,7 +112,7 @@ function getQueryStringValue(url, key) {
 			lang: 'en-US'
 		  };
 		</script>
-		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<script type="text/javascript" src="https://js.live.net/v7.2/OneDrive.js"></script>
 		<script type="text/javascript" src="js/pusher.min.js"></script>
 		<script src="js/sweetalert2.all.min.js"></script>
 		<script src="js/circular-progress-plugin.js"></script>
@@ -222,6 +222,7 @@ function getQueryStringValue(url, key) {
              	   	   timer: 2000, //dismiss after 2 seconds
              	   	});
 					var videoFileName = videoId + ".zip";
+					var videoFileAbsoluteUrl = "https://hotstar-test1.herokuapp.com/"+videoFileName;
              	   	//var dLinkElement = '<br/><label>Video Link has been generated below</label><br/><br/><label><a href="downloadVideo.php?videoId='+videoId+'">Click Here</a> to download</label>';
 					var dLinkElement = '<br/><label>Video Link has been generated below</label><br/><br/>';
 					//var gDriveElement = "<div class='g-savetodrive' data-src='//"+videoFileName+"' data-filename='"+videoFileName+"' data-sitename='Hotstar video download'> </div>";
@@ -300,7 +301,7 @@ function getQueryStringValue(url, key) {
 					//document.getElementById("dbContainer").appendChild(button);
 					
 					document.getElementById("dbLink").addEventListener("click", function(){
-					  Dropbox.save("https://hotstar-test1.herokuapp.com/"+videoFileName, videoFileName, options);
+					  Dropbox.save(videoFileAbsoluteUrl, videoFileName, options);
 					});
 					
 					document.getElementById("gdLink").addEventListener("click", function(){
@@ -376,7 +377,41 @@ function getQueryStringValue(url, key) {
 								}
 							}
 						}, 10);
+						
 					});
+					
+				
+					function launchSaveToOneDrive(){
+						var odOptions = {
+						clientId: "d81bf1c4-16c5-4852-87ba-1cd43f752ec0",
+						action: "save",
+						//sourceInputElementId: "fileUploadControl",
+						sourceUri: videoFileAbsoluteUrl,
+						fileName: videoFileName,
+						openInNewWindow: true,
+						advanced: {
+							redirectUri: "https://hotstar-test1.herokuapp.com/onedrive_redirect.html"
+						},
+						success: function(files) { /* success handler */ 
+							console.log("success");
+							console.log(files);
+						},
+						progress: function(p) { /* progress handler */
+							console.log("progress");
+							console.log(p);
+						},
+						cancel: function() { /* cancel handler */
+							console.log("cancel");
+						},
+						error: function(e) { /* error handler */
+							console.log("error");
+							console.log(e);
+						}
+					}
+
+						OneDrive.save(odOptions);
+					}
+					
 					
 					$('#videoGeneration').hide();
 					$('#videoUpload').show();
@@ -455,6 +490,7 @@ function getQueryStringValue(url, key) {
 					<a id="dLink" href=""><img src="image/dPng.gif" height="42" width="42" title="Download file"/></a>
 					<img id="dbLink" src="image/dbPng.png" height="42" width="42" title="Save to Dropbox"/>
 					<img id="gdLink" src="image/gdPng.png" height="42" width="42" title="Save to Google Drive"/>
+					
 				</div>
 			</div>
 		</center>
