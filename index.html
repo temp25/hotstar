@@ -381,7 +381,8 @@ function getQueryStringValue(url, key) {
 					});
 					
 				
-					function launchSaveToOneDrive(){
+					document.getElementById("odLink").addEventListener("click", function() {
+					
 						var odOptions = {
 						clientId: "d81bf1c4-16c5-4852-87ba-1cd43f752ec0",
 						action: "save",
@@ -490,7 +491,7 @@ function getQueryStringValue(url, key) {
 					<a id="dLink" href=""><img src="image/dPng.gif" height="42" width="42" title="Download file"/></a>
 					<img id="dbLink" src="image/dbPng.png" height="42" width="42" title="Save to Dropbox"/>
 					<img id="gdLink" src="image/gdPng.png" height="42" width="42" title="Save to Google Drive"/>
-					<button onclick="launchSaveToOneDrive()">Save to OneDrive</button></p><br />
+					<button id="odLink">Save to OneDrive</button>
 				</div>
 			</div>
 		</center>
