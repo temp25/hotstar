@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+  <script type="text/javascript">
+  
+  function getQueryStringValue(url, key) {
+	return decodeURIComponent(url.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1")); 
+} 
+  
+  
+   var currentPageUrl=window.location.href;
+     //alert("currentPageUrl : "+currentPageUrl);
+     var isAuthCodeAvailable = (currentPageUrl.indexOf("code=") != -1);
+     //document.write("currentPageUrl : "+currentPageUrl+"</br></br>"+isAuthCodeAvailable);
+     if(isAuthCodeAvailable){
+        var authCode = getQueryStringParameter(currentPageUrl, "code"); //getQueryStringValue(currentPageUrl, "code");
+        if(Cookies.enabled){
+          Cookies.set('authCode', authCode);
+		  Cookies.set('authRedirectUri', currentPageUrl);
+        }
+        //alert("Url contains access code : "+authCode);
+     }
+	 
+	 document.getElementById('odLink').addEventListener("click", function() {
+		alert('save to onedrive called');
+	 });
+	 
+  </script>
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="https://js.live.net/v7.2/OneDrive.js" client-id="d81bf1c4-16c5-4852-87ba-1cd43f752ec0"></script>
+		
+	</head>
+	<body>
+		<button id="odLink">Save to OneDrive</button>
+	</body>
+</html>
