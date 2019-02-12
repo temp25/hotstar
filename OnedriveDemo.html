@@ -22,10 +22,6 @@
         //alert("Url contains access code : "+authCode);
      }
 	 
-	 document.getElementById('odLink').addEventListener("click", function() {
-		alert('save to onedrive called');
-	 });
-	 
   </script>
 		<script src="js/jquery-3.3.1.min.js"></script>
 		<script type="text/javascript" src="https://js.live.net/v7.2/OneDrive.js" client-id="d81bf1c4-16c5-4852-87ba-1cd43f752ec0"></script>
@@ -33,5 +29,10 @@
 	</head>
 	<body>
 		<button id="odLink">Save to OneDrive</button>
+		<script>
+			document.getElementById('odLink').addEventListener("click", function() {
+				alert('save to onedrive called');
+			});
+		</script>
 	</body>
 </html>
