@@ -388,6 +388,7 @@ function getQueryStringValue(url, key) {
 							Cookies.expire('OneDriveAuthRedirectUri');
 						}
 						var popup = window.open("/oauthFetchOneDrive.php", "OneDriveAuthFetchWindow", 'width=800, height=600');
+						/*
 						var onedriveAuthCodePollTimer = window.setInterval(function() {
 							if(Cookies.enabled){
 								var authorizationCode = Cookies.get('OneDriveAuthCode');
@@ -446,6 +447,7 @@ function getQueryStringValue(url, key) {
 								alert('functionality disabled as cookies are not enabled');
 							}
 						}, 10);
+						*/
 						
 					});
 					
