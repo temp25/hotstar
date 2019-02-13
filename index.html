@@ -391,68 +391,72 @@ function getQueryStringValue(url, key) {
 						}
 						var popup = window.open("/oauthFetchOneDrive.php", "OneDriveAuthFetchWindow", 'width=800, height=600');
 						
-						/*
 						var onedriveAuthCodePollTimer = window.setInterval(function() {
 							if(Cookies.enabled){
 								var authorizationCode = Cookies.get('OneDriveAuthCode');
 								var authRedirectUri = Cookies.get('OneDriveAuthRedirectUri');
-								popup.close();
-								Cookies.expire('OneDriveAuthCode');
-								Cookies.expire('OneDriveAuthRedirectUri');
-								clearInterval(onedriveAuthCodePollTimer);
-								if(!isDropboxUploadDialogShown) {
-								isOnedriveUploadDialogShown = true;
-								swal({
-										title: 'Uploading file '+videoFileName+' to Onedrive',
-										allowOutsideClick: () => false,
-										onOpen: () => {
-											swal.showLoading();
+								
+								if(authorizationCode!==undefined && authRedirectUri!==undefined) {
+									popup.close();
+									Cookies.expire('OneDriveAuthCode');
+									Cookies.expire('OneDriveAuthRedirectUri');
+									clearInterval(onedriveAuthCodePollTimer);
+									if(!isDropboxUploadDialogShown) {
+									isOnedriveUploadDialogShown = true;
+										swal({
+												title: 'Uploading file '+videoFileName+' to Onedrive',
+												allowOutsideClick: () => false,
+												onOpen: () => {
+													swal.showLoading();
+												}
+											});								
 										}
-									});								
+
+										$.ajax({
+											url: "UploadToOneDrive.php",
+											type: "POST",
+											data: {
+												authCode: authorizationCode,
+												fileName: videoFileName,
+											},
+										}).done(function(data) {
+											swal.close();
+											isOnedriveUploadDialogShown = false;
+											console.log("\nsuccess data : ");
+											console.log(data);
+											swal({
+												  type: 'success',
+												  title: "File "+videoFileName+" saved to OneDrive successfully",
+												  allowOutsideClick: () => false,
+												  showConfirmButton: false,
+												  timer: 2000, //dismiss after 2 seconds
+											 });
+											//console.log("File upload invoked successfully");
+											//alert("Auth code setup success");
+										}).fail(function(data) {
+											swal.close();
+											isOnedriveUploadDialogShown = false;
+											console.log("\error data : ");
+											console.log(data);
+											swal({
+												type: 'error',
+												allowOutsideClick: () => false,
+												title: 'Error in uploading file '+videoFileName,
+												text: data,
+												footer: '',
+											});
+											//console.error("Error occured in fie upload");
+											//alert("Error occured in setting up Auth code");
+										});
 								}
 								
-								$.ajax({
-									url: "UploadToOneDrive.php",
-									type: "POST",
-									data: {
-										authCode: authorizationCode,
-										fileName: videoFileName,
-									},
-								}).done(function(data) {
-									swal.close();
-									isDropboxUploadDialogShown = false;
-									console.log("\nsuccess data : ");
-									console.log(data);
-									swal({
-										  type: 'success',
-										  title: "File "+videoFileName+" saved to OneDrive successfully",
-										  allowOutsideClick: () => false,
-										  showConfirmButton: false,
-										  timer: 2000, //dismiss after 2 seconds
-									 });
-									//console.log("File upload invoked successfully");
-									//alert("Auth code setup success");
-								}).fail(function(data) {
-									swal.close();
-									isDropboxUploadDialogShown = false;
-									console.log("\error data : ");
-									console.log(data);
-									swal({
-										type: 'error',
-										allowOutsideClick: () => false,
-										title: 'Error in uploading file '+videoFileName,
-										text: data,
-										footer: '',
-									});
-									//console.error("Error occured in fie upload");
-									//alert("Error occured in setting up Auth code");
-								});
+								
+								
 								
 							} else {
 								alert('functionality disabled as cookies are not enabled');
 							}
 						}, 10);
-						*/
 						
 					});
 					
