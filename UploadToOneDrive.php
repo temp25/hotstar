@@ -1,6 +1,6 @@
 <?php
 
-$config = include '/app/config.php';
+$config = include '/app/OneDriveConfig.php';
 require_once 'vendor/autoload.php';
 
 use GuzzleHttp\Client as GuzzleHttpClient;
