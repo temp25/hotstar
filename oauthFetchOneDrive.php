@@ -25,6 +25,6 @@
 	], $config['ONEDRIVE_REDIRECT_URI']);
 	
 	$sanitized_auth_url = filter_var($oauth_auth_url, FILTER_SANITIZE_URL);
-	//echo $sanitized_auth_url;
-	header('Location: ' . $sanitized_auth_url);
+	echo $sanitized_auth_url;
+	//header('Location: ' . $sanitized_auth_url);
 ?>
