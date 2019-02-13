@@ -50,7 +50,7 @@ $oauthUrl = $client->getLogInUrl([
     'offline_access',
 ], $config['ONEDRIVE_REDIRECT_URI']);
 
-$client->obtainAccessToken($config['ONEDRIVE_CLIENT_SECRET'], 'M1dfd958f-39b8-15fe-abb0-981909d46348');
+$client->obtainAccessToken($config['ONEDRIVE_CLIENT_SECRET'], $authCode);
 
 //Get all drives
 $drives = $client->getDrives();
