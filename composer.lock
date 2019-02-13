@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "31f97976253b00b884a73a946817cfa3",
+    "content-hash": "b2be86d221a5ebbb2c0523f94cab0003",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -113,16 +113,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.79",
+            "version": "v0.83",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-api-php-client-services.git",
-                "reference": "74f7cdab80c6f2766d5fb9e484fe4fe8334c96e3"
+                "reference": "f443f4107d9ba001dad60d18cf1ec0cf0e7234f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/74f7cdab80c6f2766d5fb9e484fe4fe8334c96e3",
-                "reference": "74f7cdab80c6f2766d5fb9e484fe4fe8334c96e3",
+                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/f443f4107d9ba001dad60d18cf1ec0cf0e7234f9",
+                "reference": "f443f4107d9ba001dad60d18cf1ec0cf0e7234f9",
                 "shasum": ""
             },
             "require": {
@@ -146,7 +146,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2018-12-22T00:23:08+00:00"
+            "time": "2019-01-30T22:06:40+00:00"
         },
         {
             "name": "google/auth",
@@ -379,6 +379,104 @@
             "time": "2018-12-04T20:46:45+00:00"
         },
         {
+            "name": "krizalys/onedrive-php-sdk",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/krizalys/onedrive-php-sdk.git",
+                "reference": "f3a10851b0f4339d2688ae866da5d90bc379a8af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/krizalys/onedrive-php-sdk/zipball/f3a10851b0f4339d2688ae866da5d90bc379a8af",
+                "reference": "f3a10851b0f4339d2688ae866da5d90bc379a8af",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.3.3",
+                "microsoft/microsoft-graph": "^1.4.0",
+                "php": "^5.6 || ^7.0",
+                "psr/log": "^1.0.2"
+            },
+            "require-dev": {
+                "facebook/webdriver": "^1.5.0",
+                "mockery/mockery": "^1.0.0-alpha1",
+                "monolog/monolog": "^1.22.0",
+                "phpunit/phpunit": "^5.7.13",
+                "symfony/process": "^v3.4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Krizalys\\Onedrive\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Christophe Vidal",
+                    "homepage": "http://www.krizalys.com/"
+                }
+            ],
+            "description": "OneDrive SDK for PHP.",
+            "homepage": "https://github.com/krizalys/onedrive-php-sdk",
+            "keywords": [
+                "OneDrive",
+                "krizalys",
+                "php",
+                "sdk"
+            ],
+            "time": "2018-11-11T15:06:06+00:00"
+        },
+        {
+            "name": "microsoft/microsoft-graph",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/microsoftgraph/msgraph-sdk-php.git",
+                "reference": "d26d3b34d5586e2322c1c7fadd46ef09c1cb27d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/microsoftgraph/msgraph-sdk-php/zipball/d26d3b34d5586e2322c1c7fadd46ef09c1cb27d3",
+                "reference": "d26d3b34d5586e2322c1c7fadd46ef09c1cb27d3",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.2",
+                "php": "^5.6 || ^7.0"
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "^1.2",
+                "phpdocumentor/phpdocumentor": "^2.9",
+                "phpunit/phpunit": "^5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Microsoft\\Graph\\": "src/",
+                    "Microsoft\\Graph\\Test\\": "tests/Functional/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Mainer",
+                    "email": "mmainer@microsoft.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "The Microsoft Graph SDK for PHP",
+            "homepage": "https://graph.microsoft.io/en-us/",
+            "time": "2018-12-17T22:56:47+00:00"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.24.0",
             "source": {
@@ -503,16 +601,16 @@
         },
         {
             "name": "paragonie/sodium_compat",
-            "version": "v1.8.0",
+            "version": "v1.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/sodium_compat.git",
-                "reference": "5e280b50cdaf8da4cc4810e0847a9618be29703d"
+                "reference": "57bb5ef079d3724148da3d5c99e30695ab17afda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/sodium_compat/zipball/5e280b50cdaf8da4cc4810e0847a9618be29703d",
-                "reference": "5e280b50cdaf8da4cc4810e0847a9618be29703d",
+                "url": "https://api.github.com/repos/paragonie/sodium_compat/zipball/57bb5ef079d3724148da3d5c99e30695ab17afda",
+                "reference": "57bb5ef079d3724148da3d5c99e30695ab17afda",
                 "shasum": ""
             },
             "require": {
@@ -581,20 +679,20 @@
                 "secret-key cryptography",
                 "side-channel resistant"
             ],
-            "time": "2018-11-29T22:33:39+00:00"
+            "time": "2019-01-03T21:00:55+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "2.0.13",
+            "version": "2.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "42603ce3f42a27f7e14e54feab95db7b680ad473"
+                "reference": "8ebfcadbf30524aeb75b2c446bc2519d5b321478"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/42603ce3f42a27f7e14e54feab95db7b680ad473",
-                "reference": "42603ce3f42a27f7e14e54feab95db7b680ad473",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/8ebfcadbf30524aeb75b2c446bc2519d5b321478",
+                "reference": "8ebfcadbf30524aeb75b2c446bc2519d5b321478",
                 "shasum": ""
             },
             "require": {
@@ -673,7 +771,7 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2018-12-16T17:45:25+00:00"
+            "time": "2019-01-27T19:37:29+00:00"
         },
         {
             "name": "psr/cache",
@@ -820,16 +918,16 @@
         },
         {
             "name": "pusher/pusher-php-server",
-            "version": "v3.2.0",
+            "version": "v3.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pusher/pusher-http-php.git",
-                "reference": "4da4d208fe13fd2ff71ede5063a3456f23f38cf7"
+                "reference": "2279bcd21a608a76f9be1fe0675aa2dd1efb2fa0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pusher/pusher-http-php/zipball/4da4d208fe13fd2ff71ede5063a3456f23f38cf7",
-                "reference": "4da4d208fe13fd2ff71ede5063a3456f23f38cf7",
+                "url": "https://api.github.com/repos/pusher/pusher-http-php/zipball/2279bcd21a608a76f9be1fe0675aa2dd1efb2fa0",
+                "reference": "2279bcd21a608a76f9be1fe0675aa2dd1efb2fa0",
                 "shasum": ""
             },
             "require": {
@@ -839,7 +937,7 @@
                 "psr/log": "^1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8 || ^5.7"
+                "phpunit/phpunit": "^4.8.35 || ^5.7"
             },
             "type": "library",
             "extra": {
@@ -870,7 +968,7 @@
                 "rest",
                 "trigger"
             ],
-            "time": "2018-08-13T14:57:32+00:00"
+            "time": "2019-01-18T12:10:21+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -914,16 +1012,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v4.2.1",
+            "version": "v4.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "2b341009ccec76837a7f46f59641b431e4d4c2b0"
+                "reference": "6c05edb11fbeff9e2b324b4270ecb17911a8b7ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/2b341009ccec76837a7f46f59641b431e4d4c2b0",
-                "reference": "2b341009ccec76837a7f46f59641b431e4d4c2b0",
+                "url": "https://api.github.com/repos/symfony/process/zipball/6c05edb11fbeff9e2b324b4270ecb17911a8b7ad",
+                "reference": "6c05edb11fbeff9e2b324b4270ecb17911a8b7ad",
                 "shasum": ""
             },
             "require": {
@@ -959,7 +1057,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2018-11-20T16:22:05+00:00"
+            "time": "2019-01-24T22:05:03+00:00"
         }
     ],
     "packages-dev": [
@@ -2239,16 +2337,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.4.20",
+            "version": "v3.4.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "291e13d808bec481eab83f301f7bff3e699ef603"
+                "reference": "ba11776e9e6c15ad5759a07bffb15899bac75c2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/291e13d808bec481eab83f301f7bff3e699ef603",
-                "reference": "291e13d808bec481eab83f301f7bff3e699ef603",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/ba11776e9e6c15ad5759a07bffb15899bac75c2d",
+                "reference": "ba11776e9e6c15ad5759a07bffb15899bac75c2d",
                 "shasum": ""
             },
             "require": {
@@ -2294,7 +2392,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2018-11-11T19:48:54+00:00"
+            "time": "2019-01-16T10:59:17+00:00"
         },
         {
             "name": "webmozart/assert",
