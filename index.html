@@ -84,8 +84,8 @@ function getQueryStringValue(url, key) {
      if(isAuthCodeAvailable){
         var authCode = getQueryStringParameter(currentPageUrl, "code"); //getQueryStringValue(currentPageUrl, "code");
         if(Cookies.enabled){
-          Cookies.set('authCode', authCode);
-		  Cookies.set('authRedirectUri', currentPageUrl);
+          Cookies.set('GoogleDriveAuthCode', authCode);
+		  Cookies.set('GoogleDriveAuthRedirectUri', currentPageUrl);
         }
         //alert("Url contains access code : "+authCode);
      }
@@ -308,24 +308,24 @@ function getQueryStringValue(url, key) {
 						//alert('Google drive upload invoked');
 						//var authUrl = "https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=offline&client_id=41184220874-6jo3qvfhl1ugoudi1icb250574n2ftdl.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fhotstar-test1.herokuapp.com%2Fredirect.php&state&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive&approval_prompt=auto&include_granted_scopes=true"; //"https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=online&client_id=905044047037-h0pl1t3r3qlimegtjd5h3q2u24pebqpl.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fhotstar-test1.herokuapp.com&state&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive&approval_prompt=auto";
 						if(Cookies.enabled){
-							Cookies.expire('authCode');
-							Cookies.expire('authRedirectUri');
+							Cookies.expire('GoogleDriveAuthCode');
+							Cookies.expire('GoogleDriveAuthRedirectUri');
 						}
-						var popup = window.open("/oauthFetch.php", "AuthFetchWindow", 'width=800, height=600');
+						var popup = window.open("/oauthFetchGoogleDrive.php", "GoogleDriveAuthFetchWindow", 'width=800, height=600');
 						popup.addEventListener("beforeunload", function (e) {
 							console.log("beforeunload for popup window triggered");
 						});
 						popup.addEventListener("onunload", function (e) {
 							console.log("onunload for popup window triggered");
 						});
-						var pollTimer = window.setInterval(function() {
+						var googleAuthCodePollTimer = window.setInterval(function() {
 							if(Cookies.enabled){
-								var authorizationCode = Cookies.get('authCode');
+								var authorizationCode = Cookies.get('GoogleDriveAuthCode');
 								//var authCodeUrl = Cookies.get('authCodeUrl');
-								var authRedirectUri = Cookies.get('authRedirectUri');
+								var authRedirectUri = Cookies.get('GoogleDriveAuthRedirectUri');
 								if(authorizationCode!==undefined && authRedirectUri!==undefined) {// && authCodeUrl!==undefined){
 									popup.close();
-									clearInterval(pollTimer);
+									clearInterval(googleAuthCodePollTimer);
 									//authorizationCode = encodeURIComponent(authorizationCode);
 									//console.log("authUrl : "+authUrl);
 									//console.log("authCodeUrl : "+authCodeUrl);
@@ -382,35 +382,71 @@ function getQueryStringValue(url, key) {
 					
 				
 					document.getElementById("odLink").addEventListener("click", function() {
-					
-						var odOptions = {
-						clientId: "d81bf1c4-16c5-4852-87ba-1cd43f752ec0",
-						action: "save",
-						//sourceInputElementId: "fileUploadControl",
-						sourceUri: videoFileAbsoluteUrl,
-						fileName: videoFileName,
-						openInNewWindow: true,
-						advanced: {
-							redirectUri: "https://hotstar-test1.herokuapp.com/onedrive_redirect.html"
-						},
-						success: function(files) { /* success handler */ 
-							console.log("success");
-							console.log(files);
-						},
-						progress: function(p) { /* progress handler */
-							console.log("progress");
-							console.log(p);
-						},
-						cancel: function() { /* cancel handler */
-							console.log("cancel");
-						},
-						error: function(e) { /* error handler */
-							console.log("error");
-							console.log(e);
+						var isOnedriveUploadDialogShown = false;
+						if(Cookies.enabled){
+							Cookies.expire('OneDriveAuthCode');
+							Cookies.expire('OneDriveAuthRedirectUri');
 						}
-					}
-
-						OneDrive.save(odOptions);
+						var popup = window.open("/oauthFetchOneDrive.php", "OneDriveAuthFetchWindow", 'width=800, height=600');
+						var onedriveAuthCodePollTimer = window.setInterval(function() {
+							if(Cookies.enabled){
+								var authorizationCode = Cookies.get('GoogleDriveAuthCode');
+								var authRedirectUri = Cookies.get('GoogleDriveAuthRedirectUri');
+								popup.close();
+								clearInterval(onedriveAuthCodePollTimer);
+								if(!isDropboxUploadDialogShown) {
+								isOnedriveUploadDialogShown = true;
+								swal({
+										title: 'Uploading file '+videoFileName+' to Onedrive',
+										allowOutsideClick: () => false,
+										onOpen: () => {
+											swal.showLoading();
+										}
+									});								
+								}
+								
+								$.ajax({
+									url: "UploadToOneDrive.php",
+									type: "POST",
+									data: {
+										authCode: authorizationCode,
+										fileName: videoFileName,
+									},
+								}).done(function(data) {
+									swal.close();
+									isDropboxUploadDialogShown = false;
+									console.log("\nsuccess data : ");
+									console.log(data);
+									swal({
+										  type: 'success',
+										  title: "File "+videoFileName+" saved to OneDrive successfully",
+										  allowOutsideClick: () => false,
+										  showConfirmButton: false,
+										  timer: 2000, //dismiss after 2 seconds
+									 });
+									//console.log("File upload invoked successfully");
+									//alert("Auth code setup success");
+								}).fail(function(data) {
+									swal.close();
+									isDropboxUploadDialogShown = false;
+									console.log("\error data : ");
+									console.log(data);
+									swal({
+										type: 'error',
+										allowOutsideClick: () => false,
+										title: 'Error in uploading file '+videoFileName,
+										text: data,
+										footer: '',
+									});
+									//console.error("Error occured in fie upload");
+									//alert("Error occured in setting up Auth code");
+								});
+								
+							} else {
+								alert('functionality disabled as cookies are not enabled');
+							}
+						}, 10);
+						
 					});
 					
 					
@@ -433,6 +469,7 @@ function getQueryStringValue(url, key) {
 				var uploadStatus = message["uploadStatus"];
 				var uploadProgress = message["uploadProgress"];
 				console.log("uploadStatus : "+uploadStatus+"\tuploadProgress : "+uploadProgress);
+				
 			}
 	   );
 

@@ -20,8 +20,8 @@
 			var authCode = getQueryStringValue(currentPageUrl, "code");
 			if(Cookies.enabled){
 				//expire cookie automatically in 1 minute
-				Cookies.set('GoogleDriveAuthCode', authCode, { expires: 60 });
-				Cookies.set('GoogleDriveAuthRedirectUri', currentPageUrl, { expires: 60 }); 
+				Cookies.set('OneDriveAuthCode', authCode, { expires: 60 });
+				Cookies.set('OneDriveAuthRedirectUri', currentPageUrl, { expires: 60 }); 
 			}
 		}
 	</script>
