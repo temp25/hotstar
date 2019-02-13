@@ -420,31 +420,33 @@ function getQueryStringValue(url, key) {
 												fileName: videoFileName,
 											},
 										}).done(function(data) {
-											swal.close();
-											isOnedriveUploadDialogShown = false;
-											console.log("\nsuccess data : ");
-											console.log(data);
-											swal({
-												  type: 'success',
-												  title: "File "+videoFileName+" saved to OneDrive successfully",
-												  allowOutsideClick: () => false,
-												  showConfirmButton: false,
-												  timer: 2000, //dismiss after 2 seconds
-											 });
+										 alert(data);
+											//swal.close();
+											//isOnedriveUploadDialogShown = false;
+											//console.log("\nsuccess data : ");
+											//console.log(data);
+											//swal({
+											//	  type: 'success',
+											//	  title: "File "+videoFileName+" saved to OneDrive successfully",
+											//	  allowOutsideClick: () => false,
+											//	  showConfirmButton: false,
+											//	  timer: 2000, //dismiss after 2 seconds
+											// });
 											//console.log("File upload invoked successfully");
 											//alert("Auth code setup success");
 										}).fail(function(data) {
-											swal.close();
-											isOnedriveUploadDialogShown = false;
-											console.log("\error data : ");
-											console.log(data);
-											swal({
-												type: 'error',
-												allowOutsideClick: () => false,
-												title: 'Error in uploading file '+videoFileName,
-												text: data,
-												footer: '',
-											});
+										  alert(data);
+											//swal.close();
+											//isOnedriveUploadDialogShown = false;
+											//console.log("\error data : ");
+											//console.log(data);
+											//swal({
+											//	type: 'error',
+											//	allowOutsideClick: () => false,
+											//	title: 'Error in uploading file '+videoFileName,
+											//	text: data,
+											//	footer: '',
+											//});
 											//console.error("Error occured in fie upload");
 											//alert("Error occured in setting up Auth code");
 										});

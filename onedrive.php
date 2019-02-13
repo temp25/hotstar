@@ -111,7 +111,7 @@ try {
 	var_dump($fileContents);
 	$resolvedVideoFileName = resolveFileNameConflict($folderItems, $videoFileName);
 
-	echo PHP_EOL."Resolved Filename : ".$resolvedVideoFileName;
+	//echo PHP_EOL."Resolved Filename : ".$resolvedVideoFileName;
 
 	$videoFileItem = $folder->upload($resolvedVideoFileName, $fileContents, ['description' => $resolvedVideoFileName]);
 	
