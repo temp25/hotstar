@@ -390,8 +390,8 @@ function getQueryStringValue(url, key) {
 						var popup = window.open("/oauthFetchOneDrive.php", "OneDriveAuthFetchWindow", 'width=800, height=600');
 						var onedriveAuthCodePollTimer = window.setInterval(function() {
 							if(Cookies.enabled){
-								var authorizationCode = Cookies.get('GoogleDriveAuthCode');
-								var authRedirectUri = Cookies.get('GoogleDriveAuthRedirectUri');
+								var authorizationCode = Cookies.get('OneDriveAuthCode');
+								var authRedirectUri = Cookies.get('OneDriveAuthRedirectUri');
 								popup.close();
 								clearInterval(onedriveAuthCodePollTimer);
 								if(!isDropboxUploadDialogShown) {
