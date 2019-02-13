@@ -15,6 +15,6 @@ return [
     /**
      * Your OneDrive redirect URI.
      */
-    'ONEDRIVE_REDIRECT_URI' => 'https://hotstar-test1.herokuapp.com/onedrive_redirect.html',
+    'ONEDRIVE_REDIRECT_URI' => 'https://hotstar-test1.herokuapp.com/redirect_onedrive.php',
 ];
 ?>
