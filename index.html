@@ -325,6 +325,8 @@ function getQueryStringValue(url, key) {
 								var authRedirectUri = Cookies.get('GoogleDriveAuthRedirectUri');
 								if(authorizationCode!==undefined && authRedirectUri!==undefined) {// && authCodeUrl!==undefined){
 									popup.close();
+									Cookies.expire('GoogleDriveAuthCode');
+									Cookies.expire('GoogleDriveAuthRedirectUri');
 									clearInterval(googleAuthCodePollTimer);
 									//authorizationCode = encodeURIComponent(authorizationCode);
 									//console.log("authUrl : "+authUrl);
@@ -389,11 +391,14 @@ function getQueryStringValue(url, key) {
 						}
 						var popup = window.open("/oauthFetchOneDrive.php", "OneDriveAuthFetchWindow", 'width=800, height=600');
 						
+						/*
 						var onedriveAuthCodePollTimer = window.setInterval(function() {
 							if(Cookies.enabled){
 								var authorizationCode = Cookies.get('OneDriveAuthCode');
 								var authRedirectUri = Cookies.get('OneDriveAuthRedirectUri');
 								popup.close();
+								Cookies.expire('OneDriveAuthCode');
+								Cookies.expire('OneDriveAuthRedirectUri');
 								clearInterval(onedriveAuthCodePollTimer);
 								if(!isDropboxUploadDialogShown) {
 								isOnedriveUploadDialogShown = true;
@@ -447,7 +452,7 @@ function getQueryStringValue(url, key) {
 								alert('functionality disabled as cookies are not enabled');
 							}
 						}, 10);
-						
+						*/
 						
 					});
 					
