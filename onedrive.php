@@ -108,7 +108,7 @@ try {
 	$folderItems = $folder->getChildren();
 
 	$fileContents = file_get_contents($videoFileName);
-	var_dump($fileContents);
+	
 	$resolvedVideoFileName = resolveFileNameConflict($folderItems, $videoFileName);
 
 	//echo PHP_EOL."Resolved Filename : ".$resolvedVideoFileName;
