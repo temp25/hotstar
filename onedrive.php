@@ -2,6 +2,7 @@
 
 $config = include '/app/OneDriveConfig.php';
 require_once 'vendor/autoload.php';
+ini_set('memory_limit','2048M'); //set memory limit as 2GB
 
 use GuzzleHttp\Client as GuzzleHttpClient;
 use Krizalys\Onedrive\Client;
@@ -113,7 +114,7 @@ try {
 
 	//echo PHP_EOL."Resolved Filename : ".$resolvedVideoFileName;
 
-	$videoFileItem = $folder->upload($resolvedVideoFileName, $fileContents, ['description' => $resolvedVideoFileName]);
+	$videoFileItem = $folder->upload($resolvedVideoFileName, $fileContents, ['Content-Type' => 'application/zip', 'description' => $resolvedVideoFileName]);
 	
 	echo "File uploaded successfully";
 
