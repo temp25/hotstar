@@ -125,7 +125,7 @@
 				
 				$metaDataRootKey = str_replace('hotstar.com', '', substr($this->videoUrl, strpos($this->videoUrl, 'hotstar.com')));
 				
-				$fileContents = file_get_contents($this->videoUrl);
+				$fileContents = make_get_request($this->videoUrl);//file_get_contents($this->videoUrl);
 
 				if (preg_match('%<script>window.APP_STATE=(.*?)</script>%', $fileContents, $match)) {
 				    $this->appState = $match[1];
