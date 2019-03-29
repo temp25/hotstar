@@ -3,6 +3,7 @@
     "pusher/pusher-php-server": "^3.2",
     "symfony/process": "^4.2",
     "google/apiclient": "^2.0",
+    "krizalys/onedrive-php-sdk": "^2.1",
     "ext-mbstring": "*"
   },
   "require-dev": {
